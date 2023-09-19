@@ -8,7 +8,7 @@ William Hazard makes poems with computers.
 
 [Ghost Proposal](https://ghostproposal.com/): [The Power of Then](https://ghostproposal.com/William-Hazard) – a [krähenlied](https://github.com/williamthazard/krahenlied) encounter with Eckhart Tolle
 
-[Overpass Books](https://overpassbooks.org/): my editorial home
+[Overpass Books](https://overpassbooks.org/)
 
 # sounds
 
@@ -26,9 +26,9 @@ William Hazard makes poems with computers.
 
 [A Twenty-Minute Drone For Your Enjoyment](https://youtu.be/Ny-4Mpasj4A?si=dxj0RYzoo-V1PxAK)
 
-[already over](https://youtu.be/hIXeSZBBOPQ?si=cbG1I6O1LnrGSU7u): this piece is a tribute to the now-defunct [Flash Crash](https://flashcrash.net/) livestreamed performance series, is based loosely on [Tehn's](https://nnnnnnnn.co/) performance in [Flash Crash 210710](https://www.youtube.com/watch?v=TkH8jxItXbw&list=PLDeicGW8SQOwVdHDQkhUoDkCS67VDRVAd&index=17&t=1214s), and was later used in [The Garrett Theatre's](https://garrettheatre.com/garret) production of [The Maids](https://garrettheatre.com/maids)
+[already over](https://youtu.be/hIXeSZBBOPQ?si=cbG1I6O1LnrGSU7u): this piece is a tribute to the now-defunct [Flash Crash](https://flashcrash.net/) livestreamed performance series, is based loosely on [Tehn's](https://nnnnnnnn.co/) performance in [Flash Crash 210710](https://www.youtube.com/watch?v=TkH8jxItXbw&list=PLDeicGW8SQOwVdHDQkhUoDkCS67VDRVAd&index=17&t=1214s), and was later included in [The Garrett Theatre's](https://garrettheatre.com/garret) production of [The Maids](https://garrettheatre.com/maids)
 
-[Poem About Nature](https://youtu.be/u7vDNAGMIUw?si=74mnnTGhE_wEkcDm): an early [krähenlied](https://github.com/williamthazard/krahenlied) experiment and a test of my solar-powered eurorack modular synth setup (which was very much inspired by [this](https://www.youtube.com/watch?v=tqNeWYIg-78) Cool Maritime video)
+[Poem About Nature](https://youtu.be/u7vDNAGMIUw?si=74mnnTGhE_wEkcDm): an early [krähenlied](https://github.com/williamthazard/krahenlied) experiment and a test of a solar-powered eurorack modular synth setup (which was very much inspired by [this](https://www.youtube.com/watch?v=tqNeWYIg-78) Cool Maritime video)
 
 [This Is Just To Say](https://youtu.be/pLqNLp-24PA?si=vxyn_TRAa4ZX2SYM): early [krähenlied](https://github.com/williamthazard/krahenlied) experiment with WCW
 
