@@ -1,2 +1,0 @@
-# williamhazard.co
-a website
