@@ -1,17 +1,17 @@
 echo ">> root .md to .html"
 function htmlify() {
   list=$(ls -r ./*.md)
-  fold=$(basename $(pwd))
   for file in $list ; do
     date=$(date -r ${file} +%D)
     file=${file:2}
     file=${file%.*}
-    echo "$fold built"
+    echo "building $file"
     target=${file}.html
     cat $1 > ${target}
     cmark --unsafe ${file}.md >> ${target}
     cat $2 >> ${target}
     sed -i '' -e 's#DATE#'$date'#g' ${target}
+    echo "$file built"
   done
 }
 cd words
