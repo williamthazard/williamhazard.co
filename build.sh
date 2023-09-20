@@ -33,7 +33,7 @@ cd log
 htmlify "../head.htm_" "../foot.htm_"
 cd ..
 htmlify "head.htm_" "foot.htm_"
-echo ">> build log, rss"
+echo ">> build rss"
 cd log
 list=$(ls -r ./*/*.md)
 
