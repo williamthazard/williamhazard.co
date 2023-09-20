@@ -32,20 +32,16 @@ cat start_rss.xml_ > rss.xml
 #n=1
 
 for file in $list ; do
-  subfile=${file%.*}
-  #echo "subfile is $subfile"
-  folder=${subfile%\/*}
-  #echo "folder is $folder"
-  name=${subfile#*\/}
-  #echo "name is $name"
-  echo "$folder / $name"
-
   # convert md to html
-  target=${file%.*}.html
+  file=${file%.*}
+  name=${file#*/}
+  folder=$(basename $(pwd))
+  target=${file}.html
   cat ../head.htm_ > ${target}
   echo "<p>${name}</p>" >> ${target}
-  cmark ${file} >> ${target}
+  cmark --unsafe ${file}.md >> ${target}
   cat ../foot.htm_ >> ${target}
+  echo $folder / $name
 
   # paginate
   #if [ $((n % 19)) == 0 ]; then
@@ -59,18 +55,18 @@ for file in $list ; do
 
   # append to index
   echo "<p><a href=${target}>${name}</a></p>" >> ${log}.html
-  cmark ${file} >> ${log}.html
+  cmark --unsafe ${file}.md >> ${log}.html
   echo "<br/>" >> ${log}.html
 
   # append to rss
   echo "<item>" >> rss.xml
-  echo "<title>${folder} / ${name}</title>" >> rss.xml
+  echo "<title>log / ${name}</title>" >> rss.xml
   echo "<link>https://williamhazard.co/${folder}/${name}.html</link>" >> rss.xml
   echo "<guid>https://williamhazard.co/${folder}/${name}.html</guid>" >> rss.xml
   echo "<description><![CDATA[" >> rss.xml
-  cmark ${file} >> rss.xml
+  cmark --unsafe ${file}.md >> rss.xml
   echo "]]></description>" >> rss.xml
-  date=$(date -r $file "+%a, %d %b %Y 11:11:11 EST")
+  date=$(date -r ${file}.md "+%a, %d %b %Y 11:11:11 EST")
   echo "<pubDate>$date</pubDate>" >> rss.xml 
   echo "</item>" >> rss.xml
 done
