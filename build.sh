@@ -12,14 +12,14 @@ function htmlify() {
     echo "$file built"
   done
 }
+list=$(ls -r *.md)
+htmlify "head.htm_" "foot.htm_"
 for subdir in ./*/ ; do
   cd $subdir
   list=$(ls -r *.md)
   htmlify "../head.htm_" "../foot.htm_"
   cd ..
 done
-list=$(ls -r *.md)
-htmlify "head.htm_" "foot.htm_"
 
 echo ">> build rss"
 cd log
