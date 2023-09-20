@@ -1,22 +1,22 @@
 echo ">> root .md to .html"
 function htmlify() {
   for file in $list ; do
-      date=$(date -r ${file} +%D)
-      file=${file%.*}
-      echo "building $file"
-      target=${file}.html
-      cat $1 > ${target}
-      cmark --unsafe ${file}.md >> ${target}
-      cat $2 >> ${target}
-      sed -i '' -e 's#DATE#'$date'#g' ${target}
-      echo "$file built"
-    done
+    date=$(date -r ${file} +%D)
+    file=${file%.*}
+    echo "building $file"
+    target=${file}.html
+    cat $1 > ${target}
+    cmark --unsafe ${file}.md >> ${target}
+    cat $2 >> ${target}
+    sed -i '' -e 's#DATE#'$date'#g' ${target}
+    echo "$file built"
+  done
 }
 for subdir in ./*/ ; do
-    cd $subdir
-    list=$(ls -r *.md)
-    htmlify "../head.htm_" "../foot.htm_"
-    cd ..
+  cd $subdir
+  list=$(ls -r *.md)
+  htmlify "../head.htm_" "../foot.htm_"
+  cd ..
 done
 list=$(ls -r *.md)
 htmlify "head.htm_" "foot.htm_"
