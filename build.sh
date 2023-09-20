@@ -1,5 +1,6 @@
 echo ">> root .md to .html"
 function htmlify() {
+  list=$(ls -r *.md)
   for file in $list ; do
     date=$(date -r ${file} +%D)
     file=${file%.*}
@@ -12,11 +13,9 @@ function htmlify() {
     echo "$file built"
   done
 }
-list=$(ls -r *.md)
 htmlify "head.htm_" "foot.htm_"
 for subdir in ./*/ ; do
   cd $subdir
-  list=$(ls -r *.md)
   htmlify "../head.htm_" "../foot.htm_"
   cd ..
 done
