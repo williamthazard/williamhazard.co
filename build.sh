@@ -1,38 +1,35 @@
 echo ">> root .md to .html"
 function htmlify() {
-  list=$(ls -r ./*.md)
+  for subdir in ./*/ ; do
+    cd $subdir
+    list=$(ls -r *.md)
+    for file in $list ; do
+      date=$(date -r ${file} +%D)
+      file=${file%.*}
+      echo "building $file"
+      target=${file}.html
+      cat "../head.htm_" > ${target}
+      cmark --unsafe ${file}.md >> ${target}
+      cat "../foot.htm_" >> ${target}
+      sed -i '' -e 's#DATE#'$date'#g' ${target}
+      echo "$file built"
+    done
+    cd ..
+  done
+  list=$(ls -r *.md)
   for file in $list ; do
     date=$(date -r ${file} +%D)
-    file=${file:2}
     file=${file%.*}
     echo "building $file"
     target=${file}.html
-    cat $1 > ${target}
+    cat "head.htm_" > ${target}
     cmark --unsafe ${file}.md >> ${target}
-    cat $2 >> ${target}
+    cat "foot.htm_" >> ${target}
     sed -i '' -e 's#DATE#'$date'#g' ${target}
     echo "$file built"
   done
 }
-cd words
-htmlify "../head.htm_" "../foot.htm_"
-cd ..
-cd sounds
-htmlify "../head.htm_" "../foot.htm_"
-cd ..
-cd videos
-htmlify "../head.htm_" "../foot.htm_"
-cd ..
-cd code
-htmlify "../head.htm_" "../foot.htm_"
-cd ..
-cd performances
-htmlify "../head.htm_" "../foot.htm_"
-cd ..
-cd log
-htmlify "../head.htm_" "../foot.htm_"
-cd ..
-htmlify "head.htm_" "foot.htm_"
+htmlify
 echo ">> build rss"
 cd log
 list=$(ls -r ./*/*.md)
