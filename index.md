@@ -2,4 +2,4 @@
 <br><br>
 William Hazard makes poems with computers.
 <br><br>
-[words](words/index.html) | [sounds](sounds/index.html) | [videos](videos/index.html) | [code](code/index.html) | [performances](performances/index.html) | [log](log/index.html)
+[words](words/words.html) | [sounds](sounds/sounds.html) | [videos](videos/videos.html) | [code](code/code.html) | [performances](performances/performances.html) | [log](log/log.html)
