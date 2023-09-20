@@ -6,7 +6,7 @@
 
 **Jun 30 2023** – [International Conference on Auditory Display](https://icad2023.icad.org/), Norrköping SWE
 
-**Mar 10 2023** – [Be About It Press](https://www.beaboutitpress.com/) Alternative to [AWP](https://www.awpwriter.org/) Livestream Reading, Philadelphia PA
+**Mar 10 2023** – [Be About It Press](https://www.beaboutitpress.com/) Alternative to [AWP](https://www.awpwriter.org/) Livestream Reading
 
 **Aug 06 2022** – [Flash Crash](https://flashcrash.net/) 220806
 
