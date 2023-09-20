@@ -6,7 +6,7 @@ function htmlify() {
     date=$(date -r ${file} +%D)
     file=${file:2}
     file=${file%.*}
-    echo "$fold $file built"
+    echo "$fold built"
     target=${file}.html
     cat $1 > ${target}
     cmark --unsafe ${file}.md >> ${target}
@@ -14,7 +14,6 @@ function htmlify() {
     sed -i '' -e 's#DATE#'$date'#g' ${target}
   done
 }
-htmlify "head.htm_" "foot.htm_"
 cd words
 htmlify "../head.htm_" "../foot.htm_"
 cd ..
@@ -33,3 +32,4 @@ cd ..
 cd log
 htmlify "../head.htm_" "../foot.htm_"
 cd ..
+htmlify "head.htm_" "foot.htm_"
