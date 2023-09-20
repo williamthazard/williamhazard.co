@@ -1,38 +1,29 @@
 echo ">> root .md to .html"
 function htmlify() {
-  for subdir in ./*/ ; do
-    cd $subdir
-    list=$(ls -r *.md)
-    for file in $list ; do
+  for file in $list ; do
       date=$(date -r ${file} +%D)
       file=${file%.*}
       echo "building $file"
       target=${file}.html
-      cat "../head.htm_" > ${target}
+      cat $1 > ${target}
       cmark --unsafe ${file}.md >> ${target}
-      cat "../foot.htm_" >> ${target}
+      cat $2 >> ${target}
       sed -i '' -e 's#DATE#'$date'#g' ${target}
       echo "$file built"
     done
-    cd ..
-  done
-  list=$(ls -r *.md)
-  for file in $list ; do
-    date=$(date -r ${file} +%D)
-    file=${file%.*}
-    echo "building $file"
-    target=${file}.html
-    cat "head.htm_" > ${target}
-    cmark --unsafe ${file}.md >> ${target}
-    cat "foot.htm_" >> ${target}
-    sed -i '' -e 's#DATE#'$date'#g' ${target}
-    echo "$file built"
-  done
 }
-htmlify
+for subdir in ./*/ ; do
+    cd $subdir
+    list=$(ls -r *.md)
+    htmlify "../head.htm_" "../foot.htm_"
+    cd ..
+done
+list=$(ls -r *.md)
+htmlify "head.htm_" "foot.htm_"
+
 echo ">> build rss"
 cd log
-list=$(ls -r ./*/*.md)
+list=$(ls -r */*.md)
 
 log="log"
 
@@ -42,10 +33,12 @@ cat start_rss.xml_ > rss.xml
 #n=1
 
 for file in $list ; do
-  file=${file:2}
   subfile=${file%.*}
+  #echo "subfile is $subfile"
   folder=${subfile%\/*}
+  #echo "folder is $folder"
   name=${subfile#*\/}
+  #echo "name is $name"
   echo "$folder / $name"
 
   # convert md to html
