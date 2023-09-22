@@ -55,15 +55,15 @@ for file in $list ; do
   #((n=n+1))
 
   # append to index
-  echo "<p><a href=${target}>${name}</a></p>" >> ../${log}.html
+  echo "<p><a href=entries/${target}>${name}</a></p>" >> ../${log}.html
   cmark --unsafe ${file}.md >> ../${log}.html
   echo "<br/>" >> ${log}.html
 
   # append to rss
   echo "<item>" >> rss.xml
   echo "<title>log / ${name}</title>" >> rss.xml
-  echo "<link>https://williamhazard.co/${folder}/${name}.html</link>" >> rss.xml
-  echo "<guid>https://williamhazard.co/${folder}/${name}.html</guid>" >> rss.xml
+  echo "<link>https://williamhazard.co/log/${folder}/${name}.html</link>" >> rss.xml
+  echo "<guid>https://williamhazard.co/log/${folder}/${name}.html</guid>" >> rss.xml
   echo "<description><![CDATA[" >> rss.xml
   cmark --unsafe ${file}.md >> rss.xml
   echo "]]></description>" >> rss.xml
