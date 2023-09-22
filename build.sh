@@ -57,19 +57,19 @@ for file in $list ; do
   # append to index
   echo "<p><a href=entries/${target}>${name}</a></p>" >> ../${log}.html
   cmark --unsafe ${file}.md >> ../${log}.html
-  echo "<br/>" >> ${log}.html
+  echo "<br/>" >> ../${log}.html
 
   # append to rss
-  echo "<item>" >> rss.xml
-  echo "<title>log / ${name}</title>" >> rss.xml
-  echo "<link>https://williamhazard.co/log/${folder}/${name}.html</link>" >> rss.xml
-  echo "<guid>https://williamhazard.co/log/${folder}/${name}.html</guid>" >> rss.xml
-  echo "<description><![CDATA[" >> rss.xml
-  cmark --unsafe ${file}.md >> rss.xml
-  echo "]]></description>" >> rss.xml
+  echo "<item>" >> ../rss.xml
+  echo "<title>log / ${name}</title>" >> ../rss.xml
+  echo "<link>https://williamhazard.co/log/${folder}/${name}.html</link>" >> ../rss.xml
+  echo "<guid>https://williamhazard.co/log/${folder}/${name}.html</guid>" >> ../rss.xml
+  echo "<description><![CDATA[" >> ../rss.xml
+  cmark --unsafe ${file}.md >> ../rss.xml
+  echo "]]></description>" >> ../rss.xml
   date=$(date -r ${file}.md "+%a, %d %b %Y 11:11:11 EST")
-  echo "<pubDate>$date</pubDate>" >> rss.xml 
-  echo "</item>" >> rss.xml
+  echo "<pubDate>$date</pubDate>" >> ../rss.xml 
+  echo "</item>" >> ../rss.xml
 done
 
 
