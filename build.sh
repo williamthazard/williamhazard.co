@@ -22,12 +22,13 @@ done
 
 echo ">> build rss"
 cd log
-list=$(ls -r */*.md)
+cd entries
+list=$(ls -r *.md)
 
 log="log"
 
-cat ../head.htm_ > ${log}.html
-cat start_rss.xml_ > rss.xml
+cat ../../head.htm_ > ../${log}.html
+cat ../start_rss.xml_ > ../rss.xml
 
 #n=1
 
@@ -37,10 +38,10 @@ for file in $list ; do
   name=${file#*/}
   folder=$(basename $(pwd))
   target=${file}.html
-  cat ../head.htm_ > ${target}
+  cat ../../head.htm_ > ${target}
   echo "<p>${name}</p>" >> ${target}
   cmark --unsafe ${file}.md >> ${target}
-  cat ../foot.htm_ >> ${target}
+  cat ../../foot.htm_ >> ${target}
   echo $folder / $name
 
   # paginate
@@ -54,8 +55,8 @@ for file in $list ; do
   #((n=n+1))
 
   # append to index
-  echo "<p><a href=${target}>${name}</a></p>" >> ${log}.html
-  cmark --unsafe ${file}.md >> ${log}.html
+  echo "<p><a href=${target}>${name}</a></p>" >> ../${log}.html
+  cmark --unsafe ${file}.md >> ../${log}.html
   echo "<br/>" >> ${log}.html
 
   # append to rss
@@ -72,5 +73,5 @@ for file in $list ; do
 done
 
 
-cat ../foot.htm_ >> ${log}.html
-cat end_rss.xml_ >> rss.xml
+cat ../../foot.htm_ >> ../${log}.html
+cat ../end_rss.xml_ >> ../rss.xml
