@@ -2,6 +2,8 @@
 
 # code
 
+[poemShuffler](https://github.com/williamthazard/poemShuffler): tools for shuffling lines of poetry around
+
 [Buttons & Knobs](https://github.com/williamthazard/buttonsandknobs): a collection of boilerplate GUI elements for [SuperCollider](https://supercollider.github.io/)
 
 [gifrenga](https://github.com/williamthazard/gifrenga): a renga made of GIFs
