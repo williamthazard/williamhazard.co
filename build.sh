@@ -1,7 +1,6 @@
 echo ">> root .md to .html"
 function htmlify() {
-  list=$(ls -r *.md)
-  for file in $list ; do
+  for file in *.md ; do
     date=$(date -r ${file} +%D)
     file=${file%.*}
     echo "building $file"
@@ -21,9 +20,7 @@ for subdir in ./*/ ; do
 done
 
 echo ">> build rss"
-cd log
-cd entries
-list=$(ls -r *.md)
+cd log/entries
 
 log="log"
 
@@ -32,8 +29,22 @@ cat ../start_rss.xml_ > ../rss.xml
 
 #n=1
 
-for file in $list ; do
+marks=(*.md)
+min=1
+max=$(( ${#marks[@]} ))
+while [[ min -lt max ]] ; do
+    # Swap current first and last elements
+    x="${marks[$min]}"
+    marks[$min]="${marks[$max]}"
+    marks[$max]="$x"
+
+    # Move closer
+    (( min++, max-- ))
+done
+
+for file in $marks ; do
   # convert md to html
+  date=$(date -r ${file} +%D)
   file=${file%.*}
   name=${file#*/}
   folder=$(basename $(pwd))
@@ -42,6 +53,7 @@ for file in $list ; do
   echo "<p>${name}</p>" >> ${target}
   cmark --unsafe ${file}.md >> ${target}
   cat ../../foot.htm_ >> ${target}
+  sed -i '' -e 's#DATE#'$date'#g' ${target}
   echo $folder / $name
 
   # paginate
@@ -72,6 +84,7 @@ for file in $list ; do
   echo "</item>" >> ../rss.xml
 done
 
-
 cat ../../foot.htm_ >> ../${log}.html
+date=$(date -r ../${log}.html +%D)
+sed -i '' -e 's#DATE#'$date'#g' ../${log}.html
 cat ../end_rss.xml_ >> ../rss.xml
