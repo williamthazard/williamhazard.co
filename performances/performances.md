@@ -2,6 +2,8 @@
 
 # performances
 
+**Oct 21 2023** – Theatre of the Flat Imagination, vol. 1: My Walk With Bob (w/ Robert David Carey), Philadelphia PA
+
 **Jul 30 2023** - [Co-Creation](https://allevents.in/bloomeville/co-creation-episode-ii/10000658634472437?ref=past-event-page) @ Turquoise Barn, Bloomville NY 
 
 **Jun 30 2023** – [International Conference on Auditory Display](https://icad2023.icad.org/), Norrköping SWE
