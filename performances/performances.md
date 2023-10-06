@@ -2,7 +2,7 @@
 
 # performances
 
-**Oct 28 2023** – [blue moon triptych](https://www.twitch.tv/lines_community): poetry in the expanded field
+**Oct 28 2023** – [blue moon triptych](https://www.twitch.tv/lines_community): poetry in the expanded field (w/ gahlord & colmkil)
 
 **Oct 21 2023** – Theatre of the Flat Imagination, vol. 1: My Walk With Bob (w/ Robert David Carey), Philadelphia PA
 
