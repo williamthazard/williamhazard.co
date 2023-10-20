@@ -2,6 +2,8 @@
 
 # code
 
+[superLied](https://github.com/williamthazard/superLied): lied script for [SuperCollider](https://supercollider.github.io/). Turns text into music – [(demo)](https://www.youtube.com/watch?v=kIbWiqHrXFw)
+
 [this website](https://github.com/williamthazard/williamhazard.co)
 
 [poemShuffler](https://github.com/williamthazard/poemShuffler): tools for shuffling lines of poetry around
