@@ -24,6 +24,6 @@
 
 [Fall](https://youtu.be/jlLMY8Xa_dk?si=98w2GIM8zptwiGR2): demonstration with the [fall](https://norns.community/fall) script for [monome](https://monome.org/) [norns](https://monome.org/docs/norns/), by [ambalek](https://norns.community/author#ambalek)
 
-[First Crow First](https://youtu.be/vuEUNN_ldO4?si=iv9JC7RV_cozjNMl): demonstration of the "first" script for [monome](https://monome.org/) [crow](https://monome.org/docs/crow/), using a minimal eurorack modular setup
+[First Crow First](https://youtu.be/vuEUNN_ldO4?si=iv9JC7RV_cozjNMl): demonstration of the [first](https://monome.org/docs/crow/first/) script for [monome](https://monome.org/) [crow](https://monome.org/docs/crow/), using a minimal eurorack modular setup
 
 [The Pageant](https://vimeo.com/506638600): guy meets girl. Directed by Kasey O'Brien. Starring Billy Berger-Bailey and Hannah Adrian. Best LGBTQ, Toronto Intl Women Film Festival. Best LGBTQ, Montreal Independent Film Festival. Best Performance in a Drama, Reel Love Festival. Best Duo Silver Award at Best Actor Awards NY
