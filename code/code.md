@@ -2,6 +2,8 @@
 
 # code
 
+[serenityCrow](https://github.com/williamthazard/serenityCrow): [serenity now](https://github.com/williamthazard/serenitynow) but for [crow](https://monome.org/docs/crow/)
+
 [superLied](https://github.com/williamthazard/superLied): lied script for [SuperCollider](https://supercollider.github.io/). Turns text into music – [(demo)](https://www.youtube.com/watch?v=kIbWiqHrXFw)
 
 [this website](https://github.com/williamthazard/williamhazard.co)
