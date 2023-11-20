@@ -2,6 +2,8 @@
 
 # performances
 
+**Dec 16 2023** – Theatre of the Flat Imagination, vol. 3: The Ghost in the Back Room Already (w/ Whit MacLaughlin), Philadelphia PA
+
 **Nov 18 2023** – Theatre of the Flat Imagination, vol. 2: Jack the Modernist (w/ [Dan Derks](https://dndrks.com/) & [Alanza](https://ryleealanza.org/pages/alanza/)), Philadelphia PA
 
 **Oct 28 2023** – [blue moon triptych](https://www.twitch.tv/lines_community): poetry in the expanded field (w/ [Gahlord Dewald](https://gahlorddewald.com) & [colmkil](https://colmkil.bandcamp.com))
