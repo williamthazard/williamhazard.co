@@ -2,6 +2,8 @@
 
 # videos
 
+[blue moon triptych – poetry in the expanded field](https://youtu.be/d_ACmJyHZzI?si=bpCxqSLBTF58uuqi): this is a recording of a livestreamed performance of "woods" which originally aired on October 28, 2023. This piece is dedicated to [Monica Berlin](https://www.monicaberlin.com/), with thanks to [Beth Marzoni](https://www.bethmarzoni.com/).
+
 [A Twenty-Minute Drone For Your Enjoyment](https://youtu.be/Ny-4Mpasj4A?si=dxj0RYzoo-V1PxAK)
 
 [already over](https://youtu.be/hIXeSZBBOPQ?si=cbG1I6O1LnrGSU7u): this piece is a tribute to the now-defunct [Flash Crash](https://flashcrash.net/) livestreamed performance series, is based loosely on [Tehn's](https://nnnnnnnn.co/) performance in [Flash Crash 210710](https://www.youtube.com/watch?v=TkH8jxItXbw&list=PLDeicGW8SQOwVdHDQkhUoDkCS67VDRVAd&index=17&t=1214s), and was later included in [The Garrett Theatre's](https://garrettheatre.com/garret) production of [The Maids](https://garrettheatre.com/maids)
