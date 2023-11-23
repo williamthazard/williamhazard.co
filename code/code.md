@@ -1,4 +1,4 @@
-[![](code.jpg)](../index.html)
+[![](code.jpeg)](../index.html)
 
 # code
 

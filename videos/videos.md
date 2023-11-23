@@ -1,4 +1,4 @@
-[![](videos.jpg)](../index.html)
+[![](videos.jpeg)](../index.html)
 
 # videos
 

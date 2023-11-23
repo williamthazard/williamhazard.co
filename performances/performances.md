@@ -1,4 +1,4 @@
-[![](performances.jpg)](../index.html)
+[![](performances.jpeg)](../index.html)
 
 # performances
 
