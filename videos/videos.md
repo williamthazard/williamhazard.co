@@ -2,6 +2,10 @@
 
 # videos
 
+[superLied on two round robins](https://youtu.be/prJhTocp-qc?si=dJdhCblkr6UUjIHo)
+
+[interview with two round robins](https://www.youtube.com/watch?v=KO3W19AKmEA&t=6s)
+
 [blue moon triptych – poetry in the expanded field](https://youtu.be/d_ACmJyHZzI?si=bpCxqSLBTF58uuqi): this is a recording of a livestreamed performance of "woods" which originally aired on October 28, 2023. This piece is dedicated to [Monica Berlin](https://www.monicaberlin.com/), with thanks to [Beth Marzoni](https://www.bethmarzoni.com/).
 
 [A Twenty-Minute Drone For Your Enjoyment](https://youtu.be/Ny-4Mpasj4A?si=dxj0RYzoo-V1PxAK)
