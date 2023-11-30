@@ -2,6 +2,8 @@
 
 # videos
 
+[Theatre of the Flat Imagination, volume two: Jack the Modernist](https://youtu.be/nDCAaxCHuxo?si=eluSKnsg_RpdZjcH): live performance with parens chat ([Alanza](https://ryleealanza.org/pages/alanza/) & [Dan Derks](https://dndrks.com/))
+
 [superLied on two round robins](https://youtu.be/prJhTocp-qc?si=dJdhCblkr6UUjIHo)
 
 [interview with two round robins](https://www.youtube.com/watch?v=KO3W19AKmEA&t=6s)
