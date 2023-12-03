@@ -2,7 +2,7 @@
 
 # performances
 
-**Dec 16 2023** – Theatre of the Flat Imagination, vol. 3: The Ghost in the Back Room Already (w/ Whit MacLaughlin), Philadelphia PA
+**Dec 16 2023** – Theatre of the Flat Imagination, vol. 3: Awaiting (w/ Whit MacLaughlin), Philadelphia PA
 
 **Nov 18 2023** – Theatre of the Flat Imagination, vol. 2: Jack the Modernist (w/ parens chat ([Dan Derks](https://dndrks.com/) & [Alanza](https://ryleealanza.org/pages/alanza/))), Philadelphia PA ([video](https://youtu.be/nDCAaxCHuxo?si=eluSKnsg_RpdZjcH))
 
