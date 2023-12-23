@@ -2,7 +2,7 @@
 
 # performances
 
-**Jan 20 2024** – Theatre of the Flat Imagination, vol. 4: Feed (w/ Warren Longmire), Philadelphia PA
+**Jan 20 2024** – Theatre of the Flat Imagination, vol. 4: Feed (w/ [Warren Longmire](https://alongmirewriter.squarespace.com/)), Philadelphia PA
 
 **Dec 16 2023** – Theatre of the Flat Imagination, vol. 3: Awaiting (w/ Whit MacLaughlin), Philadelphia PA
 
