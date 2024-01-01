@@ -13,6 +13,7 @@ function htmlify() {
   done
 }
 htmlify "head.htm_" "foot.htm_"
+mogrify -resize 800x450^ -gravity center -extent 800x450 *.jpeg
 for subdir in ./*/ ; do
   cd $subdir
   htmlify "../head.htm_" "../foot.htm_"
