@@ -1,0 +1,1 @@
+![afterglow](pics/afterglow.jpeg 'afterglow')
