@@ -16,16 +16,16 @@ htmlify "head.htm_" "foot.htm_"
 for subdir in ./*/ ; do
   cd $subdir
   htmlify "../head.htm_" "../foot.htm_"
-  mogrify -resize 3024x1660^ -gravity center -extent 3024x1660 *.jpeg
+  mogrify -resize 800x450^ -gravity center -extent 800x450 *.jpeg
   cd ..
 done
 
 echo ">> convert images"
 cd log/pics
-mogrify -resize 3024x1660^ -gravity center -extent 3024x1660 *.jpeg
+mogrify -resize 800x450^ -gravity center -extent 800x450 *.jpeg
 cd ..
 cd entries/pics
-mogrify -resize 3024x1660^ -gravity center -extent 3024x1660 *.jpeg
+mogrify -resize 800x450^ -gravity center -extent 800x450 *.jpeg
 cd ..
 
 echo ">> build rss"
