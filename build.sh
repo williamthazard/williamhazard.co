@@ -17,16 +17,16 @@ mogrify -resize 800x450^ -gravity center -extent 16:9 *.jpeg
 for subdir in ./*/ ; do
   cd $subdir
   htmlify "../head.htm_" "../foot.htm_"
-  mogrify -resize 800x450^ -gravity center -extent 800x450 *.jpeg
+  mogrify -resize 800x450^ -gravity center -extent 16:9 *.jpeg
   cd ..
 done
 
 echo ">> convert images"
 cd log/pics
-mogrify -resize 800x450^ -gravity center -extent 800x450 *.jpeg
+mogrify -resize 800x450^ -gravity center -extent 16:9 *.jpeg
 cd ..
 cd entries/pics
-mogrify -resize 800x450^ -gravity center -extent 800x450 *.jpeg
+mogrify -resize 800x450^ -gravity center -extent 16:9 *.jpeg
 cd ..
 
 echo ">> build rss"
