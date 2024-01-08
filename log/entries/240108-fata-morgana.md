@@ -1,7 +1,7 @@
 ![fata morgana](pics/mirage.gif 'fata morgana')
 
 
-<audio controls src="audio/fata-morgana.mp3"></audio>
+<audio controls src="audio/fata-morgana.mp3" loop="true"></audio>
 <br>
 <a href="audio/fata-morgana.mp3"> download audio </a>
 
