@@ -2,6 +2,8 @@
 
 # performances
 
+**Feb 24 2024** – Theatre of the Flat Imagination, vol. 5: Common Place (w/ Memory Object), Philadelphia PA
+
 **Jan 20 2024** – Theatre of the Flat Imagination, vol. 4: Feed (w/ [Warren Longmire](https://alongmirewriter.squarespace.com/)), Philadelphia PA
 
 **Dec 16 2023** – Theatre of the Flat Imagination, vol. 3: Awaiting (w/ [Whit MacLaughlin](https://newparadiselaboratories.com/)), Philadelphia PA
