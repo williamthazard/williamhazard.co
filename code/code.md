@@ -2,6 +2,8 @@
 
 # code
 
+[iffy books workshop script](https://github.com/williamthazard/iffy): code repository for [SuperCollider](https://supercollider.github.io/) workshop at [Iffy Books](https://iffybooks.net/) in Philadelphia, PA 240121
+
 [fileScope](https://github.com/williamthazard/fileScope): [SuperCollider](https://supercollider.github.io/) audio file visualizer
 
 [serenityCrow](https://github.com/williamthazard/serenityCrow): [serenity now](https://github.com/williamthazard/serenitynow) but for [crow](https://monome.org/docs/crow/)
