@@ -2,7 +2,7 @@
 
 # videos
 
-[Theatre of the Flat Imagination, volume two: Jack the Modernist](https://youtu.be/nDCAaxCHuxo?si=eluSKnsg_RpdZjcH): live performance with parens chat ([Alanza](https://ryleealanza.org/pages/alanza/) & [Dan Derks](https://dndrks.com/))
+[Theatre of the Flat Imagination, volume two: Jack the Modernist](https://youtu.be/nDCAaxCHuxo?si=eluSKnsg_RpdZjcH): live performance of "carve" with parens chat ([Alanza](https://ryleealanza.org/pages/alanza/) & [Dan Derks](https://dndrks.com/)). This piece is dedicated to [Jonathan Snyder](https://www.instagram.com/jaseknighter), with thanks to [Alex Dickey](https://soundcloud.com/carraldo) and [Duncan Geere](https://www.duncangeere.com/).
 
 [superLied on two round robins](https://youtu.be/prJhTocp-qc?si=dJdhCblkr6UUjIHo)
 
