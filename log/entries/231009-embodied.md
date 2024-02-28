@@ -1,1 +1,0 @@
-![this is a picture of my hand](pics/embodied.jpeg 'this is a picture of my hand')
