@@ -2,7 +2,7 @@
 
 # performances
 
-**Mar 23 2024** – Theatre of the Flat Imagination, vol. 6: Permanent Volta (w/ Jonathan Snyder & [infinite digits](https://infinitedigits.bandcamp.com/)), Philadelphia PA
+**Mar 23 2024** – Theatre of the Flat Imagination, vol. 6: Permanent Volta (w/ [Jonathan Snyder](https://www.instagram.com/jaseknighter/) & [infinite](https://schollz.com/infinitedigits/) [digits](https://infinitedigits.bandcamp.com/)), Philadelphia PA
 
 **Feb 24 2024** – Theatre of the Flat Imagination, vol. 5: Common Place (w/ [Memory Object](https://memory-object.com)), Philadelphia PA
 
