@@ -10,4 +10,6 @@
 
 [Ghost Proposal](https://ghostproposal.com/): [The Power of Then](https://ghostproposal.com/William-Hazard) – a [krähenlied](https://github.com/williamthazard/krahenlied) encounter with Eckhart Tolle
 
+[Theatre of the Flat Imagination](https://soundcloud.com/william-hazard-331424393): occasional recordings from the performance series in Philadelphia, PA
+
 [SoundCloud](https://soundcloud.com/user-246275786): sketches, demos, & studies
