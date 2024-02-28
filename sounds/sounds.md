@@ -8,4 +8,6 @@
 
 [Audio Flare Gun](https://audioflaregun.com), [Episode 1: Squirrels in the Attic](https://audioflaregun.com/2023/02/26/episode-one-squirrels-in-the-attic/): hosted by [Dave Cedillo](http://davidcedillo.com/)
 
+[Ghost Proposal](https://ghostproposal.com/): [The Power of Then](https://ghostproposal.com/William-Hazard) – a [krähenlied](https://github.com/williamthazard/krahenlied) encounter with Eckhart Tolle
+
 [SoundCloud](https://soundcloud.com/user-246275786): sketches, demos, & studies
