@@ -62,11 +62,10 @@ for file in $marks ; do
   cmark --unsafe ${file}.md >> ${target}
   cat ../../log-foot.htm_ >> ${target}
   # sed -i '' -e 's#DATE#'$date'#g' ${target}
-  echo $folder / $name
+  echo $name
 
   # paginate
   if [[ $((n % 10)) == 0 ]]; then
-    echo "--- page ---"
     echo "<br/><p><a href=../log/${log}n.html>[further]</a></p>" >> ../${log}.html
     cat ../../log-foot.htm_ >> ../${log}.html
     log=$log"n"
