@@ -35,7 +35,7 @@ log="log"
 cat ../../head.htm_ > ../${log}.html
 cat ../start_rss.xml_ > ../rss.xml
 
-# n=1
+n=1
 
 marks=(*.md)
 min=1
@@ -60,19 +60,19 @@ for file in $marks ; do
   cat ../../head.htm_ > ${target}
   echo "<p>${name}</p>" >> ${target}
   cmark --unsafe ${file}.md >> ${target}
-  cat ../../foot.htm_ >> ${target}
-  sed -i '' -e 's#DATE#'$date'#g' ${target}
+  cat ../../log-foot.htm_ >> ${target}
+  # sed -i '' -e 's#DATE#'$date'#g' ${target}
   echo $folder / $name
 
   # paginate
-  # if [ $((n % 19)) == 0 ]; then
-  #   echo "--- page ---"
-  #   echo "<br/><p><a href=/${log}n.html>[further]</a></p>" >> ${log}.html
-  #   cat end.htm_ >> ${log}.html
-  #   log=$log"n"
-  #   cat start.htm_ > ${log}.html
-  # fi
-  # ((n=n+1))
+  if [[ $((n % 10)) == 0 ]]; then
+    echo "--- page ---"
+    echo "<br/><p><a href=../log/${log}n.html>[further]</a></p>" >> ../${log}.html
+    cat ../../log-foot.htm_ >> ../${log}.html
+    log=$log"n"
+    cat ../../head.htm_ > ../${log}.html
+  fi
+  ((n=n+1))
 
   # append to index
   echo "<p><a href=entries/${target}>${name}</a></p>" >> ../${log}.html
@@ -92,7 +92,7 @@ for file in $marks ; do
   echo "</item>" >> ../rss.xml
 done
 
-cat ../../foot.htm_ >> ../${log}.html
+cat ../../log-foot.htm_ >> ../${log}.html
 date=$(date -r ../${log}.html +%D)
 sed -i '' -e 's#DATE#'$date'#g' ../${log}.html
 cat ../end_rss.xml_ >> ../rss.xml
