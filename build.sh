@@ -61,7 +61,6 @@ for file in $marks ; do
   echo "<p>${name}</p>" >> ${target}
   cmark --unsafe ${file}.md >> ${target}
   cat ../../log-foot.htm_ >> ${target}
-  # sed -i '' -e 's#DATE#'$date'#g' ${target}
   echo $name
 
   # paginate
