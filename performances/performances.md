@@ -2,6 +2,10 @@
 
 # performances
 
+**May 4 2024** – Mix Lit (w/ [Warren Longmire](https://alongmirewriter.squarespace.com/) and [Betty's Eyes](https://bettyseyes.bandcamp.com/track/3630-days)), Philadelphia, PA
+
+**Apr 27 2024** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard), vol. 7: Century of Clouds (w/ [zbs.fm](https://zbs.fm) & [jason calhoun](http://napsounds.bandcamp.com/)), Philadelphia, PA
+
 **Mar 23 2024** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard), vol. 6: Permanent Volta (w/ [Jonathan Snyder](https://www.instagram.com/jaseknighter/) & [infinite](https://schollz.com/infinitedigits/) [digits](https://infinitedigits.bandcamp.com/)), Philadelphia PA
 
 **Feb 24 2024** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard), vol. 5: Common Place (w/ [Memory Object](https://memory-object.com)), Philadelphia PA
