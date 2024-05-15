@@ -1,4 +1,6 @@
 #!/bin/bash
+zsh ./build.sh
+
 echo ">> pushing update"
 
 git add .
