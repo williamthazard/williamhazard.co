@@ -2,6 +2,8 @@
 
 # performances
 
+**May 25 2024** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard), vol. 8: Elements of a Coffee Service (w/ iiiriel), Philadelphia, PA
+
 **May 4 2024** – Mix Lit (w/ [Warren Longmire](https://alongmirewriter.squarespace.com/) and [Betty's Eyes](https://bettyseyes.bandcamp.com/track/3630-days)), Philadelphia, PA
 
 **Apr 27 2024** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard), vol. 7: Century of Clouds (w/ [zbs.fm](https://zbs.fm) & [jason calhoun](http://napsounds.bandcamp.com/)), Philadelphia, PA
