@@ -2,6 +2,12 @@
 
 # code
 
+[A/An](https://github.com/williamthazard/aan): an instrument built for [Mandy Gutmann-Gonzalez](https://mandygutmanngonzalez.com/), for performances of work from their chapbook *[A/An](https://endlinepress.com/A-An-by-Mandy-Gutmann-Gonzalez-a-chapbook)*
+
+[seamstressCarter](https://github.com/williamthazard/seamstressCarter): [Carter's Delay](https://github.com/williamthazard/carters_delay) for [seamstress](https://github.com/ryleelyman/seamstress)
+
+[bwsampler](https://github.com/williamthazard/bwsampler): a sampler built in collaboration with students at The Bridge Way School in Philadelphia, PA
+
 [iffy books workshop script](https://github.com/williamthazard/iffy): code repository for [SuperCollider](https://supercollider.github.io/) workshop at [Iffy Books](https://iffybooks.net/) in Philadelphia, PA 240121
 
 [fileScope](https://github.com/williamthazard/fileScope): [SuperCollider](https://supercollider.github.io/) audio file visualizer
