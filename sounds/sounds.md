@@ -2,6 +2,8 @@
 
 # sounds
 
+[Audio Flare Gun](https://audioflaregun.com), [Episode 3: Not Howdy Doody Time](https://audioflaregun.com/2024/05/13/episode-three-not-howdy-doody-time/): hosted by [Dave Cedillo](http://davidcedillo.com/)
+
 [Voicemail Poems](https://voicemailpoems.org/): ["Resentment: Big Water"](https://voicemailpoems.org/2024/05/06/resentment-big-water/)
 
 [Beloved](https://beloved.wtf) [8.20.23](https://www.mixcloud.com/belovedwtf/beloved-radio-dan-derks-82023/): hosted by [Dan Derks](http://dndrks.com/)
