@@ -18,8 +18,8 @@ function preload() {
 function setup() {
   let cnv = createCanvas(windowWidth, windowHeight);
   cnv.mousePressed(canvasPressed);
-  image(img, (width/2)-400, (height/2)-225);
-  a = width/2;
+  image(img, 0, (height/2)-225);
+  a = 400;
   b = height/2;
   c = 12;
   let loopTime = '8n';
@@ -50,7 +50,7 @@ function draw() {
     a = a + random([1,-1]);
     b = b + random([1,-1]);
     c = c + random([1,-1]);
-    image(img, (width/2)-400, (height/2)-225);
+    image(img, 0, (height/2)-225);
     textSize(c);
     text('o',a,b);
   }
