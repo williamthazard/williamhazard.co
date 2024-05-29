@@ -23,7 +23,7 @@ function setup() {
   let cnv = createCanvas(windowWidth, windowHeight);
   cnv.mousePressed(canvasPressed);
   snd.playMode('restart');
-  img.resize(400,0)
+  img.resize(400,400)
   textFont('Courier New');
   textSize(20);
   frameRate(24);
