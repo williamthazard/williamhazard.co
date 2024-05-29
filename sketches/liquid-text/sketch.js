@@ -22,11 +22,10 @@ function preload() {
 function setup() {
   let cnv = createCanvas(windowWidth, windowHeight);
   cnv.mousePressed(canvasPressed);
-  snd.playMode('untilDone');
+  snd.playMode('restart');
   img.resize(400,0)
   textFont('Courier New');
-  textSize(20)
-  snd.loop(0,1/2);
+  textSize(20);
   frameRate(24);
   for (let i = 0; i < 8; i += 1) {
     lines[i] = text(words[i],(width/2)-460,(height/2)+(50+(20*i)));
@@ -35,9 +34,9 @@ function setup() {
 }
 
 function canvasPressed() {
-  if (snd.isLooping === true) {
+  if (snd.isLooping() === true) {
     snd.stop();
-  } else if (snd.isLooping === false) {
+  } else if (snd.isLooping() === false) {
     // start the loop
     snd.loop(0,1/2);
   }
@@ -66,5 +65,11 @@ function draw() {
     } else if (bounce[i] === true && chooser[i] === 1) {
         alphas[i] = alphas[i] + 1;
     }
+  }
+  fill(255,255,255,75);
+  if (snd.isLooping() === true) {
+    text("audio on",(width/2)-260,(height/2)+220);
+  } else if (snd.isLooping() === false) {
+    text("audio off",(width/2)-260,(height/2)+220);
   }
 }
