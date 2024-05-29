@@ -73,7 +73,11 @@ function draw() {
       bounce[i] = false;
     }
     fill(255,255,255,alphas[i]);
-    lines[i] = text(words[i],(width/2)-110,(height/2)-50+(40*(i%4)));
+    if (deviceOrientation === LANDSCAPE) {
+      lines[i] = text(words[i],(width/2)-110,(height/2)-50+(40*(i%4)));
+    } else {
+      lines[i] = text(words[i],(width/2)-225,(height/2)-100+(80*(i%4)));
+    }
     if (bounce[i] === false && chooser[i] === 0) {
       alphas[i] = alphas[i] - 1;
     } else if (bounce[i] === true && chooser[i] === 1) {
