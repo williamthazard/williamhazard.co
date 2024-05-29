@@ -23,14 +23,23 @@ function setup() {
   let cnv = createCanvas(windowWidth, windowHeight);
   cnv.mousePressed(canvasPressed);
   snd.playMode('restart');
-  img.resize(300,300)
-  textFont('Courier New');
-  textSize(20);
-  frameRate(24);
-  for (let i = 0; i < 8; i += 1) {
-    lines[i] = text(words[i],(width/2)-200,(height/2)+(65+(60*i%4)));
-    bounce[i] = false;
+  if (deviceOrientation === LANDSCAPE) {
+    img.resize(300,300);
+    textSize(20);
+    for (let i = 0; i < 8; i += 1) {
+      lines[i] = text(words[i],(width/2)-200,(height/2)+(65+(40*i%4)));
+      bounce[i] = false;
+    }
+  } else {
+    img.resize(600,600);
+    textSize(40);
+    for (let i = 0; i < 8; i += 1) {
+      lines[i] = text(words[i],(width/2)-400,(height/2)+(130+(60*i%4)));
+      bounce[i] = false;
+    }
   }
+  textFont('Courier New');
+  frameRate(24);
 }
 
 function canvasPressed() {
@@ -44,7 +53,11 @@ function canvasPressed() {
 
 function draw() {
   background(35,35,35);
-  image(img, (width/2)-150, (height/2)-150);
+  if (deviceOrientation === LANDSCAPE) {
+    image(img, (width/2)-150, (height/2)-150);
+  } else {
+    image(img, (width/2)-300, (height/2)-300);
+  }
   for (let i = 0; i < 4; i += 1) {
     chooser[i] = random([0,1]);
     if (chooser[i] === 0) {
@@ -68,9 +81,13 @@ function draw() {
     }
   }
   fill(255,255,255,75);
-  if (snd.isLooping() === true) {
+  if (snd.isLooping() === true && deviceOrientation === LANDSCAPE) {
     text("audio on",(width/2)+40,(height/2)+145);
-  } else if (snd.isLooping() === false) {
+  } else if (snd.isLooping() === false && deviceOrientation === LANDSCAPE) {
     text("audio off",(width/2)+40,(height/2)+145)
+  } else if (snd.isLooping() === true && deviceOrientation === PORTRAIT) {
+    text("audio on",(width/2)+80,(height/2)+290);
+  } else if (snd.isLooping() === false && deviceOrientation === PORTRAIT) {
+    text("audio off",(width/2)+80,(height/2)+290);
   }
 }
