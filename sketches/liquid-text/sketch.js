@@ -23,12 +23,12 @@ function setup() {
   let cnv = createCanvas(windowWidth, windowHeight);
   cnv.mousePressed(canvasPressed);
   snd.playMode('restart');
-  img.resize(400,400)
+  img.resize(800,800)
   textFont('Courier New');
-  textSize(20);
+  textSize(40);
   frameRate(24);
   for (let i = 0; i < 8; i += 1) {
-    lines[i] = text(words[i],(width/2)-460,(height/2)+(50+(20*i)));
+    lines[i] = text(words[i],(width/2)-460,(height/2)+(65+(60*i%4)));
     bounce[i] = false;
   }
 }
@@ -43,7 +43,7 @@ function canvasPressed() {
 }
 
 function draw() {
-  image(img, (width/2)-550, (height/2)-175);
+  image(img, (width/2)-750, (height/2)-395);
   for (let i = 0; i < 4; i += 1) {
     chooser[i] = random([0,1]);
     if (chooser[i] === 0) {
@@ -59,7 +59,7 @@ function draw() {
       bounce[i] = false;
     }
     fill(255,255,255,alphas[i]);
-    lines[i] = text(words[i],(width/2)-460,(height/2)-10+(30*(i%4)));
+    lines[i] = text(words[i],(width/2)-550,(height/2)-65+(60*(i%4)));
     if (bounce[i] === false && chooser[i] === 0) {
       alphas[i] = alphas[i] - 1;
     } else if (bounce[i] === true && chooser[i] === 1) {
@@ -68,8 +68,8 @@ function draw() {
   }
   fill(255,255,255,75);
   if (snd.isLooping() === true) {
-    text("audio on",(width/2)-260,(height/2)+220);
+    text("audio on",(width/2)-190,(height/2)+380);
   } else if (snd.isLooping() === false) {
-    text("audio off",(width/2)-260,(height/2)+220);
+    text("audio off",(width/2)-190,(height/2)+380);
   }
 }
