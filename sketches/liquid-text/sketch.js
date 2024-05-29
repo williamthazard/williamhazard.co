@@ -28,7 +28,7 @@ function setup() {
   textSize(40);
   frameRate(24);
   for (let i = 0; i < 8; i += 1) {
-    lines[i] = text(words[i],(width/2)-460,(height/2)+(65+(60*i%4)));
+    lines[i] = text(words[i],(width/2)-200,(height/2)+(65+(60*i%4)));
     bounce[i] = false;
   }
 }
@@ -43,7 +43,8 @@ function canvasPressed() {
 }
 
 function draw() {
-  image(img, (width/2)-750, (height/2)-395);
+  background(35,35,35);
+  image(img, (width/2)-400, (height/2)-400);
   for (let i = 0; i < 4; i += 1) {
     chooser[i] = random([0,1]);
     if (chooser[i] === 0) {
@@ -59,7 +60,7 @@ function draw() {
       bounce[i] = false;
     }
     fill(255,255,255,alphas[i]);
-    lines[i] = text(words[i],(width/2)-550,(height/2)-65+(60*(i%4)));
+    lines[i] = text(words[i],(width/2)-200,(height/2)-65+(60*(i%4)));
     if (bounce[i] === false && chooser[i] === 0) {
       alphas[i] = alphas[i] - 1;
     } else if (bounce[i] === true && chooser[i] === 1) {
@@ -68,8 +69,8 @@ function draw() {
   }
   fill(255,255,255,75);
   if (snd.isLooping() === true) {
-    text("audio on",(width/2)-190,(height/2)+380);
+    text("audio on",(width/2)+175,(height/2)+380);
   } else if (snd.isLooping() === false) {
-    text("audio off",(width/2)-190,(height/2)+380);
+    text("audio off",(width/2)+175,(height/2)+380);
   }
 }
