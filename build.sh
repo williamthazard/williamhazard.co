@@ -1,4 +1,5 @@
 echo ">> root .md to .html"
+
 function htmlify() {
   for file in *.md ; do
     date=$(date -r ${file} +%D)
@@ -12,23 +13,26 @@ function htmlify() {
     echo "$file built"
   done
 }
+
 function resize() {
   for file in *.jpeg ; do
     file=${file%.*}
     mogrify -resize 800x450^ -gravity center -extent 16:9 -strip ${file}.jpeg
-    echo "$file converted"
+    echo "$file image resized"
   done
 }
+
+resize
 htmlify "head.htm_" "foot.htm_"
-mogrify -resize 800x450^ -gravity center -extent 16:9 -strip *.jpeg
+
 for subdir in ./*/ ; do
   cd $subdir
+  resize
   htmlify "../head.htm_" "../foot.htm_"
-  mogrify -resize 800x450^ -gravity center -extent 16:9 -strip *.jpeg
   cd ..
 done
 
-echo ">> convert images"
+echo ">> resize log images"
 cd log/pics
 resize
 cd ..
