@@ -12,6 +12,13 @@ function htmlify() {
     echo "$file built"
   done
 }
+function resize() {
+  for file in *.jpeg ; do
+    file=${file%.*}
+    mogrify -resize 800x450^ -gravity center -extent 16:9 -strip ${file}.jpeg
+    echo "$file converted"
+  done
+}
 htmlify "head.htm_" "foot.htm_"
 mogrify -resize 800x450^ -gravity center -extent 16:9 -strip *.jpeg
 for subdir in ./*/ ; do
@@ -23,10 +30,10 @@ done
 
 echo ">> convert images"
 cd log/pics
-mogrify -resize 800x450^ -gravity center -extent 16:9 -strip *.jpeg
+resize
 cd ..
 cd entries/pics
-mogrify -resize 800x450^ -gravity center -extent 16:9 -strip *.jpeg
+resize
 cd ..
 
 echo ">> build rss"
