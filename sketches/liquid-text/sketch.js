@@ -111,7 +111,11 @@ function draw() {
   )
   fill(255,255,255,75);
   if (snd.isLooping() === true && deviceOrientation === LANDSCAPE) {
-    text("audio on",(width/2)+40,(height/2)+145);
+    text(
+      "audio on",
+      (width/2)+40,
+      (height/2)+145
+    );
   } else if (snd.isLooping() === false && deviceOrientation === LANDSCAPE) {
     text(
       "audio off",
