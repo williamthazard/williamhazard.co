@@ -1,5 +1,4 @@
-let img, snd, soundTrue, wide, tall, choose;
-let changeRate = 2;
+let img, snd, soundTrue, wide, tall, choose, changeRate = 2; 
 let pick = 0;
 function preload() {
   img = loadImage('assets/images/night-smaller.png');
@@ -13,11 +12,11 @@ function setup() {
   frameRate(24);
   textFont(font);
   if (deviceOrientation === LANDSCAPE) {
-    img.resize(300,300);
-    textSize(20);
+    img.resize(350,350);
+    textSize(30);
   } else {
-    img.resize(600,600);
-    textSize(40);
+    img.resize(675,675);
+    textSize(60);
   }
 }
 function canvasPressed() {
@@ -46,9 +45,9 @@ function newLine(a) {
 function draw() {
   background(35);
   if (deviceOrientation === LANDSCAPE) {
-    image(img, (width/2)-150, (height/2)-150);
+    image(img, (width/2)-180, (height/2)-180);
   } else {
-    image(img, (width/2)-300, (height/2)-300);
+    image(img, (width/2)-355, (height/2)-345);
   }
   choose = random(0,changeRate);
   let now = lines[pick].alpha[lines[pick].current];
@@ -68,14 +67,14 @@ function draw() {
       if (deviceOrientation === LANDSCAPE) {
         text(
           lines[ind].text[txt],
-          (width/2)-110,
-          (height/2)-50+(40*(ind))
+          (width/2)-165,
+          (height/2)-80+(60*(ind))
         );
-      } else if (deviceOrientation === PORTRAIT) {
+      } else {
         text(
           lines[ind].text[txt],
-          (width/2)-225,
-          (height/2)-100+(80*(ind))
+          (width/2)-330,
+          (height/2)-200+(130*(ind))
         );
       }
     }
@@ -87,11 +86,11 @@ function draw() {
     soundTrue = "audio off";
   }
   if (deviceOrientation === LANDSCAPE) {
-    wide = (width/2)+40;
-    tall = (height/2)+145;
-  } else if (deviceOrientation === PORTRAIT) {
-    wide = (width/2)+80;
-    tall = (height/2)+290
+    wide = (width/2);
+    tall = (height/2)+165;
+  } else {
+    wide = (width/2)-10;
+    tall = (height/2)+325;
   }
     text(
       soundTrue,
