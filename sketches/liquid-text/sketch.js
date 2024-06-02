@@ -1,13 +1,11 @@
-let img, snd, soundTrue, wide, tall;
-let changeRate = 1;
-let choose = [];
-
+let img, snd, soundTrue, wide, tall, choose;
+let changeRate = 2;
+let pick = 0;
 function preload() {
   img = loadImage('assets/images/night-smaller.png');
   snd = loadSound('assets/sounds/voices-small.wav');
   font = loadFont('assets/fonts/RobotoMono-VariableFont_wght.ttf');
 }
-
 function setup() {
   let cnv = createCanvas(windowWidth, windowHeight);
   cnv.mousePressed(canvasPressed);
@@ -22,7 +20,6 @@ function setup() {
     textSize(40);
   }
 }
-
 function canvasPressed() {
   if (snd.isLooping() === true) {
     snd.stop();
@@ -30,54 +27,60 @@ function canvasPressed() {
     snd.loop(0,1/2);
   }
 }
-
-function pickNew(a,b) {
-  var v = random(lines[a].indices);
-  while (lines[a].indices[b] === v) {
-    v = random(lines[a].indices);
+function newText(a,b) {
+  var v = lines[a].text.indexOf(random(lines[a].text));
+  do {
+    v = lines[a].text.indexOf(random(lines[a].text));
   }
+  while (lines[a].text.indexOf(b) === v);
   return v;
 }
-
+function newLine(a) {
+  var v = round(random(lines.length-1));
+  do {
+    v = round(random(lines.length-1));
+  } 
+  while (a === v);
+  return v;
+}
 function draw() {
-  background(35,35,35);
+  background(35);
   if (deviceOrientation === LANDSCAPE) {
     image(img, (width/2)-150, (height/2)-150);
   } else {
     image(img, (width/2)-300, (height/2)-300);
   }
-  lines.forEach(
-    (i,ind) => {
-      choose[ind] = random(0,changeRate);
-      let now = lines[ind].alpha[lines[ind].current];
-      let soon = lines[ind].alpha[lines[ind].next];
-      lines[ind].alpha[lines[ind].current] = now - choose[ind];
-      lines[ind].alpha[lines[ind].next] = soon + choose[ind];
-      lines[ind].text.forEach(
-        (j,txt) => {
-          if(lines[ind].alpha[txt] >= 100) {
-            lines[ind].current = txt;
-            lines[ind].next = pickNew(ind,txt);
-          }
-          fill(255,255,255,lines[ind].alpha[txt]);
-          if (deviceOrientation === LANDSCAPE) {
-            text(
-              lines[ind].text[txt],
-              (width/2)-110,
-              (height/2)-50+(40*(ind))
-            );
-          } else if (deviceOrientation === PORTRAIT) {
-            text(
-              lines[ind].text[txt],
-              (width/2)-225,
-              (height/2)-100+(80*(ind))
-            );
-          }
-        }
-      )
+  choose = random(0,changeRate);
+  let now = lines[pick].alpha[lines[pick].current];
+  let soon = lines[pick].alpha[lines[pick].next];
+  lines[pick].alpha[lines[pick].current] = now - choose;
+  lines[pick].alpha[lines[pick].next] = soon + choose;
+  if(lines[pick].alpha[lines[pick].next] >= 100) {
+    pick = newLine(pick);
+  }
+  for (var ind in lines) {
+    for (var txt in lines[pick].text) {
+      if(lines[pick].alpha[txt] >= 100) {
+        lines[pick].current = txt;
+        lines[pick].next = newText(pick,txt);
+      }
+      fill(255,lines[ind].alpha[txt]);
+      if (deviceOrientation === LANDSCAPE) {
+        text(
+          lines[ind].text[txt],
+          (width/2)-110,
+          (height/2)-50+(40*(ind))
+        );
+      } else if (deviceOrientation === PORTRAIT) {
+        text(
+          lines[ind].text[txt],
+          (width/2)-225,
+          (height/2)-100+(80*(ind))
+        );
+      }
     }
-  )
-  fill(255,255,255,75);
+  }
+  fill(255,75);
   if (snd.isLooping() === true) {
     soundTrue = "audio on";
   } else {
