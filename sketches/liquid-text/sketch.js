@@ -73,8 +73,8 @@ function draw() {
       } else {
         text(
           lines[ind].text[txt],
-          (width/2)-330,
-          (height/2)-200+(130*(ind))
+          (width/2)-335,
+          (height/2)-190+(130*(ind))
         );
       }
     }
