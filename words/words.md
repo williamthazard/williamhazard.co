@@ -2,7 +2,7 @@
 
 # words
 
-[Bring a Blanket](https://www.instagram.com/bringablanketreadingseries/) Zine Number One
+[Bring a Blanket](https://www.instagram.com/bringablanketreadingseries/) Zine Number One: "crave"
 
 [Voicemail Poems](https://voicemailpoems.org/): ["Resentment: Big Water"](https://voicemailpoems.org/2024/05/06/resentment-big-water/)
 
