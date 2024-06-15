@@ -67,7 +67,7 @@ function draw() {
             lines[ind].bounce[txt] = false;
             lines[ind].alpha[txt] = 100;
           }
-          textSize(20+(fft.getEnergy(range[ind])/40));
+          textSize(20+(fft.getEnergy(range[ind])/10));
           fill(255,255,255,lines[ind].alpha[txt]);
           text(
             lines[ind].text[txt],
@@ -78,7 +78,7 @@ function draw() {
       )
     }
   )
-  textSize(20+(fft.getEnergy(lines.length)/40));
+  textSize(20+(fft.getEnergy(lines.length)/10));
   fill(255,255,255,75);
   if (snd.isLooping() === true) {
     text(
