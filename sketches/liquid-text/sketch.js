@@ -1,24 +1,43 @@
-let img, snd, soundTrue, wide, tall, choose, changeRate = 2; 
-let pick = 0;
+let img, snd;
+let changeRate = 1;
+let choose = [];
+let range = ["bass","lowMid","mid","highMid","treble"];
+
 function preload() {
-  img = loadImage('assets/images/night-smaller.png');
-  snd = loadSound('assets/sounds/voices-small.wav');
-  font = loadFont('assets/fonts/RobotoMono-VariableFont_wght.ttf');
+  img = loadImage(
+    'assets/images/night-smaller.png'
+  );
+  snd = loadSound(
+    'assets/sounds/voices-small.wav'
+  );
+  font = loadFont(
+    'assets/fonts/RobotoMono-VariableFont_wght.ttf'
+  );
 }
+
 function setup() {
-  let cnv = createCanvas(windowWidth, windowHeight);
+  let cnv = createCanvas(
+    windowWidth, 
+    windowHeight
+  );
+  fft = new p5.FFT();
   cnv.mousePressed(canvasPressed);
   snd.playMode('restart');
   frameRate(24);
   textFont(font);
-  if (deviceOrientation === LANDSCAPE) {
-    img.resize(350,350);
-    textSize(30);
-  } else {
-    img.resize(675,675);
-    textSize(60);
-  }
+  img.resize(300,300);
+  textSize(20);
+  lines.forEach(
+    (i,ind) => {
+      text(
+        lines[ind].text[lines[ind].currentText],
+        (width/2)-200,
+        (height/2)+(65+(40*ind))
+      );
+    }
+  );
 }
+
 function canvasPressed() {
   if (snd.isLooping() === true) {
     snd.stop();
@@ -26,75 +45,52 @@ function canvasPressed() {
     snd.loop(0,1/2);
   }
 }
-function newText(a,b) {
-  var v = lines[a].text.indexOf(random(lines[a].text));
-  do {
-    v = lines[a].text.indexOf(random(lines[a].text));
-  }
-  while (lines[a].text.indexOf(b) === v);
-  return v;
-}
-function newLine(a) {
-  var v = round(random(lines.length-1));
-  do {
-    v = round(random(lines.length-1));
-  } 
-  while (a === v);
-  return v;
-}
+
 function draw() {
   background(35);
-  if (deviceOrientation === LANDSCAPE) {
-    image(img, (width/2)-180, (height/2)-180);
-  } else {
-    image(img, (width/2)-355, (height/2)-345);
-  }
-  choose = random(0,changeRate);
-  let now = lines[pick].alpha[lines[pick].current];
-  let soon = lines[pick].alpha[lines[pick].next];
-  lines[pick].alpha[lines[pick].current] = now - choose;
-  lines[pick].alpha[lines[pick].next] = soon + choose;
-  if(lines[pick].alpha[lines[pick].next] >= 100) {
-    pick = newLine(pick);
-  }
-  for (var ind in lines) {
-    for (var txt in lines[pick].text) {
-      if(lines[pick].alpha[txt] >= 100) {
-        lines[pick].current = txt;
-        lines[pick].next = newText(pick,txt);
-      }
-      fill(255,lines[ind].alpha[txt]);
-      if (deviceOrientation === LANDSCAPE) {
-        text(
-          lines[ind].text[txt],
-          (width/2)-165,
-          (height/2)-80+(60*(ind))
-        );
-      } else {
-        text(
-          lines[ind].text[txt],
-          (width/2)-335,
-          (height/2)-190+(130*(ind))
-        );
-      }
+  image(img, (width/2)-150, (height/2)-150);
+  fft.analyze();
+  lines.forEach(
+    (i,ind) => {
+      choose[ind] = random([0,changeRate]);
+      lines[ind].text.forEach(
+        (j,txt) => {
+          if(lines[ind].bounce[txt] === false) {
+            lines[ind].alpha[txt] = lines[ind].alpha[txt] - choose[ind];
+          } else if (lines[ind].bounce[txt] === true) {
+            lines[ind].alpha[txt] = lines[ind].alpha[txt] + choose[ind];
+          }
+          if(lines[ind].alpha[txt] <= 0) {
+            lines[ind].bounce[txt] = true;
+            lines[ind].alpha[txt] = 0;
+          } else if (lines[ind].alpha[txt] >= 100) {
+            lines[ind].bounce[txt] = false;
+            lines[ind].alpha[txt] = 100;
+          }
+          textSize(20+(fft.getEnergy(range[ind])/40));
+          fill(255,255,255,lines[ind].alpha[txt]);
+          text(
+            lines[ind].text[txt],
+            (width/2)-110,
+            (height/2)-50+(40*(ind))
+          );
+        }
+      )
     }
-  }
-  fill(255,75);
+  )
+  textSize(20+(fft.getEnergy(lines.length)/40));
+  fill(255,255,255,75);
   if (snd.isLooping() === true) {
-    soundTrue = "audio on";
-  } else {
-    soundTrue = "audio off";
-  }
-  if (deviceOrientation === LANDSCAPE) {
-    wide = (width/2);
-    tall = (height/2)+165;
-  } else {
-    wide = (width/2)-10;
-    tall = (height/2)+325;
-  }
     text(
-      soundTrue,
-      wide,
-      tall
+      "audio on",
+      (width/2)+40,
+      (height/2)+145
     );
+  } else if (snd.isLooping() === false) {
+    text(
+      "audio off",
+      (width/2)+40,
+      (height/2)+145
+    )
+  }
 }
