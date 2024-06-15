@@ -2,7 +2,7 @@ echo ">> root .md to .html"
 
 function htmlify() {
   for file in *.md ; do
-    date=$(date -r ${file} +%D)
+    date=$(date -r ${file} +%y%m%d)
     file=${file%.*}
     echo "building $file"
     target=${file}.html
