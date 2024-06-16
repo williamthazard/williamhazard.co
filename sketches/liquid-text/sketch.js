@@ -1,7 +1,8 @@
-let img, snd;
+let img,snd,font;
 let changeRate = 1;
 let choose = [];
 let range = ["bass","lowMid","mid","highMid","treble"];
+let rates = [-6/2,-8/3,-10/4,-2/1,-3/2,-4/3,-5/4,-1,-4/5,-3/4,-2/3,-1/2,-4/10,-3/8,-2/6,-1/4,1/4,2/6,3/8,4/10,1/2,2/3,3/4,4/5,1,5/4,4/3,3/2,2/1,10/4,8/3,6/2]
 
 function preload() {
   img = loadImage(
@@ -42,13 +43,15 @@ function canvasPressed() {
   if (snd.isLooping() === true) {
     snd.stop();
   } else if (snd.isLooping() === false) {
-    snd.loop(0,1/2);
+    snd.loop(0,1);
   }
 }
 
 function draw() {
   background(35);
   image(img, (width/2)-150, (height/2)-150);
+  snd.rate(rates[round(map(mouseX,0,width,0,rates.length-1))]);
+  snd.setVolume(map(mouseY,height,0,0,1));
   fft.analyze();
   lines.forEach(
     (i,ind) => {
@@ -78,7 +81,7 @@ function draw() {
       )
     }
   )
-  textSize(20+(fft.getEnergy(lines.length)/10));
+  textSize(20+(fft.getEnergy(range[lines.length])));
   fill(255,255,255,75);
   if (snd.isLooping() === true) {
     text(
