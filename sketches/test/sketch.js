@@ -55,3 +55,7 @@ function draw() {
     text('o',a,b);
   }
 }
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}

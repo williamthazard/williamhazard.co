@@ -38,3 +38,7 @@ function draw() {
   }
   endShape();
 }
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
