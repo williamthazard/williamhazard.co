@@ -12,4 +12,4 @@ Sometimes, they're captured in [videos](videos/videos.html).
 
 Sometimes, they're shared in [performances](performances/performances.html).
 
-The rest of the time, there's a [log](log/log.html) [[rss](log/rss.xml)].
+The rest of the time, there's a [log](log/log0.html) [[rss](log/rss.xml)].
