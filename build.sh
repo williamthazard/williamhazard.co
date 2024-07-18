@@ -19,7 +19,6 @@ function resize() {
     echo "$file image resized"
   done
 }
-
 resize
 htmlify "head.htm_" "foot.htm_"
 for subdir in ./*/ ; do
@@ -28,7 +27,6 @@ for subdir in ./*/ ; do
   htmlify "../head.htm_" "../foot.htm_"
   cd ..
 done
-
 echo ">> resize log images"
 cd log/pics
 resize
@@ -58,7 +56,6 @@ while [[ min -lt max ]] ; do
     # Move closer
     (( min++, max-- ))
 done
-
 for file in $marks ; do
   # convert md to html
   date=$(date -r ${file} +%D)
@@ -72,7 +69,6 @@ for file in $marks ; do
   cmark --unsafe ${file}.md >> ${target}
   cat ../../log-foot.htm_ >> ${target}
   echo $name
-
   # paginate
   if [[ $((n % 10)) == 0 ]]; then
     echo "<p class='center'>" >> ../${log}.html
@@ -85,7 +81,11 @@ for file in $marks ; do
     if [[ $n > 10 ]]; then
       echo "<br/><br/><a href=../log/log0.html>[first]</a>" >> ../${log}.html
     fi
-    echo "<a href=../log/log${pages}.html>[final]</a>" >> ../${log}.html
+    if [[ $((pagenum-1)) == 0 ]]; then
+      echo "<br/><br/><a href=../log/log${pages}.html>[final]</a>" >> ../${log}.html
+    else
+      echo "<a href=../log/log${pages}.html>[final]</a>" >> ../${log}.html
+    fi
     echo "</p>" >> ../${log}.html
     cat ../../log-foot.htm_ >> ../${log}.html
     log="log"$pagenum
@@ -94,12 +94,10 @@ for file in $marks ; do
     echo "<p class='center'><a href=../index.html>[return]</a></p><br/>" >> ../${log}.html
   fi
   ((n=n+1))
-
   # append to index
   echo "<p><a href=entries/${target}>${name}</a></p>" >> ../${log}.html
   cmark --unsafe ${file}.md >> ../${log}.html
   echo "<br/>" >> ../${log}.html
-
   # append to rss
   echo "<item>" >> ../rss.xml
   echo "<title>log / ${name}</title>" >> ../rss.xml
@@ -112,7 +110,6 @@ for file in $marks ; do
   echo "<pubDate>$date</pubDate>" >> ../rss.xml 
   echo "</item>" >> ../rss.xml
 done
-
 ((past=$pagenum-1))
 echo "<p class='center'>" >> ../${log}.html
 echo "<br/><a href=../log/log${past}.html>[former]</a>" >> ../${log}.html
