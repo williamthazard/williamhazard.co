@@ -19,6 +19,24 @@ function resize() {
     echo "$file image resized"
   done
 }
+function addformer() {
+  if [[ $n > 10 ]]; then
+      ((past=$pagenum-1))
+      echo "<br/><a href=../log/log${past}.html>[former ]</a>" >> ../${log}.html
+  fi
+}
+function addfirst() {
+  if [[ $n > 10 ]]; then
+      echo "<br/><br/><a href=../log/log0.html>[first]</a>" >> ../${log}.html
+    fi
+}
+function addfinal() {
+  if [[ $((pagenum-1)) == 0 ]]; then
+      echo "<br/><br/><a href=../log/log${pages}.html>[final]</a>" >> ../${log}.html
+    else
+      echo "<a href=../log/log${pages}.html>[final]</a>" >> ../${log}.html
+    fi
+}
 resize
 htmlify "head.htm_" "foot.htm_"
 for subdir in ./*/ ; do
@@ -72,20 +90,11 @@ for file in $marks ; do
   # paginate
   if [[ $((n % 10)) == 0 ]]; then
     echo "<p class='center'>" >> ../${log}.html
-    if [[ $n > 10 ]]; then
-      ((past=$pagenum-1))
-      echo "<br/><a href=../log/log${past}.html>[former ]</a>" >> ../${log}.html
-    fi
+    addformer
     ((pagenum=$pagenum+1))
     echo "<a href=../log/log${pagenum}.html>[further]</a>" >> ../${log}.html
-    if [[ $n > 10 ]]; then
-      echo "<br/><br/><a href=../log/log0.html>[first]</a>" >> ../${log}.html
-    fi
-    if [[ $((pagenum-1)) == 0 ]]; then
-      echo "<br/><br/><a href=../log/log${pages}.html>[final]</a>" >> ../${log}.html
-    else
-      echo "<a href=../log/log${pages}.html>[final]</a>" >> ../${log}.html
-    fi
+    addfirst
+    addfinal
     echo "</p>" >> ../${log}.html
     cat ../../log-foot.htm_ >> ../${log}.html
     log="log"$pagenum
