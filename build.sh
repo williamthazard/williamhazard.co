@@ -21,7 +21,7 @@ function resize() {
 }
 function addformer() {
   if [[ $n > 10 ]]; then
-      ((past=$pagenum-1))
+      ((past=pagenum-1))
       echo "<br/><a href=../log/log${past}.html>[former ]</a>" >> ../${log}.html
   fi
 }
@@ -41,7 +41,7 @@ function paginate() {
   if [[ $((n % 10)) == 0 ]]; then
     echo "<p class='center'>" >> ../${log}.html
     addformer
-    ((pagenum=$pagenum+1))
+    ((pagenum=pagenum+1))
     echo "<a href=../log/log${pagenum}.html>[further]</a>" >> ../${log}.html
     addfirst
     addfinal
@@ -120,7 +120,7 @@ for file in $marks ; do
   echo "<pubDate>$date</pubDate>" >> ../rss.xml 
   echo "</item>" >> ../rss.xml
 done
-((past=$pagenum-1))
+((past=pagenum-1))
 echo "<p class='center'>" >> ../${log}.html
 echo "<br/><a href=../log/log${past}.html>[former]</a>" >> ../${log}.html
 echo "<br/><br/><a href=../log/log0.html>[first]</a>" >> ../${log}.html
