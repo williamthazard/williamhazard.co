@@ -22,19 +22,19 @@ function resize() {
 function addformer() {
   if [[ $n > 10 ]]; then
       ((past=pagenum-1))
-      echo "<br/><a href=../log/log${past}.html>[former ]</a>" >> ../${log}.html
-  fi
-}
-function addfirst() {
-  if [[ $n > 10 ]]; then
-      echo "<br/><br/><a href=../log/log0.html>[first]</a>" >> ../${log}.html
+      echo "<br/><a href=../log/log${past}.html>[ former]</a>" >> ../${log}.html
   fi
 }
 function addfinal() {
+  if [[ $n > 10 ]]; then
+      echo "<br/><br/><a href=../log/log0.html>[final]</a>" >> ../${log}.html
+  fi
+}
+function addfirst() {
   if [[ $((pagenum-1)) == 0 ]]; then
-      echo "<br/><br/><a href=../log/log${pages}.html>[final]</a>" >> ../${log}.html
+      echo "<br/><br/><a href=../log/log${pages}.html>[first]</a>" >> ../${log}.html
     else
-      echo "<a href=../log/log${pages}.html>[final]</a>" >> ../${log}.html
+      echo "<a href=../log/log${pages}.html>[first]</a>" >> ../${log}.html
   fi
 }
 function paginate() {
@@ -43,8 +43,8 @@ function paginate() {
     addformer
     ((pagenum=pagenum+1))
     echo "<a href=../log/log${pagenum}.html>[further]</a>" >> ../${log}.html
-    addfirst
     addfinal
+    addfirst
     echo "</p>" >> ../${log}.html
     cat ../../log-foot.htm_ >> ../${log}.html
     log="log"$pagenum
@@ -123,7 +123,7 @@ done
 ((past=pagenum-1))
 echo "<p class='center'>" >> ../${log}.html
 echo "<br/><a href=../log/log${past}.html>[former]</a>" >> ../${log}.html
-echo "<br/><br/><a href=../log/log0.html>[first]</a>" >> ../${log}.html
+echo "<br/><br/><a href=../log/log0.html>[final]</a>" >> ../${log}.html
 echo "</p>" >> ../${log}.html
 cat ../../log-foot.htm_ >> ../${log}.html
 date=$(date -r ../${log}.html +%D)
