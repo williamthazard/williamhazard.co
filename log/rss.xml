@@ -4,11 +4,14 @@
 <link>https://williamhazard.co</link>
 <description>poems with computers</description>
 <item>
-<title>log / 240730-glow</title>
-<link>https://williamhazard.co/log/entries/240730-glow.html</link>
-<guid>https://williamhazard.co/log/entries/240730-glow.html</guid>
+<title>log / 240730-glowing</title>
+<link>https://williamhazard.co/log/entries/240730-glowing.html</link>
+<guid>https://williamhazard.co/log/entries/240730-glowing.html</guid>
 <description><![CDATA[
-<p><img src="pics/glow.mov" alt="glow" title="glow" /></p>
+<video width="760" height="450" controls autoplay muted loop>
+  <source src="pics/glow.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 ]]></description>
 <pubDate>Tue, 30 Jul 2024 11:11:11 EST</pubDate>
 </item>
