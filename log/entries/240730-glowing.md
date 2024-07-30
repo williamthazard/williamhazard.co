@@ -1,4 +1,4 @@
-<video width="760" height="450" controls autoplay muted loop playsinline>
+<video width="800" controls autoplay muted loop playsinline>
   <source src="pics/glow-fast.mp4" type="video/mp4">
   <source src="pics/glow-fast.ogg" type="video/ogg">
   <source src="pics/glow-fast.mov" type="video/mov">
