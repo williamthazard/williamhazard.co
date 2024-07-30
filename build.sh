@@ -50,7 +50,7 @@ function paginate() {
     log="log"$pagenum
     cat ../../head.htm_ > ../${log}.html
     echo "<h1><p class='center'>log</p></h1>" >> ../${log}.html
-    echo "<p class='center'><a href=../index.html>[return]</a></p><br/>" >> ../${log}.html
+    echo "<p class='center'><a href=../index.html>[return]</a></p><br/><br/>" >> ../${log}.html
   fi
 }
 resize
