@@ -8,7 +8,7 @@
 <link>https://williamhazard.co/log/entries/240730-glowing.html</link>
 <guid>https://williamhazard.co/log/entries/240730-glowing.html</guid>
 <description><![CDATA[
-<video width="760" height="450" controls muted loop playsinline>
+<video width="760" height="450" controls muted loop>
   <source src="pics/glow-fast.mp4" type="video/mp4">
   <source src="pics/glow-fast.ogg" type="video/ogg">
   glow
