@@ -11,6 +11,7 @@ function htmlify() {
     cat $2 >> ${target}
     sed -i '' -e 's#DATE#'$date'#g' ${target}
     echo "$file built"
+    cp -p -f ${target} index.html
   done
 }
 function resize() {
@@ -128,3 +129,5 @@ cat ../../log-foot.htm_ >> ../${log}.html
 date=$(date -r ../${log}.html +%D)
 sed -i '' -e 's#DATE#'$date'#g' ../${log}.html
 cat ../end_rss.xml_ >> ../rss.xml
+cd ..
+cp -p -f log0.html index.html
