@@ -5,13 +5,12 @@ function htmlify() {
     date=$(date -r ${file} +%y%m%d)
     file=${file%.*}
     echo "building $file"
-    target=${file}.html
+    target=index.html
     cat $1 > ${target}
     cmark --unsafe ${file}.md >> ${target}
     cat $2 >> ${target}
     sed -i '' -e 's#DATE#'$date'#g' ${target}
     echo "$file built"
-    cp -p -f ${target} index.html
   done
 }
 function resize() {
