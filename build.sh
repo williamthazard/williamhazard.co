@@ -4,13 +4,14 @@ function htmlify() {
   for file in *.md ; do
     date=$(date -r ${file} +%y%m%d)
     file=${file%.*}
-    echo "building $file"
+    folder=$(basename $(pwd))
+    echo "building $folder $file"
     target=index.html
     cat $1 > ${target}
     cmark --unsafe ${file}.md >> ${target}
     cat $2 >> ${target}
     sed -i '' -e 's#DATE#'$date'#g' ${target}
-    echo "$file built"
+    echo "$folder $file built"
   done
 }
 function resize() {
