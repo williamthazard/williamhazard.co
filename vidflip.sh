@@ -44,5 +44,4 @@ function vidflip() {
 }
 cd log/pics
 vidflip
-cp -r -f ../pics ../entries
 cd ../../
