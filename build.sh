@@ -66,7 +66,7 @@ done
 echo ">> resize log images"
 cd log/pics
 resize
-cp -r -f ../pics ../entries
+cp -r -p -f ../pics ../entries
 cd ../entries
 echo ">> build rss"
 n=1
