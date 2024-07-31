@@ -37,7 +37,7 @@ function vidflip() {
         if [ -e $file.jpeg ]; then
             echo "$file poster applied"
         else
-            ffmpeg -ss 0.5 -i ${file}.mp4 -frames:v 1 -f image2 ${file}.jpeg;
+            ffmpeg -ss 0.1 -i ${file}.mp4 -frames:v 1 -f image2 ${file}.jpeg;
             echo "$file poster created"
         fi
     done
