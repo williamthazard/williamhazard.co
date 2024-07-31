@@ -1,4 +1,5 @@
 echo ">> root .md to .html"
+zsh ./vidflip.sh
 function htmlify() {
   for file in *.md ; do
     date=$(date -r ${file} +%y%m%d)
@@ -64,10 +65,8 @@ done
 echo ">> resize log images"
 cd log/pics
 resize
-cd ..
-cd entries/pics
-resize
-cd ..
+cp -r -f ../pics ../entries
+cd ../entries
 echo ">> build rss"
 n=1
 pagenum=0
