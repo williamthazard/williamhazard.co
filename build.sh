@@ -59,9 +59,12 @@ resize
 htmlify "head.htm_" "foot.htm_"
 for subdir in ./*/ ; do
   cd $subdir
-  echo $(basename $PWD)
+  echo "entering $(basename $PWD)"
   resize
   htmlify "../head.htm_" "../foot.htm_"
+  echo "updating $(basename $PWD) favicon"
+  cp -f ../favicon.ico favicon.ico
+  echo "$(basename $PWD) favicon updated"
   cd ..
 done
 echo ">> resize log images"
@@ -69,6 +72,10 @@ cd log/pics
 resize
 cp -r -f ../pics ../entries
 cd ../entries
+echo "entering $(basename $PWD)"
+echo "updating $(basename $PWD) favicon"
+cp -f ../favicon.ico favicon.ico
+echo "$(basename $PWD) favicon updated"
 echo ">> build rss"
 n=1
 pagenum=0
