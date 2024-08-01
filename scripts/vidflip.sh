@@ -1,4 +1,6 @@
 #!/bin/bash
+cd ..
+echo ">> process video files"
 function vidflip() {
     for file in *.mov ; do
         file=${file%.*}

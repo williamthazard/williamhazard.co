@@ -1,30 +1,4 @@
-echo ">> root .md to .html"
-zsh ./vidflip.sh
-function htmlify() {
-  for file in *; do
-    date=$(date -r ${file} +%y%m%d)
-    file=${file%.*}
-    if [ -e $file.md ]; then
-      folder=$(basename $(pwd))
-      echo "building $folder $file"
-      target=index.html
-      cat $1 > ${target}
-      cmark --unsafe ${file}.md >> ${target}
-      cat $2 >> ${target}
-      sed -i '' -e 's#DATE#'$date'#g' ${target}
-      echo "$folder $file built"
-    fi
-  done
-}
-function resize() {
-  for file in *; do
-    file=${file%.*}
-    if [ -e $file.jpeg ]; then
-      mogrify -resize 800x450^ -gravity center -extent 16:9 -strip ${file}.jpeg
-      echo "$file image resized"
-    fi
-  done
-}
+cd ..
 function addformer() {
   if [[ $n > 10 ]]; then
       ((past=pagenum-1))
@@ -59,28 +33,8 @@ function paginate() {
     echo "<p class='center'><a href=../index.html>[return]</a></p><br/>" >> ../${log}.html
   fi
 }
-resize
-htmlify "head.htm_" "foot.htm_"
-for subdir in ./*/ ; do
-  cd $subdir
-  echo "entering $(basename $PWD)"
-  resize
-  htmlify "../head.htm_" "../foot.htm_"
-  # echo "updating $(basename $PWD) favicon"
-  # cp -f ../favicon.ico favicon.ico
-  # echo "$(basename $PWD) favicon updated"
-  cd ..
-done
-echo ">> resize log images"
-cd log/pics
-resize
-cp -r -f ../pics ../entries
-cd ../entries
-echo "entering $(basename $PWD)"
-# echo "updating $(basename $PWD) favicon"
-# cp -f ../favicon.ico favicon.ico
-# echo "$(basename $PWD) favicon updated"
 echo ">> build rss"
+cd log/entries
 n=1
 pagenum=0
 log="log"$pagenum
