@@ -59,6 +59,7 @@ resize
 htmlify "head.htm_" "foot.htm_"
 for subdir in ./*/ ; do
   cd $subdir
+  echo $(basename $PWD)
   resize
   htmlify "../head.htm_" "../foot.htm_"
   cd ..
@@ -66,7 +67,7 @@ done
 echo ">> resize log images"
 cd log/pics
 resize
-cp -r -p -f ../pics ../entries
+cp -r -f ../pics ../entries
 cd ../entries
 echo ">> build rss"
 n=1
