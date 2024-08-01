@@ -1,5 +1,5 @@
 #!/bin/bash
-zsh ./build.sh
+zsh scripts/build.sh
 
 echo ">> pushing update"
 
