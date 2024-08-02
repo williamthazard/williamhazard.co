@@ -36,5 +36,4 @@ echo ">> resize log images"
 cd log/pics
 resize
 cp -r -f ../pics ../entries
-cd ../entries
-cp -f ../favicon.ico favicon.ico
+cp -f ../favicon.ico ../entries/favicon.ico
