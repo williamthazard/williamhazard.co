@@ -29,6 +29,7 @@ for subdir in ./*/ ; do
   cd $subdir
   resize
   htmlify "../head.htm_" "../foot.htm_"
+  cp -f ../styles.css styles.css
   cp -f ../favicon.ico favicon.ico
   cd ..
 done
@@ -36,4 +37,5 @@ echo ">> resize log images"
 cd log/pics
 resize
 cp -r -f ../pics ../entries
+cp -f ../styles.css ../entries/styles.css
 cp -f ../favicon.ico ../entries/favicon.ico
