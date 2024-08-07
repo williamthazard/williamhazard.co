@@ -82,7 +82,7 @@ for file in $marks ; do
   echo "<description><![CDATA[" >> ../rss.xml
   cmark --unsafe ${file}.md >> ../rss.xml
   echo "]]></description>" >> ../rss.xml
-  date=$(date -r ${file}.md "+%a, %d %b %Y 11:11:11 EST")
+  date=$(date -r ${file}.md "+%a, %d %b %Y %T EST")
   echo "<pubDate>$date</pubDate>" >> ../rss.xml 
   echo "</item>" >> ../rss.xml
 done
