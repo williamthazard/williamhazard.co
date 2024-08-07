@@ -28,7 +28,7 @@ function paginate() {
     echo "</p>" >> ../${log}.html
     cat ../../log-foot.htm_ >> ../${log}.html
     log="log"$pagenum
-    cat ../../head.htm_ > ../${log}.html
+    cat ../../sub-head.htm_ > ../${log}.html
     echo "<h1><p class='center'>log</p></h1>" >> ../${log}.html
     echo "<p class='center'><a href=../index.html>[return]</a></p><br/>" >> ../${log}.html
   fi
@@ -38,7 +38,7 @@ cd log/entries
 n=1
 pagenum=0
 log="log"$pagenum
-cat ../../head.htm_ > ../${log}.html
+cat ../../sub-head.htm_ > ../${log}.html
 echo "<h1><p class='center'>log</p></h1>" >> ../${log}.html
 echo "<p class='center'><a href=../index.html>[return]</a></p>" >> ../${log}.html
 cat ../start_rss.xml_ > ../rss.xml
@@ -63,7 +63,7 @@ for file in $marks ; do
   folder=$(basename $(pwd))
   target=${file}.html
   page=$(( ${n}/10 ))
-  cat ../../head.htm_ > ${target}
+  cat ../../entry-head.htm_ > ${target}
   echo "<br/><p><a href=../../log/log${page}.html>${name}</a></p>" >> ${target}
   cmark --unsafe ${file}.md >> ${target}
   cat ../../log-foot.htm_ >> ${target}

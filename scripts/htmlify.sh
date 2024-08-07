@@ -2,8 +2,8 @@ cd ..
 echo ">> root .md to .html"
 function htmlify() {
   for file in *.md; do
-    date=$(date -r ${file} +%y%m%d)
     file=${file%.*}
+    date=$(date -r ${file}.md +%y%m%d)
     folder=$(basename $(pwd))
     echo "building $folder $file"
     target=index.html
@@ -14,28 +14,9 @@ function htmlify() {
     echo "$folder $file built"
   done
 }
-function resize() {
-  for file in *; do
-    file=${file%.*}
-    if [ -e $file.jpeg ]; then
-      mogrify -resize 800x450^ -gravity center -extent 16:9 -strip ${file}.jpeg
-      echo "$file image resized"
-    fi
-  done
-}
-resize
 htmlify "head.htm_" "foot.htm_"
 for subdir in ./*/ ; do
   cd $subdir
-  resize
-  htmlify "../head.htm_" "../foot.htm_"
-  cp -f ../styles.css styles.css
-  cp -f ../favicon.ico favicon.ico
+  htmlify "../sub-head.htm_" "../foot.htm_"
   cd ..
 done
-echo ">> resize log images"
-cd log/pics
-resize
-cp -r -f ../pics ../entries
-cp -f ../styles.css ../entries/styles.css
-cp -f ../favicon.ico ../entries/favicon.ico
