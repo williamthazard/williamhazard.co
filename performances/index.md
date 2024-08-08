@@ -2,6 +2,8 @@
 
 # performances
 
+**September 14 2024** – [American Mary](https://alexandranaughton.gumroad.com/l/americanmary) Launch Reading (w/ [heather bowlan](https://www.heatherbowlan.com/), [julia gwiazdowski](https://voicemailpoems.org/2023/11/04/queer-rom-com-after-wes-craven/), [alexandra naughton](https://www.alexandranaughton.com/), [aaron gadbury](https://withsoundsin.wordpress.com/), [amy saul-zerby](https://www.amysaulzerby.com/), & [peter webb](https://www.phillyvoice.com/the-sopranos-poetry-reading-potluck-costumes-new-jersey-philly/))
+
 **August 24 2024** – [The Bridge Way School](https://www.thebridgewayschool.org/) Art Exhibition at Emerald Wildflower Garden + The Perch Music / Arts Workshop (Philadelphia, PA)
 
 **July 5 2024** – Flat Imagination Workshop: [permacomputing](https://permacomputing.net/) and [p5js](https://p5js.org/) (w/ [Warren Longmire](https://alongmirewriter.squarespace.com/) & [Betty's Eyes](https://bettyseyes.bandcamp.com/track/3630-days)), Philadelphia, PA
