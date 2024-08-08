@@ -2,6 +2,8 @@
 
 # performances
 
+**August 24 2024** – [The Bridge Way School](https://www.thebridgewayschool.org/) Art Exhibition at Emerald Wildflower Garden + The Perch Music / Arts Workshop (Philadelphia, PA)
+
 **July 5 2024** – Flat Imagination Workshop: [permacomputing](https://permacomputing.net/) and [p5js](https://p5js.org/) (w/ [Warren Longmire](https://alongmirewriter.squarespace.com/) & [Betty's Eyes](https://bettyseyes.bandcamp.com/track/3630-days)), Philadelphia, PA
 
 **June 28 2024** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard): afterword (w/ [Zander Raymond](https://www.zanderraymond.com/)), Chicago, IL
