@@ -2,6 +2,10 @@
 
 # code
 
+[näherinlied](https://github.com/williamthazard/naherinlied) – lied script for [seamstress](https://github.com/ryleelyman/seamstress). Turns text into music  – [(demo)](https://www.youtube.com/watch?v=WkPvt-k2Teg)
+
+[nornsCarter](https://github.com/williamthazard/carters-delay-norns) – [Carter's Delay](https://github.com/williamthazard/carters_delay) for [monome](https://monome.org/) [norns](https://monome.org/docs/norns/)
+
 [Flat Imagination Workshop Script 240705](https://github.com/williamthazard/fiw-240705): p5.js poem/instrument created for the first installment of the Flat Imagination Workshop in Philadelphia, PA
 
 [A/An](https://github.com/williamthazard/aan): an instrument built for [Mandy Gutmann-Gonzalez](https://mandygutmanngonzalez.com/), for performances of work from their chapbook *[A/An](https://endlinepress.com/A-An-by-Mandy-Gutmann-Gonzalez-a-chapbook)*
