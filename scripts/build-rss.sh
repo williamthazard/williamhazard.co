@@ -40,7 +40,7 @@ pagenum=0
 log="log"$pagenum
 cat ../../sub-head.htm_ > ../${log}.html
 echo "<h1><p class='center'>log</p></h1>" >> ../${log}.html
-echo "<p class='center'><a href=../index.html>[return]</a></p>" >> ../${log}.html
+echo "<p class='center'><a href=../>[return]</a></p>" >> ../${log}.html
 cat ../start_rss.xml_ > ../rss.xml
 marks=(*.md)
 hypes=(*.html)
