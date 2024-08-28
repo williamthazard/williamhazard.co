@@ -2,14 +2,14 @@
 
 William Hazard makes poems with computers.
 <br><br><br><br>
-These poems involve [words](words/index.html).
+These poems involve [words](words).
 
-They also involve [sounds](sounds/index.html).
+They also involve [sounds](sounds).
 
-These are interwoven with [code](code/index.html).
+These are interwoven with [code](code).
 
-Sometimes, they're captured in [videos](videos/index.html).
+Sometimes, they're captured in [videos](videos).
 
-Sometimes, they're shared in [performances](performances/index.html).
+Sometimes, they're shared in [performances](performances).
 
-The rest of the time, there's a [log](log/index.html) [[rss](log/rss.xml)].
+The rest of the time, there's a [log](log) [[rss](log/rss.xml)].
