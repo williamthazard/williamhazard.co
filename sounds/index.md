@@ -1,4 +1,4 @@
-[![](sounds.jpeg)](../index.html)
+[![](sounds.jpeg)](../)
 
 # sounds
 

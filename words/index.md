@@ -1,4 +1,4 @@
-[![](words.jpeg)](../index.html)
+[![](words.jpeg)](../)
 
 # words
 

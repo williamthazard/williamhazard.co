@@ -1,4 +1,4 @@
-[![](sketches.jpeg)](../index.html)
+[![](sketches.jpeg)](../)
 # <p class='center'>sketches</p>
 [candle-cradle](candle-cradle/index.html)
 

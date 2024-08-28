@@ -1,4 +1,4 @@
-the following shell scripts are used to build [this website](../index.html)
+the following shell scripts are used to build [this website](../)
 
 * [build.sh](build.sh)
 * [vidflip.sh](vidflip.sh)
