@@ -3,5 +3,5 @@
   <source src="pics/glow.mov" type="video/mov">
   <source src="pics/glow.webm" type="video/webm">
   <source src="pics/glow.ogg" type="video/ogg">
-  glow
+  glowing
 </video>
