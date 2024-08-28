@@ -1,4 +1,4 @@
-[![](header.jpeg)](index.html)
+[![](header.jpeg)](./)
 
 William Hazard makes poems with computers.
 <br><br><br><br>
