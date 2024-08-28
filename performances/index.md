@@ -2,6 +2,8 @@
 
 # performances
 
+**September 28 2024** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard): addendum (w/ [Mandy Gutmann-Gonzalez](https://mandygutmanngonzalez.com/)), Philadelphia, PA
+
 **September 14 2024** – [American Mary](https://alexandranaughton.gumroad.com/l/americanmary) Launch Reading (w/ [heather bowlan](https://www.heatherbowlan.com/), [julia gwiazdowski](https://voicemailpoems.org/2023/11/04/queer-rom-com-after-wes-craven/), [alexandra naughton](https://www.alexandranaughton.com/), [aaron gadbury](https://withsoundsin.wordpress.com/), [amy saul-zerby](https://www.amysaulzerby.com/), & [peter webb](https://www.phillyvoice.com/the-sopranos-poetry-reading-potluck-costumes-new-jersey-philly/)), Philadelphia, PA
 
 **August 24 2024** – [The Bridge Way School](https://www.thebridgewayschool.org/) Art Exhibition at Emerald Wildflower Garden + The Perch Music / Arts Workshop, Philadelphia, PA
