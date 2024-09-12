@@ -2,7 +2,7 @@
 
 # code
 
-### *if you derive value or pleasure from these tools, please consider [sponsoring my work](https://github.com/sponsors/williamthazard) with a monthly contribution – your support allows me to keep working on these projects and keeps my work free and open for anyone to use*
+### *if you derive value or pleasure from these tools, and if you have the means, please consider [sponsoring my work](https://github.com/sponsors/williamthazard) with a monthly contribution – your support allows me to keep working on these projects and keeps my work free and open for anyone to use*
 
 [näherinlied](https://github.com/williamthazard/naherinlied) – lied script for [seamstress](https://github.com/ryleelyman/seamstress). Turns text into music  – [(demo)](https://www.youtube.com/watch?v=WkPvt-k2Teg)
 
