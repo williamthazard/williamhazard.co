@@ -56,15 +56,6 @@ while [[ min -lt max ]] ; do
     (( min++, max-- ))
 done
 for file in $marks ; do
-  # convert md to html
-  old_date=${file%-*}
-  old_date=${old_date%-*}
-  old_date=${old_date%-*}
-  old_date=${old_date%.*}
-  old_date="${old_date}111111"
-  new_date=$(date -j -f "%y%m%d%H%M%S" ${old_date} +%Y-%m-%d%H:%M:%S)
-  touch -d ${new_date} ${file}
-  date -r ${file}
   date=$(date -r ${file} +%D)
   file=${file%.*}
   name=${file#*/}
