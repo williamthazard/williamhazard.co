@@ -6,7 +6,7 @@
 
 **October 30 2024** – House Poet (w/ Ari Villeda Martinez), Fergie's Pub (1214 Sansom St), Philadelphia, PA
 
-**October 23 2024** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard): anniversary (w/ Robert David Carey), Philadelphia, PA
+**October 23 2024** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard): anniversary (w/ [Robert David Carey](https://www.instagram.com/bogscary/)), Philadelphia, PA
 
 **October 17 2024** – Hunter's Moon on Fire (w/ [aaron gadbury](https://withsoundsin.wordpress.com/)), Open Kitchen Sculpture Garden (2241 N Philip St), Philadelphia, PA
 
@@ -40,7 +40,7 @@
 
 **Oct 28 2023** – [blue moon triptych](https://www.twitch.tv/lines_community): poetry in the expanded field (w/ [Gahlord Dewald](https://gahlorddewald.com) & [colmkil](https://colmkil.bandcamp.com)) ([video](https://www.youtube.com/watch?v=d_ACmJyHZzI&t=612s))
 
-**Oct 21 2023** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard), vol. 1: My Walk With Bob (w/ Robert David Carey), Philadelphia PA
+**Oct 21 2023** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard), vol. 1: My Walk With Bob (w/ [Robert David Carey](https://www.instagram.com/bogscary/)), Philadelphia PA
 
 **Jul 30 2023** - [Co-Creation](https://allevents.in/bloomeville/co-creation-episode-ii/10000658634472437?ref=past-event-page) @ Turquoise Barn, Bloomville NY 
 
