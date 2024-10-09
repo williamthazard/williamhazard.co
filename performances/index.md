@@ -2,6 +2,14 @@
 
 # performances
 
+**November 9 2024** – Ghost Harmonics (w/ [Sadie Dupuis](https://www.sadiedupuis.com/), [Chris Campanioni](https://chriscampanioni.com/), [olga mikolaivna](https://olgamikolaivna.wordpress.com/), [John Pinto](https://pintopintopinto.com/), [Ollie Becker](https://olliebecker.net/), [Edward Longo](https://sunkenbasilica.bandcamp.com/album/starflesh), Orah Ruth, and [Mike Bagwell](https://www.mikebagwell.me/)), The Perch Music / Arts Workshop, Philadelphia, PA
+
+**October 30 2024** – House Poet (w/ Ari Villeda Martinez), Fergie's Pub (1214 Sansom St), Philadelphia, PA
+
+**October 23 2024** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard): anniversary (w/ Robert David Carey), Philadelphia, PA
+
+**October 17 2024** – Hunter's Moon on Fire (w/ [aaron gadbury](https://withsoundsin.wordpress.com/)), Open Kitchen Sculpture Garden (2241 N Philip St), Philadelphia, PA
+
 **September 28 2024** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard): addendum (w/ [Mandy Gutmann-Gonzalez](https://mandygutmanngonzalez.com/)), Philadelphia, PA
 
 **September 14 2024** – [American Mary](https://alexandranaughton.gumroad.com/l/americanmary) Launch Reading (w/ [heather bowlan](https://www.heatherbowlan.com/), [julia gwiazdowski](https://voicemailpoems.org/2023/11/04/queer-rom-com-after-wes-craven/), [alexandra naughton](https://www.alexandranaughton.com/), [aaron gadbury](https://withsoundsin.wordpress.com/), [amy saul-zerby](https://www.amysaulzerby.com/), & [peter webb](https://www.phillyvoice.com/the-sopranos-poetry-reading-potluck-costumes-new-jersey-philly/)), Philadelphia, PA
