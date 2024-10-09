@@ -2,6 +2,8 @@
 
 # performances
 
+<p class='right'> <b>2024</b> </p>
+
 **November 9 2024** – Ghost Harmonics (w/ [Sadie Dupuis](https://www.sadiedupuis.com/), [Chris Campanioni](https://chriscampanioni.com/), [olga mikolaivna](https://olgamikolaivna.wordpress.com/), [John Pinto](https://pintopintopinto.com/), [Ollie Becker](https://olliebecker.net/), [Edward Longo](https://sunkenbasilica.bandcamp.com/album/starflesh), Orah Ruth, and [Mike Bagwell](https://www.mikebagwell.me/)), The Perch Music / Arts Workshop, Philadelphia, PA
 
 **October 30 2024** – House Poet (w/ Ari Villeda Martinez), Fergie's Pub (1214 Sansom St), Philadelphia, PA
@@ -33,6 +35,8 @@
 **Feb 24 2024** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard), vol. 5: Common Place (w/ [Memory Object](https://memory-object.com)), Philadelphia PA
 
 **Jan 20 2024** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard), vol. 4: Feed (w/ [Warren Longmire](https://alongmirewriter.squarespace.com/)), Philadelphia PA
+<br><br><br><br>
+<p class='right'> <b>2023</b> </p>
 
 **Dec 16 2023** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard), vol. 3: Awaiting (w/ [Whit MacLaughlin](https://newparadiselaboratories.com/)), Philadelphia PA
 
@@ -47,6 +51,8 @@
 **Jun 30 2023** – [International Conference on Auditory Display](https://icad2023.icad.org/), Norrköping SWE
 
 **Mar 10 2023** – [Be About It Press](https://www.beaboutitpress.com/) Alternative to [AWP](https://www.awpwriter.org/) Livestream Reading
+<br><br><br><br>
+<p class='right'> <b>2022</b> </p>
 
 **Aug 06 2022** – [Flash Crash](https://flashcrash.net/) [220806](https://www.youtube.com/watch?v=Hs_9uRlWX0g&list=PLDeicGW8SQOyYQh8iphSFvI5R5Eg4Uy22)
 
