@@ -22,11 +22,11 @@
 
 **June 28 2024** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard): afterword (w/ [Zander Raymond](https://www.zanderraymond.com/)), Chicago, IL
 
-**June 5 2024** – [Voicemail Poems](https://voicemailpoems.org/) [Spring Issue](https://voicemailpoems.org/2024/05/06/spring-2024/) release party (w/ [James Milanesi](https://www.instagram.com/jamesmilanesi/), [Mike Bagwell](https://www.mikebagwell.me/), and [Shannon Frost Greenstein](https://shannonfrostgreenstein.com/)), The Monkey Club, Philadelphia, PA
+**June 5 2024** – [Voicemail Poems](https://voicemailpoems.org/) [Spring Issue](https://voicemailpoems.org/2024/05/06/spring-2024/) release party (w/ [James Milanesi](https://www.instagram.com/jamesmilanesi/), [Mike Bagwell](https://www.mikebagwell.me/), and [Shannon Frost Greenstein](https://shannonfrostgreenstein.com/)), [The Monkey Club](https://www.instagram.com/themonkeyclubphilly/) (2101 East York Street), Philadelphia, PA
 
 **May 25 2024** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard), vol. 8: Elements of a Coffee Service (w/ [iiiriel](https://www.instagram.com/iiiriel/)), Philadelphia, PA
 
-**May 4 2024** – Mix Lit (w/ [Warren Longmire](https://alongmirewriter.squarespace.com/) & [Betty's Eyes](https://bettyseyes.bandcamp.com/track/3630-days)), The Ankle Pit, Philadelphia, PA
+**May 4 2024** – [Mix Lit](https://www.instagram.com/mixlitphilly/) (w/ [Warren Longmire](https://alongmirewriter.squarespace.com/) & [Betty's Eyes](https://bettyseyes.bandcamp.com/track/3630-days)), [The Ankle Pit](https://www.instagram.com/theanklepit/), Philadelphia, PA
 
 **Apr 27 2024** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard), vol. 7: Century of Clouds (w/ [zbs.fm](https://zbs.fm) & [jason calhoun](http://napsounds.bandcamp.com/)), Philadelphia, PA
 
