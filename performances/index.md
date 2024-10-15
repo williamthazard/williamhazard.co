@@ -10,7 +10,7 @@
 
 **October 23 2024** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard): anniversary (w/ [Robert David Carey](https://www.instagram.com/bogscary/)), Philadelphia, PA
 
-**October 17 2024** – [Hunter's Moon on Fire](https://www.instagram.com/fullmoononfire/) (w/ [aaron gadbury](https://withsoundsin.wordpress.com/) & [Danielle Levsky](https://criticturnedclown.squarespace.com/)), Hazel House Backyard (5034 Hazel Avenue), Philadelphia, PA
+**October 17 2024** – [Hunter's Moon on Fire](https://www.instagram.com/fullmoononfire/) (w/ [aaron gadbury](https://withsoundsin.wordpress.com/), [Antler Velvet](https://www.instagram.com/antler.velvet/), [henna](https://www.instagram.com/rvzmm/), [Nerissa Tunnessen](https://www.nerissatunnessen.com/), [Samantha Xiao Cody](https://www.instagram.com/scodyxiao/), [Grace Lazarz](https://www.instagram.com/gracelazarz/), [Nathan Thomas Yun-Kay Ko](https://www.instagram.com/n888k0/), and [Danielle Levsky](https://criticturnedclown.squarespace.com/)), Hazel House Backyard (5034 Hazel Avenue), Philadelphia, PA
 
 **September 28 2024** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard): addendum (w/ [Mandy Gutmann-Gonzalez](https://mandygutmanngonzalez.com/)), Philadelphia, PA
 
