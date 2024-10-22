@@ -1,0 +1,1 @@
+today, Bob asked me if I had any bananas. The answer was that I had six bananas, but they were brown and in the freezer. It is, perhaps, more relevant to readers ot this log to know that I also have several copies of Bob's recent book, *Landscaper*, and they will be available for sale at Theatre of the Flat Imagination tomorrow.
