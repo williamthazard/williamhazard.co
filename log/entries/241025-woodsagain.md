@@ -1,1 +1,1 @@
-in case you weren't able to join us for the most recent installment of Theatre of the Flat imagination, you can listen to my set [here](https://williamhazard.co/sounds/tracks/241023-woods.mp3)
+in case you weren't able to join us for the most recent installment of Theatre of the Flat Imagination, you can listen to my set [here](https://williamhazard.co/sounds/tracks/241023-woods.mp3)
