@@ -17,6 +17,18 @@ function giflip() {
         fi
     done
 }
+function bigkill() {
+    for file in *.gif ; do
+        file=${file%.*}
+        maxsize=100
+        realsize=$(du -m $file.gif | cut -f 1)
+        if [ $realsize -ge $maxsize ]; then
+            rm $file.gif
+            echo "$file.gif is too large and has been removed"
+        fi
+    done
+}
 cd log/pics
 giflip
+bigkill
 cd ../../
