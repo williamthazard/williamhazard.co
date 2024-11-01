@@ -1,4 +1,5 @@
 echo ">> build site"
+zsh ./gifcomp.sh
 zsh ./vidflip.sh
 zsh ./imgflip.sh
 zsh ./htmlify.sh
