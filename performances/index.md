@@ -4,6 +4,8 @@
 
 <p class='right'> <b>2024</b> </p>
 
+**November 16 2024** – w/ Meilyn & [Memory Object](https://memory-object.com), Cambridge, MA
+
 **November 9 2024** – [Ghost Harmonics](https://www.instagram.com/ghostharmonics/) (w/ [Sadie Dupuis](https://www.sadiedupuis.com/), [Chris Campanioni](https://chriscampanioni.com/), [olga mikolaivna](https://olgamikolaivna.wordpress.com/), [John Pinto](https://pintopintopinto.com/), [Ollie Becker](https://olliebecker.net/), [Edward Longo](https://sunkenbasilica.bandcamp.com/album/starflesh), [Orah Ruth](https://www.instagram.com/orahruth.mp3/), and [Mike Bagwell](https://www.mikebagwell.me/)), [Emerald Wildflower Garden + The Perch Music / Arts Workshop](https://www.emeraldwildflowergarden.org/the-perch-music-arts-studio) (2321 Emerald Street), Philadelphia, PA
 
 **October 30 2024** – [House Poet](https://www.instagram.com/housepoetphilly/) (w/ [Ari Villeda Martinez](https://www.instagram.com/haunted.bodega/)), [Fergie's Pub](https://www.fergies.com/) (1214 Sansom Street), Philadelphia, PA
