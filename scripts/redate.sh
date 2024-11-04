@@ -11,6 +11,6 @@ for file in $marks ; do
   new_date=$(date -j -f "%y%m%d%H%M%S" ${old_date} +%Y-%m-%d%H:%M:%S)
   touch -d ${new_date} ${file}
   file=${file%.*}
-  echo "entry: ${file} | date: ${new_date}"
+  echo "${file} | date: ${new_date}"
 done
 cd ../../scripts
