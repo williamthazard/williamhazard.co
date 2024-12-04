@@ -1,0 +1,1 @@
+surprise! I'll be doing a little thing with [C.M. Crockford](https://www.cmcrockford.net/) here in Philly this Saturday, the 7th. If you're around, dear reader, it would be great to see you there – check the [performances](https://williamhazard.co/performances/) page for the address
