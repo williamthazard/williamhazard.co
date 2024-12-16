@@ -4,7 +4,9 @@
 
 <p class='right'> <b>2025</b> </p>
 
-**January 11 2025** – The Splice Poetry Series (w/ [Evie Shockley](https://evieshockley.com/), [Caroline Bergvall](https://carolinebergvall.com/), [Carlos Soto Roman](https://poets.org/poet/carlos-soto-roman), [Whitney Devos](https://www.whitneydevos.com/), [Clint Burnham](https://www.sfu.ca/english/people-dir/faculty/clint-burham.html), [Amish Trivedi](https://www.amishtrivedi.com/), [Cate Peebles](https://www.catepeebles.com/), [Edgar Garcia](https://english.uchicago.edu/people/edgar-garcia), [Laura Jaramillo](https://laurajaramillo-poetfilm.squarespace.com/), and [Mandy Gutmann-Gonzalez](https://mandygutmanngonzalez.com/)), [Saturn Bar](https://www.thesaturnbar.com/) (3067 Saint Claude Ave), New Orleans LA
+**January 17 2025** – [_mix_lit](https://www.mixlit.io/) presents: a flat imagination workshop (featuring the goodbye mind and [dani derks](https://dndrks.com/)), [Emerald Wildflower Garden + The Perch Music / Arts Workshop](https://www.emeraldwildflowergarden.org/the-perch-music-arts-studio) (2321 Emerald Street), Philadelphia PA (hosting w/ [Warren Longmire](https://alongmirewriter.squarespace.com/))
+
+**January 11 2025** – [The Splice Poetry Series](https://thesplice.org/) (w/ [Evie Shockley](https://evieshockley.com/), [Caroline Bergvall](https://carolinebergvall.com/), [Carlos Soto Roman](https://poets.org/poet/carlos-soto-roman), [Whitney Devos](https://www.whitneydevos.com/), [Clint Burnham](https://www.sfu.ca/english/people-dir/faculty/clint-burham.html), [Amish Trivedi](https://www.amishtrivedi.com/), [Cate Peebles](https://www.catepeebles.com/), [Edgar Garcia](https://english.uchicago.edu/people/edgar-garcia), [Laura Jaramillo](https://laurajaramillo-poetfilm.squarespace.com/), and [Mandy Gutmann-Gonzalez](https://mandygutmanngonzalez.com/)), [Saturn Bar](https://www.thesaturnbar.com/) (3067 Saint Claude Ave), New Orleans LA
 <br><br><br><br>
 <p class='right'> <b>2024</b> </p>
 
