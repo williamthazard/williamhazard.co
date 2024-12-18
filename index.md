@@ -14,4 +14,4 @@ Sometimes, they're shared in [performances](performances).
 
 The rest of the time, there's a [log](log) [[rss](log/rss.xml)].
 <br><br><br><br>
-****[buy tickets for my next flat imagination workshop here](https://www.eventbrite.com/e/-mix-lit-presents-a-flat-imagination-workshop-goodbye-mind-dani-derks-tickets-1116860623189?aff=oddtdtcreator)****
+~~[buy tickets for the next flat imagination workshop here](https://www.eventbrite.com/e/-mix-lit-presents-a-flat-imagination-workshop-goodbye-mind-dani-derks-tickets-1116860623189?aff=oddtdtcreator)~~
