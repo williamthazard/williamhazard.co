@@ -2,6 +2,8 @@
 
 # sounds
 
+[At What Cost](https://atwhatcost.me/) [Catalog](https://catalogs.atwhatcost.me/) 1: [OBSESSION](https://obsession.atwhatcost.me/): ["Diseases of Astonishment"](https://obsession.atwhatcost.me/mandy-gutmann-gonzalez-and-william-hazard) – a collaboration with [Mandy Gutmann-Gonzalez](https://mandygutmanngonzalez.com/)
+
 [Audio Flare Gun](https://audioflaregun.com), [Episode 4: Four on the Fourth](https://audioflaregun.com/2024/07/04/episode-four-four-on-the-fourth/): hosted by [Dave Cedillo](http://davidcedillo.com/)
 
 [Audio Flare Gun](https://audioflaregun.com), [Episode 3: Not Howdy Doody Time](https://audioflaregun.com/2024/05/13/episode-three-not-howdy-doody-time/): hosted by [Dave Cedillo](http://davidcedillo.com/)
