@@ -3,5 +3,7 @@ html, body {
   padding: 0;
 }
 canvas {
+  margin-right: auto;
+  margin-left: auto;
   display: block;
 }
