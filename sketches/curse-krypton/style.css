@@ -1,7 +1,14 @@
 html, body {
-  margin: 0;
-  padding: 0;
+  background-color: #222; 
+  max-width: 800px; 
+  color: #fff; 
+  margin: 40px auto; 
+  padding: 0 10px;
 }
 canvas {
   display: block;
+}
+pre {
+  font-size: 1.3em; 
+  color: #fff;
 }
