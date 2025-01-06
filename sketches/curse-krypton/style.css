@@ -3,12 +3,12 @@ html, body {
   width: 800px;
   height: 800px; 
   color: #fff; 
-  margin: 40px; 
+  margin: auto; 
   padding: 0 10px;}
 canvas {
-  align-content:center;
-  align-items:center;
-  align-self:center;
+  align-content: center;
+  align-items: center;
+  align-self: center;
   width: 800px;
   height: 800px;
   display: block;}
