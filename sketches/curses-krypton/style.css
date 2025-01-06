@@ -8,7 +8,7 @@ html, body {
 
 canvas {
   margin: auto;
-  max-width: 700px;
-  max-height: 700px;
+  width: 500px;
+  height: 500px;
   display: block;
 }
