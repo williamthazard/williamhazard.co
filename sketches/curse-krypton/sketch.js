@@ -1,6 +1,6 @@
 let ind = 0;
 function preload() {snd = loadSound('assets/bald-crow.mp3')}
-function setup() {let cnv = createCanvas(windowWidth, windowHeight);
+function setup() {let cnv = createCanvas(windowWidth-40, windowHeight-40);
   cnv.mousePressed(canvasPressed); snd.playMode('restart')}
 function draw() {
   background(35); textSize(50); 
