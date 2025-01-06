@@ -6,9 +6,9 @@ html, body {
   padding: 0 10px;
 }
 canvas {
+  margin: 40px auto; 
+  padding: 0 10px;
+  max-width: 800px;
+  max-height: 700px;
   display: block;
-}
-pre {
-  font-size: 1.3em; 
-  color: #fff;
 }
