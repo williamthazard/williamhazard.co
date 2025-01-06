@@ -6,9 +6,9 @@ html, body {
   padding: 0 10px;
 }
 canvas {
-  margin: 40px auto; 
-  padding: 0 10px;
+  align-content:center;
+  align-items:center;
+  align-self:center;
   max-width: 800px;
-  max-height: 700px;
-  display: block;
-}
+  max-height: 600px;
+  display: block;}
