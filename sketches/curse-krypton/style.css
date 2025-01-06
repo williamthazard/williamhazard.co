@@ -1,14 +1,14 @@
 html, body {
   background-color: #222; 
-  width: 800px;
-  height: 800px; 
+  max-width: 800px;
+  max-height: 800px; 
   color: #fff; 
   margin: auto; 
   padding: 0 10px;
 }
 canvas {
   margin: auto;
-  width: 800px;
-  height: 800px;
+  width: 700px;
+  height: 700px;
   display: block;
 }
