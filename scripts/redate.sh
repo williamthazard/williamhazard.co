@@ -1,6 +1,7 @@
 echo ">> check log entry dates"
 cd ../log/entries
 marks=(*.md)
+python="/Users/spencerkingmangraham/.pyenv/shims/python"
 function dateCheck() {
   if [[ $current == $old_date ]]; then
     textCheck
@@ -30,7 +31,7 @@ function bsPost() {
   else
     image=""
   fi
-  python ../../scripts/bs-post.py "${text}" "${image}" "an image"
+  $python ../../scripts/bs-post.py "${text}" "${image}" "an image"
 }
 for file in $marks ; do
   old_date=${file%-*}
