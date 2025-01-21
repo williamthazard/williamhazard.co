@@ -2,7 +2,7 @@ echo ">> check log entry dates"
 cd ../log/entries
 marks=(*.md)
 function dateCheck() {
-  if [[ $current == $old_date ]]; then
+  if [ $current == $old_date ]; then
     textCheck
   fi
 }
