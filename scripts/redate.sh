@@ -1,3 +1,4 @@
+#!/bin/bash
 echo ">> check log entry dates"
 cd ../log/entries
 marks=(*.md)
