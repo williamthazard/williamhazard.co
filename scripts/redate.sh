@@ -2,7 +2,7 @@ echo ">> check log entry dates"
 cd ../log/entries
 marks=(*.md)
 function dateCheck() {
-  if [[ $current == $old_date ]]; then
+  if [ $current == $old_date ]; then
     textCheck
   fi
 }
@@ -23,10 +23,8 @@ function charCheck() {
   fi
 }
 function bsPost() {
-  if [[ $current == $old_date ]]; then
-    echo ">> posting today's entry to Bluesky"
-    python ../../scripts/bs-post.py "$(cat ${file}.txt)" "${image}" "an image"
-  fi
+  echo ">> posting today's entry to Bluesky"
+  python ../../scripts/bs-post.py "$(cat ${file}.txt)" "${image}" "an image"
 }
 for file in $marks ; do
   old_date=${file%-*}
