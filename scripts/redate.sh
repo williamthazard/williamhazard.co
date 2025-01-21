@@ -34,7 +34,7 @@ for file in $marks ; do
   old_date=${old_date%-*}
   old_date=${old_date%-*}
   old_date=${old_date%.*}
-  current=$(date +%H%M%S)
+  current=$(date +%y%m%d)
   time=$(date -r ${file} +%H%M%S)
   timed_date="${old_date}${time}"
   new_date=$(date -j -f "%y%m%d%H%M%S" ${timed_date} +%Y-%m-%d%H:%M:%S)
