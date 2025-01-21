@@ -2,7 +2,7 @@ echo ">> check log entry dates"
 cd ../log/entries
 marks=(*.md)
 function dateCheck() {
-  if [ ${1} == ${2} ]; then
+  if [[ $current == $old_date ]]; then
     textCheck
   fi
 }
@@ -43,6 +43,6 @@ for file in $marks ; do
   else
     image=""
   fi
-  dateCheck ${current} ${old_date}
+  dateCheck
 done
 cd ../../scripts
