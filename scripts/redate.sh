@@ -27,6 +27,8 @@ function charCheck() {
 }
 function bsPost() {
   echo ">> posting today's entry to Bluesky"
+  echo "text: ${text}"
+  echo "image: ${image}"
   python ../../scripts/bs-post.py "${text}" "${image}" "an image"
 }
 for file in $marks ; do
