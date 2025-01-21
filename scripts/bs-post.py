@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 import os
 import re
 import mimetypes
+import sys
 
 # Your Bluesky credentials and API URLs
 handle = os.environ.get('BS_UN')
@@ -13,6 +14,7 @@ session_endpoint = f'{pds_url}/xrpc/com.atproto.server.createSession'
 post_endpoint = f'{pds_url}/xrpc/com.atproto.repo.createRecord'
 upload_image_endpoint = f'{pds_url}/xrpc/com.atproto.repo.uploadBlob'
 resolve_handle_endpoint = f'{pds_url}/xrpc/com.atproto.identity.resolveHandle'
+post_text = sys.argv[1]
 
 session = {}
 
@@ -108,7 +110,7 @@ def create_post(content, image_path=None, alt_text="An image attached to the pos
 if __name__ == '__main__':
     try:
         create_session()
-        post_content = input("Enter your post content (mention users with @username): ")
+        post_content = post_text
         image_path = input("Enter the path to your image file (or leave blank to skip): ").strip()
         
         # Request alt text if an image is provided
