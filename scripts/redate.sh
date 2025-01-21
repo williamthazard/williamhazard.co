@@ -25,6 +25,11 @@ function charCheck() {
 function bsPost() {
   echo ">> posting today's entry to Bluesky"
   text=$(cat ${file}.txt)
+  if [ -e pics/$file.jpeg ]; then
+    image="pics/${file}.jpeg"
+  else
+    image=""
+  fi
   python ../../scripts/bs-post.py $text $image "an image"
 }
 for file in $marks ; do
@@ -39,11 +44,6 @@ for file in $marks ; do
   touch -d ${new_date} ${file}
   file=${file%.*}
   echo "${file} | date: ${new_date}"
-  if [ -e pics/$file.jpeg ]; then
-    image="pics/${file}.jpeg"
-  else
-    image=""
-  fi
   dateCheck
 done
 cd ../../scripts
