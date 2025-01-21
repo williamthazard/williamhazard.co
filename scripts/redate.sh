@@ -27,7 +27,7 @@ function charCheck() {
 }
 function bsPost() {
   echo ">> posting today's entry to Bluesky"
-  python ../../scripts/bs-post.py ${text} ${image} "an image"
+  python ../../scripts/bs-post.py "${text}" "${image}" "an image"
 }
 for file in $marks ; do
   old_date=${file%-*}
