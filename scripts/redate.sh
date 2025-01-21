@@ -3,7 +3,7 @@ cd ../log/entries
 marks=(*.md)
 function dateCheck() {
   if [[ $current == $old_date ]]; then
-    textChecks
+    textCheck
   fi
 }
 function textCheck() {
