@@ -15,6 +15,8 @@ post_endpoint = f'{pds_url}/xrpc/com.atproto.repo.createRecord'
 upload_image_endpoint = f'{pds_url}/xrpc/com.atproto.repo.uploadBlob'
 resolve_handle_endpoint = f'{pds_url}/xrpc/com.atproto.identity.resolveHandle'
 post_text = sys.argv[1]
+post_image = sys.argv[2]
+image_desc = sys.argv[3]
 
 session = {}
 
@@ -111,11 +113,11 @@ if __name__ == '__main__':
     try:
         create_session()
         post_content = post_text
-        image_path = input("Enter the path to your image file (or leave blank to skip): ").strip()
+        image_path = post_image.strip()
         
         # Request alt text if an image is provided
         if image_path:
-            alt_text = input("Enter alt text for the image: ").strip()
+            alt_text = image_desc
         else:
             alt_text = "An image attached to the post"
 

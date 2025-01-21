@@ -1,6 +1,33 @@
 echo ">> check log entry dates"
 cd ../log/entries
 marks=(*.md)
+function dateCheck() {
+  if [[ $current == $old_date ]]; then
+    textCheck
+  fi
+}
+function textCheck() {
+  if [ -e $file.txt ]; then
+    echo "${file} has already been posted to Bluesky"
+  else
+    pandoc  --from markdown --to plain -o ${file}.txt ${file}.md
+    charCheck
+  fi
+}
+function charCheck() {
+  characters=$(wc -c < ${file}.txt)
+  if [ $characters -le 300 ]; then
+    bsPost
+  else
+    echo "${file} is too long for Bluesky"
+  fi
+}
+function bsPost() {
+  if [[ $current == $old_date ]]; then
+    echo ">> posting today's entry to Bluesky"
+    python ../../scripts/bs-post.py "$(cat ${file}.txt)" "${image}" "an image"
+  fi
+}
 for file in $marks ; do
   old_date=${file%-*}
   old_date=${old_date%-*}
@@ -13,13 +40,11 @@ for file in $marks ; do
   touch -d ${new_date} ${file}
   file=${file%.*}
   echo "${file} | date: ${new_date}"
-  if [[ $current == $old_date ]]; then
-    echo ">> posting today's entry to BlueSky"
-    pandoc  --from markdown --to plain -o ${file}.txt ${file}
-    python ../../scripts/bs-post.py "$(cat ${file}.txt)" <<limitString
-
-limitString
-    rm ${file}.txt
+  if [ -e pics/$file.jpeg ]; then
+    image="pics/${file}.jpeg"
+  else
+    image=""
   fi
+  dateCheck
 done
 cd ../../scripts
