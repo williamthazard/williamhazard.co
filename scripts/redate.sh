@@ -3,10 +3,7 @@ cd ../log/entries
 marks=(*.md)
 function dateCheck() {
   if [[ $current == $old_date ]]; then
-    echo "current is ${current}; post written ${old_date}"
-    textCheck
-  else
-    echo "current is ${current}; post written ${old_date}"
+    textChecks
   fi
 }
 function textCheck() {
@@ -28,9 +25,7 @@ function charCheck() {
 function bsPost() {
   echo ">> posting today's entry to Bluesky"
   text=$(cat ${file}.txt)
-  echo "text: ${text}"
-  echo "image: ${image}"
-  python ../../scripts/bs-post.py "${text}" "${image}" "an image"
+  python ../../scripts/bs-post.py $text $image "an image"
 }
 for file in $marks ; do
   old_date=${file%-*}
