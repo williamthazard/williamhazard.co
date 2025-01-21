@@ -2,7 +2,7 @@ echo ">> check log entry dates"
 cd ../log/entries
 marks=(*.md)
 function dateCheck() {
-  if [ $1 == $2 ]; then
+  if [ ${1} == ${2} ]; then
     textCheck
   fi
 }
