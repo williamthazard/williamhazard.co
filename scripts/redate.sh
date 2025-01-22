@@ -8,7 +8,7 @@ function dateCheck() {
 }
 function textCheck() {
   if [ -e $file.txt ]; then
-    echo "${file} has already been posted to Bluesky"
+    echo "${file} has already been posted to Bluesky and Mastodon"
   else
     pandoc  --from markdown --to plain -o ${file}.txt ${file}.md
     charCheck
@@ -17,18 +17,20 @@ function textCheck() {
 function charCheck() {
   characters=$(wc -c < ${file}.txt)
   if [ $characters -le 300 ]; then
-    bsPost
+    post
   else
-    echo "${file} is too long for Bluesky"
+    echo "${file} is too long for Bluesky or Mastodon"
   fi
 }
-function bsPost() {
-  echo ">> posting today's entry to Bluesky"
+function post() {
+  echo ">> posting today's entry to Bluesky & Mastodon"
   text=$(cat ${file}.txt)
   if [ -e pics/$file.jpeg ]; then
     image="pics/${file}.jpeg"
+    toot post $text --media $image --description "an image"
   else
     image=""
+    toot post $text
   fi
   python ../../scripts/bs-post.py "${text}" "${image}" "an image"
 }
