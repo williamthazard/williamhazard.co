@@ -9,7 +9,7 @@ import sys
 # Your Bluesky credentials and API URLs
 handle = os.environ.get('BS_UN')
 app_password = os.environ.get('BS_PW')
-pds_url = 'https://bsky.social'
+pds_url = 'https://pds.williamhazard.co'
 session_endpoint = f'{pds_url}/xrpc/com.atproto.server.createSession'
 post_endpoint = f'{pds_url}/xrpc/com.atproto.repo.createRecord'
 upload_image_endpoint = f'{pds_url}/xrpc/com.atproto.repo.uploadBlob'
