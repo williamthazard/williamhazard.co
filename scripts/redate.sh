@@ -8,7 +8,7 @@ function dateCheck() {
 }
 function textCheck() {
   if [ -e $file.txt ]; then
-    echo "${file} has already been posted to Bluesky and Mastodon"
+    echo "${file} has already been posted to Bluesky & Mastodon"
   else
     pandoc  --from markdown --to plain -o ${file}.txt ${file}.md
     charCheck
