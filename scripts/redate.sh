@@ -28,6 +28,9 @@ function post() {
   if [ -e pics/$file.jpeg ]; then
     image="pics/${file}.jpeg"
     toot post $text --media $image --description "an image"
+  elif [ -e pics/$file.png ] ; then
+    image="pics/${file}.png"
+    toot post $text --media $image --description "an image"
   else
     image=""
     toot post $text
