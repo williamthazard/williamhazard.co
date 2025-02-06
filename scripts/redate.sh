@@ -19,7 +19,10 @@ function charCheck() {
   if [ $characters -le 300 ]; then
     post
   else
-    echo "${file} is too long for Bluesky or Mastodon"
+    echo "${file} is too long for Bluesky"
+    text=$(cat ${file}.txt)
+    image="pics/${file}.jpeg"
+    toot post $text --media $image --description $text
   fi
 }
 function post() {
@@ -27,10 +30,10 @@ function post() {
   text=$(cat ${file}.txt)
   if [ -e pics/$file.jpeg ]; then
     image="pics/${file}.jpeg"
-    toot post $text --media $image --description "an image"
+    toot post $text --media $image --description $text
   elif [ -e pics/$file.png ] ; then
     image="pics/${file}.png"
-    toot post $text --media $image --description "an image"
+    toot post $text --media $image --description $text
   else
     image=""
     toot post $text
