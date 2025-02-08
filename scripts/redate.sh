@@ -20,6 +20,7 @@ function charCheck() {
     post
   else
     echo "${file} is too long for Bluesky"
+    echo "posting to Mastodon"
     text=$(cat ${file}.txt)
     image="pics/${file}.jpeg"
     toot post $text --media $image --description $text
