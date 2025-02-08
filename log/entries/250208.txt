@@ -1,9 +1,5 @@
 [blur]
 
-blurry process pic of me soldering a transducer for settle, a multimedia
-installation created in collaboration with Alexandra Wood at
-Philadelphia Small Works Gallery, opening tonight at 6pm. Thanks to
-Souha Yan for helping me source these transducers. Thanks to dani derks
-for helping me figure out the wiring. Thanks, also, to Zack Scholl,
-whose blog post on multichannel audio in supercollider on linux was very
-helpful.
+pic of soldering a transducer for settle, an installation in collab w/
+Alexandra Wood at Philly Small Works Gallery, opening tonight at 6pm.
+Thanks to Souha Yan, dani derks, and Zack Scholl.
