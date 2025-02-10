@@ -10,6 +10,6 @@ These are interwoven with [code](code).
 
 Sometimes, they're captured in [videos](videos).
 
-Sometimes, they're shared in [performances](performances).
+Sometimes, they're shared at [events](events).
 
 The rest of the time, there's a [log](log) [[rss](log/rss.xml)].
