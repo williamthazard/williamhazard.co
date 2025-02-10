@@ -9,10 +9,6 @@ function dateCheck() {
 function textCheck() {
   if [ -e $file.txt ]; then
     echo "${file} has already been posted to socials"
-    text=$(cat ${file}.txt)
-    image="pics/${file}.jpeg"
-    echo "posting to izzzzi"
-    python ../../scripts/izzzzi-post.py "${text}" "${image}"
   else
     pandoc  --from markdown --to plain -o ${file}.txt ${file}.md
     charCheck
