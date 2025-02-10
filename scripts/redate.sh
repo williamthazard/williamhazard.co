@@ -9,6 +9,10 @@ function dateCheck() {
 function textCheck() {
   if [ -e $file.txt ]; then
     echo "${file} has already been posted to socials"
+    text=$(cat ${file}.txt)
+    image="pics/${file}.jpeg"
+    echo "posting to izzzzi"
+    python ../../scripts/izzzzi-post.py "${text}" "${image}"
   else
     pandoc  --from markdown --to plain -o ${file}.txt ${file}.md
     charCheck
@@ -24,6 +28,8 @@ function charCheck() {
     text=$(cat ${file}.txt)
     image="pics/${file}.jpeg"
     toot post $text --media $image --description $text
+    echo "posting to izzzzi"
+    python ../../scripts/izzzzi-post.py "${text}" "${image}"
   fi
 }
 function post() {
@@ -31,13 +37,22 @@ function post() {
   text=$(cat ${file}.txt)
   if [ -e pics/$file.jpeg ]; then
     image="pics/${file}.jpeg"
+    echo "posting to Mastodon"
     toot post $text --media $image --description $text
+    echo "posting to izzzzi"
+    python ../../scripts/izzzzi-post.py "${text}" "${image}"
   elif [ -e pics/$file.png ] ; then
     image="pics/${file}.png"
+    echo "posting to Mastodon"
     toot post $text --media $image --description $text
+    echo "posting to izzzzi"
+    python ../../scripts/izzzzi-post.py "${text}" "${image}"
   else
     image=""
+    echo "posting to Mastodon"
     toot post $text
+    echo "posting to izzzzi"
+    python ../../scripts/izzzzi-post.py "${text}" "${image}"
   fi
   python ../../scripts/bs-post.py "${text}" "${image}" "an image"
 }
