@@ -8,7 +8,6 @@ post_image = sys.argv[2]
 
 # Set up the WebDriver
 driver = webdriver.Chrome()
-driver.minimize_window()
 
 # Navigate to the login page
 driver.get("https://izzzzi.net/")
@@ -28,12 +27,14 @@ login_field.click()
 # Navigate to tomorrow
 driver.get("https://izzzzi.net/tomorrow")
 
-# Locate and fill in the form fields
-form_field = driver.find_element(By.NAME, "text")
-form_field.send_keys(post_text)
+# Locate and fill in the text field
+text_field = driver.find_element(By.NAME, "text")
+text_field.send_keys(post_text)
+
+# Locate and fill in the image field
 img_field = driver.find_element(By.NAME, "img")
 img_field.send_keys(os.path.abspath(post_image))
-save_field = driver.find_element(By.NAME, "action")
 
 # Submit the form
+save_field = driver.find_element(By.NAME, "action")
 save_field.click()
