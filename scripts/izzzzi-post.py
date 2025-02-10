@@ -25,15 +25,15 @@ password_field.send_keys(os.environ.get('IZ_PW'))
 login_field = driver.find_element(By.TAG_NAME, "button")
 login_field.click()
 
-# Navigate to the form you want to fill
+# Navigate to tomorrow
 driver.get("https://izzzzi.net/tomorrow")
 
-# # Locate and fill in the form fields
+# Locate and fill in the form fields
 form_field = driver.find_element(By.NAME, "text")
 form_field.send_keys(post_text)
 img_field = driver.find_element(By.NAME, "img")
 img_field.send_keys(os.path.abspath(post_image))
 save_field = driver.find_element(By.NAME, "action")
 
-# # Submit the form
+# Submit the form
 save_field.click()
