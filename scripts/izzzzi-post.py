@@ -8,6 +8,7 @@ post_image = sys.argv[2]
 
 # Set up the WebDriver
 driver = webdriver.Chrome()
+driver.minimize_window()
 
 # Navigate to the login page
 driver.get("https://izzzzi.net/")
