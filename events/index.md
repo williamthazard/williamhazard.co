@@ -1,6 +1,6 @@
-[![](performances.jpeg)](../)
+[![](events.jpeg)](../)
 
-# performances
+# events
 
 <p class='right'> <b>2025</b> </p>
 
