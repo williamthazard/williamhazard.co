@@ -23,34 +23,39 @@ function charCheck() {
     echo "posting to Mastodon"
     text=$(cat ${file}.txt)
     mark=$(cat ${file}.md)
-    img-mark=$(tail -n 1 ${file}.md)
+    imgtail=$(tail -n 1 ${file}.md)
+    cat ${imagetail} > ${file}-tail.md
+    imgmark=$(cat ${file}-tail.md)
     image="pics/${file}.jpeg"
     toot post $text --media $image --description $text
     if [ -e pics/$file.jpeg ]; then
     echo "posting to izzzzi" 
-      python ../../scripts/izzzzi-post.py "${img-mark}" "${image}"
+      python ../../scripts/izzzzi-post.py "${imgmark}" "${image}"
     else
       python ../../scripts/izzzzi-post.py "${mark}" "${image}"
     fi
   fi
+  rm ${file}-tail.md
 }
 function post() {
   echo ">> posting today's entry to Bluesky & Mastodon"
   text=$(cat ${file}.txt)
   mark=$(cat ${file}.md)
-  img-mark=$(tail -n 1 ${file}.md)
+  imgtail=$(tail -n 1 ${file}.md)
+  cat ${imagetail} > ${file}-tail.md
+  imgmark=$(cat ${file}-tail.md)
   if [ -e pics/$file.jpeg ]; then
     image="pics/${file}.jpeg"
     echo "posting to Mastodon"
     toot post $text --media $image --description $text
     echo "posting to izzzzi"
-    python ../../scripts/izzzzi-post.py "${img-mark}" "${image}"
+    python ../../scripts/izzzzi-post.py "${imgmark}" "${image}"
   elif [ -e pics/$file.png ] ; then
     image="pics/${file}.png"
     echo "posting to Mastodon"
     toot post $text --media $image --description $text
     echo "posting to izzzzi"
-    python ../../scripts/izzzzi-post.py "${img-mark}" "${image}"
+    python ../../scripts/izzzzi-post.py "${imgmark}" "${image}"
   else
     image=""
     echo "posting to Mastodon"
@@ -59,6 +64,7 @@ function post() {
     python ../../scripts/izzzzi-post.py "${mark}" "${image}"
   fi
   python ../../scripts/bs-post.py "${text}" "${image}" "${text}"
+  rm ${file}-tail.md
 }
 for file in $marks ; do
   old_date=${file%-*}
