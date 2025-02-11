@@ -24,44 +24,36 @@ function charCheck() {
     mark=$(cat ${file}.md)
     tail -n 1 ${file}.md > ${file}-tail.md
     imgmark=$(cat ${file}-tail.md)
-    echo "posting to izzzzi"
+    echo "posting today's entry to Mastodon and izzzzi"
     if [ -e pics/$file.jpeg ]; then
       image="pics/${file}.jpeg" 
       python ../../scripts/izzzzi-post.py "${imgmark}" "${image}"
-      echo "posting to Mastodon"
       toot post $text --media $image --description $text
     else
       image=""
       python ../../scripts/izzzzi-post.py "${mark}" "${image}"
-      echo "posting to Mastodon"
       toot post $text
     fi
   fi
   rm ${file}-tail.md
 }
 function post() {
-  echo ">> posting today's entry to Bluesky & Mastodon"
+  echo ">> posting today's entry to Bluesky, Mastodon, and izzzzi"
   text=$(cat ${file}.txt)
   mark=$(cat ${file}.md)
   tail -n 1 ${file}.md > ${file}-tail.md
   imgmark=$(cat ${file}-tail.md)
   if [ -e pics/$file.jpeg ]; then
     image="pics/${file}.jpeg"
-    echo "posting to Mastodon"
     toot post $text --media $image --description $text
-    echo "posting to izzzzi"
     python ../../scripts/izzzzi-post.py "${imgmark}" "${image}"
   elif [ -e pics/$file.png ] ; then
     image="pics/${file}.png"
-    echo "posting to Mastodon"
     toot post $text --media $image --description $text
-    echo "posting to izzzzi"
     python ../../scripts/izzzzi-post.py "${imgmark}" "${image}"
   else
     image=""
-    echo "posting to Mastodon"
     toot post $text
-    echo "posting to izzzzi"
     python ../../scripts/izzzzi-post.py "${mark}" "${image}"
   fi
   python ../../scripts/bs-post.py "${text}" "${image}" "${text}"
