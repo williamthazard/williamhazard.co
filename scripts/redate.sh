@@ -16,17 +16,21 @@ function textCheck() {
 }
 function charCheck() {
   characters=$(wc -c < ${file}.txt)
+  text=$(cat ${file}.txt)
+  mark=$(cat ${file}.md)
+  tail -n 1 ${file}.md > ${file}-tail.md
+  imgmark=$(cat ${file}-tail.md)
   if [ $characters -le 300 ]; then
     post
   else
-    echo "${file} is too long for Bluesky"
-    text=$(cat ${file}.txt)
-    mark=$(cat ${file}.md)
-    tail -n 1 ${file}.md > ${file}-tail.md
-    imgmark=$(cat ${file}-tail.md)
-    echo "posting today's entry to Mastodon and izzzzi"
+    echo ">> ${file} is too long for Bluesky"
+    echo ">> posting ${file} to Mastodon and izzzzi"
     if [ -e pics/$file.jpeg ]; then
       image="pics/${file}.jpeg" 
+      python ../../scripts/izzzzi-post.py "${imgmark}" "${image}"
+      toot post $text --media $image --description $text
+    elif [ -e pics/$file.png ] ; then
+      image="pics/${file}.png"
       python ../../scripts/izzzzi-post.py "${imgmark}" "${image}"
       toot post $text --media $image --description $text
     else
@@ -34,27 +38,23 @@ function charCheck() {
       python ../../scripts/izzzzi-post.py "${mark}" "${image}"
       toot post $text
     fi
+    rm ${file}-tail.md
   fi
-  rm ${file}-tail.md
 }
 function post() {
-  echo ">> posting today's entry to Bluesky, Mastodon, and izzzzi"
-  text=$(cat ${file}.txt)
-  mark=$(cat ${file}.md)
-  tail -n 1 ${file}.md > ${file}-tail.md
-  imgmark=$(cat ${file}-tail.md)
+  echo ">> posting ${file} to Bluesky, Mastodon, and izzzzi"
   if [ -e pics/$file.jpeg ]; then
     image="pics/${file}.jpeg"
-    toot post $text --media $image --description $text
     python ../../scripts/izzzzi-post.py "${imgmark}" "${image}"
+    toot post $text --media $image --description $text
   elif [ -e pics/$file.png ] ; then
     image="pics/${file}.png"
-    toot post $text --media $image --description $text
     python ../../scripts/izzzzi-post.py "${imgmark}" "${image}"
+    toot post $text --media $image --description $text
   else
     image=""
-    toot post $text
     python ../../scripts/izzzzi-post.py "${mark}" "${image}"
+    toot post $text
   fi
   python ../../scripts/bs-post.py "${text}" "${image}" "${text}"
   rm ${file}-tail.md
