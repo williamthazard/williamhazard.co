@@ -20,18 +20,21 @@ function charCheck() {
     post
   else
     echo "${file} is too long for Bluesky"
-    echo "posting to Mastodon"
     text=$(cat ${file}.txt)
     mark=$(cat ${file}.md)
     tail -n 1 ${file}.md > ${file}-tail.md
     imgmark=$(cat ${file}-tail.md)
-    image="pics/${file}.jpeg"
-    toot post $text --media $image --description $text
+    echo "posting to izzzzi"
     if [ -e pics/$file.jpeg ]; then
-    echo "posting to izzzzi" 
+      image="pics/${file}.jpeg" 
       python ../../scripts/izzzzi-post.py "${imgmark}" "${image}"
+      echo "posting to Mastodon"
+      toot post $text --media $image --description $text
     else
+      image=""
       python ../../scripts/izzzzi-post.py "${mark}" "${image}"
+      echo "posting to Mastodon"
+      toot post $text
     fi
   fi
   rm ${file}-tail.md
