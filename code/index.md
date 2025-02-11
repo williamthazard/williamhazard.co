@@ -4,9 +4,13 @@
 
 ### *if you derive value or pleasure from these tools, and if you have the means, please consider [sponsoring my work](https://github.com/sponsors/williamthazard) with a monthly contribution – your support allows me to keep working on these projects and keeps my work free and open for anyone to use*
 
+[scryingstone-seamstress](https://github.com/williamthazard/scryingstone-seamstress) – scrying stone for [seamstress](https://github.com/robbielyman/seamstress-v1)
+
+[scryingstone](https://github.com/williamthazard/scryingstone) – scrying stone for [monome](https://monome.org/) [norns](https://monome.org/docs/norns/)
+
 [color-field](https://github.com/williamthazard/color-field) – image sonification script created for "settle," a collaborative installation with [Alexandra Wood](https://www.tender-form.com/) at [The Philadelphia Small Works Gallery](https://www.philadelphiasmallworks.com/)
 
-[näherinlied](https://github.com/williamthazard/naherinlied) – lied script for [seamstress](https://github.com/ryleelyman/seamstress). Turns text into music  – [(demo)](https://www.youtube.com/watch?v=WkPvt-k2Teg)
+[näherinlied](https://github.com/williamthazard/naherinlied) – lied script for [seamstress](https://github.com/robbielyman/seamstress-v1). Turns text into music  – [(demo)](https://www.youtube.com/watch?v=WkPvt-k2Teg)
 
 [nornsCarter](https://github.com/williamthazard/carters-delay-norns) – [Carter's Delay](https://github.com/williamthazard/carters_delay) for [monome](https://monome.org/) [norns](https://monome.org/docs/norns/)
 
@@ -14,7 +18,7 @@
 
 [A/An](https://github.com/williamthazard/aan): an instrument built for [Mandy Gutmann-Gonzalez](https://mandygutmanngonzalez.com/), for performances of work from their chapbook *[A/An](https://endlinepress.com/A-An-by-Mandy-Gutmann-Gonzalez-a-chapbook)*
 
-[seamstressCarter](https://github.com/williamthazard/seamstressCarter): [Carter's Delay](https://github.com/williamthazard/carters_delay) for [seamstress](https://github.com/ryleelyman/seamstress)
+[seamstressCarter](https://github.com/williamthazard/seamstressCarter): [Carter's Delay](https://github.com/williamthazard/carters_delay) for [seamstress](https://github.com/robbielyman/seamstress-v1)
 
 [bwsampler](https://github.com/williamthazard/bwsampler): a sampler built in collaboration with students at The Bridge Way School in Philadelphia, PA
 
