@@ -4,6 +4,10 @@
 
 <p class='right'> <b>2025</b> </p>
 
+**March 27 2025** – code sonnets online workshop for A Writers Party 2025
+
+**February 8 2025** – opening reception for _settle_, a collaborative installation with [Alexandra Wood](https://tender-form.com) at [Philadelphia Small Works Gallery](https://www.philadelphiasmallworks.com/)
+
 **January 18 2025** – [_mix_lit](https://www.mixlit.io/) presents: a flat imagination workshop (featuring [dani derks](https://dndrks.com/) and The Goodbye Mind), [Emerald Wildflower Garden + The Perch Music / Arts Workshop](https://www.emeraldwildflowergarden.org/the-perch-music-arts-studio) (2321 Emerald Street), Philadelphia PA (hosting w/ [Warren Longmire](https://alongmirewriter.squarespace.com/)); [tickets available here](https://www.eventbrite.com/e/-mix-lit-presents-a-flat-imagination-workshop-goodbye-mind-dani-derks-tickets-1116860623189?aff=oddtdtcreator)
 
 **January 17 2025** – [_mix_lit](https://www.mixlit.io/) presents: a flat imagination workshop (featuring [dani derks](https://dndrks.com/) and The Goodbye Mind), [Emerald Wildflower Garden + The Perch Music / Arts Workshop](https://www.emeraldwildflowergarden.org/the-perch-music-arts-studio) (2321 Emerald Street), Philadelphia PA (hosting w/ [Warren Longmire](https://alongmirewriter.squarespace.com/)); [tickets available here](https://www.eventbrite.com/e/-mix-lit-presents-a-flat-imagination-workshop-goodbye-mind-dani-derks-tickets-1116860623189?aff=oddtdtcreator)
