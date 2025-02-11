@@ -23,7 +23,7 @@ function charCheck() {
     echo "posting to Mastodon"
     text=$(cat ${file}.txt)
     mark=$(cat ${file}.md)
-    cat $(tail -n 1 ${file}.md) > ${file}-tail.md
+    tail -n 1 ${file}.md > ${file}-tail.md
     imgmark=$(cat ${file}-tail.md)
     image="pics/${file}.jpeg"
     toot post $text --media $image --description $text
@@ -40,7 +40,7 @@ function post() {
   echo ">> posting today's entry to Bluesky & Mastodon"
   text=$(cat ${file}.txt)
   mark=$(cat ${file}.md)
-  cat $(tail -n 1 ${file}.md) > ${file}-tail.md
+  tail -n 1 ${file}.md > ${file}-tail.md
   imgmark=$(cat ${file}-tail.md)
   if [ -e pics/$file.jpeg ]; then
     image="pics/${file}.jpeg"
