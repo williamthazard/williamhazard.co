@@ -37,6 +37,8 @@ function charCheck() {
 function post() {
   echo ">> posting today's entry to Bluesky & Mastodon"
   text=$(cat ${file}.txt)
+  mark=$(cat ${file}.md)
+  img-mark=$(tail -n 1 ${file}.md)
   if [ -e pics/$file.jpeg ]; then
     image="pics/${file}.jpeg"
     echo "posting to Mastodon"
