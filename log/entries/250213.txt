@@ -2,6 +2,5 @@
 
 highly recommend staring at static and listening to noise for long
 periods of time as a form of divination. I’ve created a couple little
-scripts to facilitate this practice on monome norns as well as other
-macOS and Linux computers via seamstress; please feel free to grab them
-from my GitHub if you’re so inclined
+scripts to facilitate this practice; please feel free to grab them from
+my GitHub if you’re so inclined.
