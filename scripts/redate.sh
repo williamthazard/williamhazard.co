@@ -34,8 +34,7 @@ function charCheck() {
       python ../../scripts/izzzzi-post.py "${imgmark}" "${image}"
       toot post $text --media $image --description $text
     else
-      image=""
-      python ../../scripts/izzzzi-post.py "${mark}" "${image}"
+      python ../../scripts/izzzzi-post.py "${mark}"
       toot post $text
     fi
     rm ${file}-tail.md
