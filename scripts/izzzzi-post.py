@@ -5,8 +5,6 @@ import sys
 
 num_args=len(sys.argv)-1
 post_arg = []
-field = []
-types = ['text','img','file']
 
 # Set up the WebDriver
 driver = webdriver.Chrome()
@@ -33,14 +31,19 @@ driver.get("https://izzzzi.net/tomorrow")
 action_fields = driver.find_elements(By.NAME, "action")
 action_fields[1].click()
 
-# Locate and fill in data fields
+# Collect user input arguments for post
 for arg in range(num_args):
     post_arg.append(sys.argv[arg+1])
-    field.append(driver.find_element(By.NAME, types[arg]))
-    if arg == 0:
-        field[arg].send_keys(post_arg[arg])
+
+# Convert user input arguments into a dictionary
+arg_dict = {post_arg[i]: post_arg[i + 1] for i in range(0, len(post_arg), 2)}
+
+# Locate and fill in all relevant post fields
+for k,v in arg_dict.items():
+    if k == 'text':
+        driver.find_element(By.NAME, k).send_keys(v)
     else:
-        field[arg].send_keys(os.path.abspath(post_arg[arg]))
+        driver.find_element(By.NAME, k).send_keys(os.path.abspath(v))
 
 # Submit the form
 save_field = driver.find_element(By.NAME, "action")

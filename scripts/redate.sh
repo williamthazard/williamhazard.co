@@ -27,14 +27,14 @@ function charCheck() {
     echo ">> posting ${file} to Mastodon and izzzzi"
     if [ -e pics/$file.jpeg ]; then
       image="pics/${file}.jpeg" 
-      python ../../scripts/izzzzi-post.py "${imgmark}" "${image}"
+      python ../../scripts/izzzzi-post.py text "${imgmark}" img "${image}"
       toot post $text --media $image --description $text
     elif [ -e pics/$file.png ] ; then
       image="pics/${file}.png"
-      python ../../scripts/izzzzi-post.py "${imgmark}" "${image}"
+      python ../../scripts/izzzzi-post.py text "${imgmark}" img "${image}"
       toot post $text --media $image --description $text
     else
-      python ../../scripts/izzzzi-post.py "${mark}"
+      python ../../scripts/izzzzi-post.py text "${mark}"
       toot post $text
     fi
     rm ${file}-tail.md
@@ -44,15 +44,14 @@ function post() {
   echo ">> posting ${file} to Bluesky, Mastodon, and izzzzi"
   if [ -e pics/$file.jpeg ]; then
     image="pics/${file}.jpeg"
-    python ../../scripts/izzzzi-post.py "${imgmark}" "${image}"
+    python ../../scripts/izzzzi-post.py text "${imgmark}" img "${image}"
     toot post $text --media $image --description $text
   elif [ -e pics/$file.png ] ; then
     image="pics/${file}.png"
-    python ../../scripts/izzzzi-post.py "${imgmark}" "${image}"
+    python ../../scripts/izzzzi-post.py text "${imgmark}" img "${image}"
     toot post $text --media $image --description $text
   else
-    image=""
-    python ../../scripts/izzzzi-post.py "${mark}" "${image}"
+    python ../../scripts/izzzzi-post.py text "${mark}"
     toot post $text
   fi
   python ../../scripts/bs-post.py "${text}" "${image}" "${text}"
