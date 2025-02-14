@@ -27,7 +27,7 @@ login_field.click()
 # Navigate to tomorrow
 driver.get("https://izzzzi.net/tomorrow")
 
-#Clear existing content
+# Clear existing content
 action_fields = driver.find_elements(By.NAME, "action")
 action_fields[1].click()
 
@@ -35,7 +35,7 @@ action_fields[1].click()
 text_field = driver.find_element(By.NAME, "text")
 text_field.send_keys(post_text)
 
-# Locate and fill in the text field
+# Locate and fill in the image field
 img_field = driver.find_element(By.NAME, "img")
 img_field.send_keys(os.path.abspath(post_image))
 
