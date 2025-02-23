@@ -1,4 +1,4 @@
-[action karate shark]
+[action-karate-shark]
 
 at the end of the day people won’t remember / what you said or did, /
 they will remember how you made them feel.
