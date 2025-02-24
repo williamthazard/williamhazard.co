@@ -5,5 +5,7 @@
 **pictures**
 
 ![headshot](pics/headshot.png)
+
 ![events](pics/events.jpeg)
+
 ![header](pics/header.jpeg)
