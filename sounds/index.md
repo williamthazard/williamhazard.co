@@ -2,6 +2,8 @@
 
 # sounds
 
+[Audio Flare Gun](https://audioflaregun.com) [Episode 5: Spaceship in the Jungle](https://audioflaregun.com/2025/03/02/episode-5-spaceship-in-the-jungle/): hosted by [Dave Cedillo](https://davidcedillo.com)
+
 [At What Cost](https://atwhatcost.me/) [Catalog](https://catalogs.atwhatcost.me/) 1: [OBSESSION](https://obsession.atwhatcost.me/): ["Diseases of Astonishment"](https://obsession.atwhatcost.me/mandy-gutmann-gonzalez-and-william-hazard) – a collaboration with [Mandy Gutmann-Gonzalez](https://mandygutmanngonzalez.com/)
 
 [Audio Flare Gun](https://audioflaregun.com), [Episode 4: Four on the Fourth](https://audioflaregun.com/2024/07/04/episode-four-four-on-the-fourth/): hosted by [Dave Cedillo](http://davidcedillo.com/)
