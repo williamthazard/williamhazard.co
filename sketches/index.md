@@ -1,15 +1,15 @@
 [![](sketches.jpeg)](../)
 # <p class='center'>sketches</p>
-[teapot](teapot/index.html)
+[teapot](teapot)
 
-[boom-red](boom-red/index.html)
+[boom-red](boom-red)
 
-[curse-krypton](curse-krypton/index.html)
+[curse-krypton](curse-krypton)
 
-[candle-cradle](candle-cradle/index.html)
+[candle-cradle](candle-cradle)
 
-[240604](240604/index.html)
+[240604](240604)
 
-[liquid text](liquid-text/index.html)
+[liquid text](liquid-text)
 
-[test](test/index.html)
+[test](test)
