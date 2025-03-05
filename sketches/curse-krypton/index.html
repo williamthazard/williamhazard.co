@@ -19,9 +19,9 @@
     ];
 
     let ind = 0;
-    // function preload() {snd = loadSound('assets/bald-crow.mp3')}
+    function preload() {snd = loadSound('assets/bald-crow.mp3')}
     function setup() {let cnv = createCanvas(windowWidth, windowHeight);
-      // cnv.mousePressed(canvasPressed); snd.playMode('restart')
+      cnv.mousePressed(canvasPressed); snd.playMode('restart')
                      }
     function draw() {
       background(34); textSize(50); 
@@ -31,5 +31,5 @@
         text(lines[(ind+x)%lines.length].text,
         lines[(ind+x)%lines.length].align[0],
         lines[(ind+x)%lines.length].align[1])}}
-    // function canvasPressed() {if (snd.isPlaying() === true) {snd.stop()} else {snd.play()}}
-      function windowResized() {resizeCanvas(windowWidth, windowHeight)}</script></body></html>
+    function canvasPressed() {if (snd.isPlaying() === true) {snd.stop()} else {snd.play()}}
+    function windowResized() {resizeCanvas(windowWidth, windowHeight)}</script></body></html>
