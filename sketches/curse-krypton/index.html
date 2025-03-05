@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js"></script><meta charset="utf-8" /></head>
+  <body><script>let lines = [{text: ["hi"], align: [0,50]},{text: ["ho"], align: [345,50]},
+      {text: ["hum"], align: [0,400]},{text: ["him"], align: [345,400]},
+      {text: ["hm"], align: [200,200]},{text: ["hee"], align: [0,50]},
+      {text: ["hey"], align: [345,50]},{text: ["how"], align: [0,400]},
+      {text: ["who"], align: [345,400]},{text: ["whoa"], align: [200,200]},
+      {text: ["away"], align: [0,50]},{text: ["awash"], align: [345,50]},
+      {text: ["avast"], align: [0,400]},{text: ["avow"], align: [345,400]},
+      {text: ["agog"], align: [200,200]},{text: ["hell"], align: [0,50]},
+      {text: ["hash"], align: [345,50]},{text: ["ham"], align: [0,400]},
+      {text: ["hard"], align: [345,400]},{text: ["hymen"], align: [180,200]},
+      {text: ["holy"], align: [0,50]},{text: ["holly"], align: [345,50]},
+      {text: ["wow"], align: [0,400]},{text: ["hoot"], align: [345,400]},
+      {text: ["bro"], align: [200,200]}
+    ];
+
+    let ind = 0;
+    // function preload() {snd = loadSound('assets/bald-crow.mp3')}
+    function setup() {let cnv = createCanvas(windowWidth, windowHeight);
+      // cnv.mousePressed(canvasPressed); snd.playMode('restart')
+                     }
+    function draw() {
+      background(34); textSize(50); 
+      fill('white'); frameRate(0.25);
+      ind = (frameCount*4)%lines.length;
+      for (let x = 0; x < 5; x+= 1) {
+        text(lines[(ind+x)%lines.length].text,
+        lines[(ind+x)%lines.length].align[0],
+        lines[(ind+x)%lines.length].align[1])}}
+    // function canvasPressed() {if (snd.isPlaying() === true) {snd.stop()} else {snd.play()}}
+      function windowResized() {resizeCanvas(windowWidth, windowHeight)}</script></body></html>

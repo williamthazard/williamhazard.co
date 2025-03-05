@@ -4,7 +4,7 @@
 
 [boom-red](boom-red/index.html)
 
-[curses-krypton](curses-krypton/index.html)
+[curse-krypton](curse-krypton/index.html)
 
 [candle-cradle](candle-cradle/index.html)
 
