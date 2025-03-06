@@ -1,0 +1,23 @@
+[code sonnets]
+
+you are cordially invite to join me for this online workshop on March
+27th, 2025, presented in collaboration with A Writer’s Party, in which
+we’ll be experimenting with what I’m calling “code sonnets” – 14-line
+poems, with a turn at line 8, made of executable code. We’ll be focused
+on making these in javascript using the p5.js library, but of course,
+you’re welcome to use whatever you’d like. You can register for the
+workshop at
+https://us06web.zoom.us/meeting/register/okYyxkWBQoao6txf_nNHGg#/registration,
+and you can find some examples at
+https://williamhazard.co/sketches/boom-red/ and
+https://williamhazard.co/sketches/teapot/.
+
+In the workshop, we’ll go over these examples together, and then you’ll
+get some time to make something of your own and share it with the group.
+You don’t have to download anything to participate – you can make pieces
+just like those examples entirely in the browser, using the handy p5.js
+code editor and reference, which I’ll introduce you to in the workshop.
+I’m excited to explore these ideas together, and my hope is that they’ll
+provide a fun and approachable introduction to creative coding for
+newcomers and an interesting and inspiring challenge for everyone. I
+hope you’ll join us.
