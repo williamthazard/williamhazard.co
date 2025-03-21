@@ -1,0 +1,5 @@
+[teapot]
+
+this is an image of a 3D model of a teapot – come learn how to make an
+interactive verion of this and other fun things in just 14 lines of code
+at the upcoming code sonnets workshop!
