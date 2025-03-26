@@ -71,8 +71,11 @@ for file in $marks ; do
   echo "${file} | date: ${new_date}"
   if [[ $1 == 'socials' ]] ; then
     dateCheck
-  else
-    echo ">> not posting to socials"
   fi
 done
+if [[ $1 == 'socials' ]] ; then
+  echo ">> posted to socials"
+else
+  echo ">> skipping socials"
+fi
 cd ../../scripts
