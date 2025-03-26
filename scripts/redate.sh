@@ -69,8 +69,10 @@ for file in $marks ; do
   touch -d ${new_date} ${file}
   file=${file%.*}
   echo "${file} | date: ${new_date}"
-  if [[ $1 == socials ]] ; then
+  if [[ $1 == 'socials' ]] ; then
     dateCheck
+  else
+    echo ">> not posting to socials"
   fi
 done
 cd ../../scripts
