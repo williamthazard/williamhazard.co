@@ -1,5 +1,7 @@
 [![](sketches.jpeg)](../)
 # <p class='center'>sketches</p>
+[small-works](small-works)
+
 [teapot](teapot)
 
 [boom-red](boom-red)
