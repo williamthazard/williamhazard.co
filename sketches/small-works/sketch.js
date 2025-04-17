@@ -70,14 +70,14 @@ function setup() {
   let cnv = createCanvas(windowWidth, windowHeight);
   
   // Load samples
-  metaSound(0, '/assets/0.mp3');
-  metaSound(1, '/assets/1.mp3');
-  metaSound(2, '/assets/2.mp3');
-  metaSound(3, '/assets/3.mp3');
-  metaSound(4, '/assets/4.mp3');
-  metaSound(5, '/assets/5.mp3');
-  metaSound(6, '/assets/6.mp3');
-  metaSound(7, '/assets/7.mp3');
+  metaSound(0, 'assets/0.mp3');
+  metaSound(1, 'assets/1.mp3');
+  metaSound(2, 'assets/2.mp3');
+  metaSound(3, 'assets/3.mp3');
+  metaSound(4, 'assets/4.mp3');
+  metaSound(5, 'assets/5.mp3');
+  metaSound(6, 'assets/6.mp3');
+  metaSound(7, 'assets/7.mp3');
   
   // for(let i = 0; i<numSamples; i += 1) { (doesn't work)
   //   let path = '/assets/'+i+'.mp3';
