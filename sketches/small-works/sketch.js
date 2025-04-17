@@ -41,7 +41,7 @@ function metaSound(i, filename) {
   function soundLoaded(sound) {
     //console.log('sample ' + i + ': ' + filename + ' loaded');
     sample[i] = sound;
-    sample[i].playMode('untilDone');
+    sample[i].playMode('restart');
     fft[i] = new p5.FFT();
     sampFilter[i] = new p5.LowPass();
     sample[i].disconnect();
