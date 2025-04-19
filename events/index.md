@@ -4,6 +4,12 @@
 
 <p class='right'> <b>2025</b> </p>
 
+**May 16 2025** – [_mix_lit](https://www.mixlit.io/) presents: a flat imagination workshop (featuring [Carlos Soto-Román](https://uglyducklingpresse.org/contributors/9186/) and [J †Johnson](https://creative.writing.upenn.edu/people/j-johnson)), [Emerald Wildflower Garden + The Perch Music / Arts Workshop](https://www.emeraldwildflowergarden.org/the-perch-music-arts-studio) (2321 Emerald Street), Philadelphia PA (hosting w/ [Warren Longmire](https://alongmirewriter.squarespace.com/))
+
+**May 7 2025** – [Technical.ly](https://technical.ly/) Developers Conference, 15th Annual [Philly Tech Week](https://www.phillytechweek.com/), Comcast Technology Center (1800 Arch St), Philadelphia PA; [tickets available here](https://www.eventbrite.com/e/technically-developers-conference-2025-tickets-1243070099129?aff=oddtdtcreator)
+
+**May 2 2025** – featured artist, [Creative Becoming](https://www.creativebecoming.community/) open mic, [Emerald Wildflower Garden + The Perch Music / Arts Workshop](https://www.emeraldwildflowergarden.org/the-perch-music-arts-studio) (2321 Emerald Street), Philadelphia PA; [tickets available here](https://www.eventbrite.com/e/monthly-open-mic-tickets-1107444709939?aff=oddtdtcreator)
+
 **Mar 27 2025** – code sonnets online workshop for A Writers Party 2025
 
 **Feb 22 2025** – closing reception for _settle_, a collaborative installation with [Alexandra Wood](https://tender-form.com) at [Philadelphia Small Works Gallery](https://www.philadelphiasmallworks.com/)
