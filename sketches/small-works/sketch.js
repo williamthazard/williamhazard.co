@@ -56,9 +56,6 @@ function metaSound(i, filename) {
     console.log(err);
   }
   function progress(percent) {
-    textSize(25);
-    fill(255);
-    noStroke();
     percentage[i] = floor(percent*100);
   }
 }
