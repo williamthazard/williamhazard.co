@@ -134,11 +134,15 @@ function draw() {
     for (let i = 0; i < numSamples; i++) {
       if (percentage[i]) {
         let loadText;
+        let loadAlpha;
         if (percentage[i] < 98) {
           loadText = `sample ${i} loaded ${percentage[i]}%`;
+          loadAlpha = 100;
         } else {
-          loadText = `sample ${i} loaded ✅`
+          loadText = `sample ${i} loaded ✅`;
+          loadAlpha = 255;
         }
+        fill(loadAlpha);
         text(
           loadText,
           width/2-125,
