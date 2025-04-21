@@ -59,7 +59,7 @@ function metaSound(i, filename) {
     fill(255);
     noStroke();
     text(
-      `sample ${i} loaded ${floor(percent*10)}%`,
+      `sample ${i} loaded ${floor(percent*100)}%`,
       width/2-125,
       height/2+50+25*i
     );
