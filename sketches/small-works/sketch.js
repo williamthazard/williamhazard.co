@@ -121,23 +121,29 @@ function draw() {
   if (loading) { //a nicer-looking loading screen
     background(34+numSamples-counter);
     fill(255,50);
-    rect(width/2-150,height/2+40,300,20,10);
+    rect(width/2-150,height/2-10,300,20,10);
     noStroke();
     fill(255,100);
     var w = 300 * counter / numSamples;
-    rect(width/2-150,height/2+40,w,20,10);
+    rect(width/2-150,height/2-10,w,20,10);
     textSize(100);
     fill(255);
     noStroke();
-    text('loading...',width/2-175,height/2);
+    text('loading...',width/2-175,height/2-50);
     textSize(25);
     for (let i = 0; i < numSamples; i++) {
       if (percentage[i]) {
         text(
           `sample ${i} loaded ${percentage[i]}%`,
           width/2-125,
-          height/2+100+25*i
+          height/2+50+40*i
         );
+        fill(255,50);
+        rect(width/2-125,height/2+50+40*i+10,225,5,10);
+        noStroke();
+        fill(255,100);
+        var x = map(percentage[i],0,100,0,225);
+        rect(width/2-125,height/2+50+40*i+10,x,5,10);
       }
     }
   } else { //this will only run after our samples are loaded
