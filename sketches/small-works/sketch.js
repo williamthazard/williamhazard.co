@@ -129,7 +129,6 @@ function draw() {
     fill(255);
     noStroke();
     text('loading...',width/2-175,height/2);
-    strokeWeight(10);
     textSize(25);
     for (let i = 0; i < numSamples; i++) {
       if (percentage[i]) {
