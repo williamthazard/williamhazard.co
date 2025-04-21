@@ -120,17 +120,25 @@ function setup() {
 function draw() {
   if (loading) { //a nicer-looking loading screen
     background(34+numSamples-counter);
+    stroke(255,50);
+    noFill();
+    rect(width/2-150,height/2+40,300,20,10);
+    noStroke();
+    fill(255,100);
+    var w = 200 * counter / numSamples;
+    rect(width/2-145,height/2+45,w,10,10);
     textSize(100);
     fill(255);
     noStroke();
     text('loading...',width/2-175,height/2);
+    strokeWeight(10);
     textSize(25);
     for (let i = 0; i < numSamples; i++) {
       if (percentage[i]) {
         text(
           `sample ${i} loaded ${percentage[i]}%`,
           width/2-125,
-          height/2+50+25*i
+          height/2+100+25*i
         );
       }
     }
