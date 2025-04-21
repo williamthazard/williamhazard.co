@@ -120,14 +120,12 @@ function setup() {
 function draw() {
   if (loading) { //a nicer-looking loading screen
     background(34+numSamples-counter);
-    stroke(255,50);
-    noFill();
+    fill(255,50);
     rect(width/2-150,height/2+40,300,20,10);
     noStroke();
     fill(255,100);
     var w = 200 * counter / numSamples;
-    rect(width/2-145,height/2+45,w,10,10);
-    textSize(100);
+    rect(width/2-150,height/2+40,w,20,10);
     fill(255);
     noStroke();
     text('loading...',width/2-175,height/2);
