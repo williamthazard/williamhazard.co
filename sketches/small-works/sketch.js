@@ -126,6 +126,7 @@ function draw() {
     fill(255,100);
     var w = 200 * counter / numSamples;
     rect(width/2-150,height/2+40,w,20,10);
+    textSize(100);
     fill(255);
     noStroke();
     text('loading...',width/2-175,height/2);
