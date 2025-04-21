@@ -1,5 +1,6 @@
 var numSamples = 8;
 var sample = [];
+let percentage = [];
 var playChance = [];
 var rate = [];
 var cue = [];
@@ -58,11 +59,7 @@ function metaSound(i, filename) {
     textSize(25);
     fill(255);
     noStroke();
-    text(
-      `sample ${i} loaded ${floor(percent*100)}%`,
-      width/2-125,
-      height/2+50+25*i
-    );
+    percentage[i] = floor(percent*100);
   }
 }
 
@@ -130,6 +127,16 @@ function draw() {
     fill(255);
     noStroke();
     text('loading...',width/2-175,height/2);
+    textSize(25);
+    for (let i = 0; i < numSamples; i++) {
+      if (percentage[i]) {
+        text(
+          `sample ${i} loaded ${percentage[i]}%`,
+          width/2-125,
+          height/2+50+25*i
+        );
+      }
+    }
   } else { //this will only run after our samples are loaded
     background(34);
     for(let i=0; i<freq.length; i += 1) {
