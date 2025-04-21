@@ -124,7 +124,7 @@ function draw() {
     rect(width/2-150,height/2+40,300,20,10);
     noStroke();
     fill(255,100);
-    var w = 200 * counter / numSamples;
+    var w = 300 * counter / numSamples;
     rect(width/2-150,height/2+40,w,20,10);
     textSize(100);
     fill(255);
