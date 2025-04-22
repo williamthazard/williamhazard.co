@@ -162,7 +162,7 @@ function draw() {
       
       //LFOs
       for(let j=0; j<6; j += 1) {
-        lfo[i][j] = noise(((j+1)*(i+1))/40000 * frameCount);
+        lfo[i][j] = noise(((j+1)*(i+1))/80000 * frameCount);
       }
 
       //update filter cutoff (corresponds to circle alpha)
