@@ -274,8 +274,8 @@ function draw() {
               wave[i][ind],
               -1,
               1,
-              map(sampLfo[i][3],0,1,0,width/5),
-              map(sampLfo[i][3],0,1,0,height/5)
+              map(sampLfo[i][3],0,1,0,width/10),
+              map(sampLfo[i][3],0,1,0,height/10)
             );
             var x = map(
               lfo[i][1],
@@ -305,7 +305,7 @@ function draw() {
       circle(
         map(lfo[i][1],0,1,width/5,width-width/5),
         map(lfo[i][2],0,1,height/5,height-height/5),
-        map(lfo[i][3],0,1,0,width*height/2000)
+        map(lfo[i][3],0,1,0,width*height/2500)
       )
     }
   }
