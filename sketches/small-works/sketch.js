@@ -185,7 +185,7 @@ function draw() {
       }
 
       //update the modulator frequency
-      mRatio[i] = map(lfo[i][4],0,1,0,24);
+      mRatio[i] = map(lfo[i][4],0,1,1,24);
       modulator[i].freq(
         (freq[i]/2) * mRatio[i], 
         1/getTargetFrameRate()
