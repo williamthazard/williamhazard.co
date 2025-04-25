@@ -2,6 +2,8 @@
 
 # words
 
+[Moonstone Arts](https://moonstone-arts-center.square.site/) [2024 Featured Poets Anthology](https://moonstone-arts-center.square.site/product/featured-poets-2024/517?cs=true&cst=custom)
+
 [At What Cost](https://atwhatcost.me/) [Catalog](https://catalogs.atwhatcost.me/) 1: [OBSESSION](https://obsession.atwhatcost.me/): ["Diseases of Astonishment"](https://obsession.atwhatcost.me/mandy-gutmann-gonzalez-and-william-hazard) – a collaboration with [Mandy Gutmann-Gonzalez](https://mandygutmanngonzalez.com/)
 
 [Bring a Blanket](https://www.instagram.com/bringablanketreadingseries/) Zine Number One: "crave"
