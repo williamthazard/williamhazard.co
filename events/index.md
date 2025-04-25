@@ -8,6 +8,8 @@
 
 **May 7 2025** – [Technical.ly](https://technical.ly/) Developers Conference, 15th Annual [Philly Tech Week](https://www.phillytechweek.com/), Comcast Technology Center (1800 Arch St), Philadelphia PA; [tickets available here](https://www.eventbrite.com/e/technically-developers-conference-2025-tickets-1243070099129?aff=oddtdtcreator)
 
+**May 4 2025** – [Conglomerate](https://www.harvestworks.org/conglomerate2025-events/), Harvestworks Art and Technology Program Building 10a, Nolan Park, Governors Island, New York, NY
+
 **May 2 2025** – featured artist, [Creative Becoming](https://www.creativebecoming.community/) open mic, [Emerald Wildflower Garden + The Perch Music / Arts Workshop](https://www.emeraldwildflowergarden.org/the-perch-music-arts-studio) (2321 Emerald Street), Philadelphia PA; [tickets available here](https://www.eventbrite.com/e/monthly-open-mic-tickets-1107444709939?aff=oddtdtcreator)
 
 **Mar 27 2025** – code sonnets online workshop for A Writers Party 2025
