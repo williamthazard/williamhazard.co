@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/williamhazard
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://williamhazard.co
+  * I am williamhazard (https://keybase.io/williamhazard) on keybase.
+  * I have a public key ASD4kw_W1iEDF3tHQ699svoVZddSk5tOgZ6k_BOhaxuB-wo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120f8930fd6d62103177b4743af7db2fa1565d752939b4e819ea4fc13a16b1b81fb0a",
+      "host": "keybase.io",
+      "kid": "0120f8930fd6d62103177b4743af7db2fa1565d752939b4e819ea4fc13a16b1b81fb0a",
+      "uid": "bde1bffaa734c3bb580c8648c5103519",
+      "username": "williamhazard"
+    },
+    "merkle_root": {
+      "ctime": 1745792808,
+      "hash": "0b63cfb3bf3edb35c187a5d73d96561ade9ced7e50edadfaf87fef33b8e0f51b2331d558a8dbd2e48ac10f1599413c8364b1f5490b67fc80fd71cb4eedaf84af",
+      "hash_meta": "9196230ea08af9b07fd0311c532e4ba25d2c611e2011d6ba17c3193df036376a",
+      "seqno": 26751431
+    },
+    "service": {
+      "entropy": "e2go3zwADn5OoJMvQk++kgd+",
+      "hostname": "williamhazard.co",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "6.5.1"
+  },
+  "ctime": 1745792821,
+  "expire_in": 504576000,
+  "prev": "3907821bb1e5f29ff67db70d5cfa9429091ba67cbc611703e3130930e8f28e92",
+  "seqno": 7,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEg+JMP1tYhAxd7R0OvfbL6FWXXUpObToGepPwToWsbgfsKp3BheWxvYWTESpcCB8QgOQeCG7Hl8p/2fbcNXPqUKQkbpny8YRcD4xMJMOjyjpLEILPuSTby/wMb/runqZgSTA/Q69TVAKqGnxv3CMO9mbIaAgHCo3NpZ8RAhqaOZNEF+zdU0nrHZBs5fy1ObIcybpsNagowYDWD9wxaf8S2wzkWekOuTga/mO+rRGxqXKC4ZfFsqCB7O0o2CKhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIAL9+hAWF+VgLS98vOZecbHD/Me0fISNlhGhdmdGTaMwo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/williamhazard
+
+==================================================================
