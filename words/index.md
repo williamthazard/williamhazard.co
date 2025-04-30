@@ -6,7 +6,7 @@
 
 [At What Cost](https://atwhatcost.me/) [Catalog](https://catalogs.atwhatcost.me/) 1: [OBSESSION](https://obsession.atwhatcost.me/): ["Diseases of Astonishment"](https://obsession.atwhatcost.me/mandy-gutmann-gonzalez-and-william-hazard) – a collaboration with [Mandy Gutmann-Gonzalez](https://mandygutmanngonzalez.com/)
 
-[Bring a Blanket](https://www.instagram.com/bringablanketreadingseries/) Zine Number One: "crave"
+[Bring a Blanket](https://www.instagram.com/bring_a_blanket/) Zine Number One: "crave"
 
 [Voicemail Poems](https://voicemailpoems.org/): ["Resentment: Big Water"](https://voicemailpoems.org/2024/05/06/resentment-big-water/)
 
