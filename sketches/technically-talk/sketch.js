@@ -56,7 +56,7 @@ function setup() {
   
   // Load videos
   vidLoader(0, ['assets/frolic-trim.mp4','assets/frolic-trim.mov','assets/frolic-trim.webm']);
-  vidLoader(1, ['assets/shake-trim.mp4','assets/shake-trim.mov']);
+  vidLoader(1, ['assets/shake-trim.mp4','assets/shake-trim.mov','assets/shake-trim.webm']);
   vidLoader(2, ['assets/fcf.mp4','assets/fcf.mov','assets/fcf.webm']);
   vidLoader(3, ['assets/cda-trim.mp4','assets/cda-trim.webm']);
   vidLoader(4, ['assets/already-over-trim.mp4','assets/already-over-trim.mov','assets/already-over-trim.webm']);
