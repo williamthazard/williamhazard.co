@@ -62,7 +62,7 @@ function setup() {
 }
 
 function draw() {
-  if (counter == numImages && vidCounter == numVids) {
+  if (counter == numImages && vidCounter == numVids-1) {
     loading = false;
   }
   if (loading) { //a nicer-looking loading screen
