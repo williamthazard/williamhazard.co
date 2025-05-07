@@ -454,7 +454,7 @@ function draw() {
         img[22].width,
         img[22].height
       );
-    } else if (slide == 36) {
+    } else if (slide == 37) {
       image(
         img[23],
         width/2-img[23].width/2,
