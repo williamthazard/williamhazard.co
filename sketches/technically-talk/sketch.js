@@ -30,33 +30,33 @@ function setup() {
   cnv = createCanvas(windowWidth, windowHeight);
   
   // Load images
-  imageLoader(0, '/assets/dickinson-envelope.jpeg');
-  imageLoader(1, '/assets/rdg-01.jpeg');
-  imageLoader(2, '/assets/rdg-02.jpeg');
-  imageLoader(3, '/assets/rdg-03.jpeg');
-  imageLoader(4, '/assets/rdg-04.jpeg');
-  imageLoader(5, '/assets/rdg-05.jpeg');
-  imageLoader(6, '/assets/rdg-06.jpeg');
-  imageLoader(7, '/assets/wh-site.jpeg');
-  imageLoader(8, '/assets/typewriter-poem.jpeg');
-  imageLoader(9, '/assets/williams-scrip.jpeg');
-  imageLoader(10, '/assets/that-this-3.jpeg');
-  imageLoader(11, '/assets/711.jpeg');
-  imageLoader(12, '/assets/waterwater.jpeg');
-  imageLoader(13, '/assets/frolic-trim.png');
-  imageLoader(14, '/assets/shake-trim.png');
-  imageLoader(15, '/assets/fcf.png');
-  imageLoader(16, '/assets/cda-trim.png');
-  imageLoader(17, '/assets/already-over-trim.png');
-  imageLoader(18, '/assets/tijts.png');
+  imageLoader(0, 'assets/dickinson-envelope.jpeg');
+  imageLoader(1, 'assets/rdg-01.jpeg');
+  imageLoader(2, 'assets/rdg-02.jpeg');
+  imageLoader(3, 'assets/rdg-03.jpeg');
+  imageLoader(4, 'assets/rdg-04.jpeg');
+  imageLoader(5, 'assets/rdg-05.jpeg');
+  imageLoader(6, 'assets/rdg-06.jpeg');
+  imageLoader(7, 'assets/wh-site.jpeg');
+  imageLoader(8, 'assets/typewriter-poem.jpeg');
+  imageLoader(9, 'assets/williams-scrip.jpeg');
+  imageLoader(10, 'assets/that-this-3.jpeg');
+  imageLoader(11, 'assets/711.jpeg');
+  imageLoader(12, 'assets/waterwater.jpeg');
+  imageLoader(13, 'assets/frolic-trim.png');
+  imageLoader(14, 'assets/shake-trim.png');
+  imageLoader(15, 'assets/fcf.png');
+  imageLoader(16, 'assets/cda-trim.png');
+  imageLoader(17, 'assets/already-over-trim.png');
+  imageLoader(18, 'assets/tijts.png');
   
   // Load videos
-  vidLoader(0, '/assets/frolic-trim.mp4');
-  vidLoader(1, '/assets/shake-trim.mp4');
-  vidLoader(2, '/assets/fcf.mp4');
-  vidLoader(3, '/assets/cda-trim.mp4');
-  vidLoader(4, '/assets/already-over-trim.mp4');
-  vidLoader(5, '/assets/tijts.mp4');
+  vidLoader(0, 'assets/frolic-trim.mp4');
+  vidLoader(1, 'assets/shake-trim.mp4');
+  vidLoader(2, 'assets/fcf.mp4');
+  vidLoader(3, 'assets/cda-trim.mp4');
+  vidLoader(4, 'assets/already-over-trim.mp4');
+  vidLoader(5, 'assets/tijts.mp4');
 }
 
 function draw() {
