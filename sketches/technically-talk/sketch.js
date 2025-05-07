@@ -1,5 +1,5 @@
 let video = [];
-let numImages = 23;
+let numImages = 24;
 let numVids = 10;
 let slide = 0;
 let counter = 0;
@@ -53,6 +53,7 @@ function setup() {
   imageLoader(20, 'assets/bigbug-trim.png');
   imageLoader(21, 'assets/bmt-trim.png');
   imageLoader(22, 'assets/naherinlied-trim.png');
+  imageLoader(22, 'assets/woods-text.png');
   
   // Load videos
   vidLoader(0, ['assets/frolic-trim.mp4','assets/frolic-trim.mov','assets/frolic-trim.webm']);
@@ -452,6 +453,14 @@ function draw() {
         height/2-img[22].height/2,
         img[22].width,
         img[22].height
+      );
+    } else if (slide == 36) {
+      image(
+        img[23],
+        width/2-img[23].width/2,
+        height/2-img[23].height/2,
+        img[23].width,
+        img[23].height
       );
     }
   }
