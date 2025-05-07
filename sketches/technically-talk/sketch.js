@@ -1,6 +1,6 @@
 let video = [];
-let numImages = 19;
-let numVids = 6;
+let numImages = 20;
+let numVids = 7;
 let slide = 0;
 let counter = 0;
 let vidCounter = 0;
@@ -49,14 +49,16 @@ function setup() {
   imageLoader(16, 'assets/cda-trim.png');
   imageLoader(17, 'assets/already-over-trim.png');
   imageLoader(18, 'assets/tijts.png');
+  imageLoader(19, 'assets/woods-trim.png');
   
   // Load videos
   vidLoader(0, ['assets/frolic-trim.mp4','assets/frolic-trim.mov','assets/frolic-trim.webm']);
   vidLoader(1, ['assets/shake-trim.mp4','assets/shake-trim.mov','assets/shake-trim.webm']);
   vidLoader(2, ['assets/fcf.mp4','assets/fcf.mov','assets/fcf.webm']);
-  vidLoader(3, ['assets/cda-trim.mp4','assets/cda-trim.mov','assets/cda-trim.webm']);
+  vidLoader(3, ['assets/cda-trim.mp4','assets/cda-trim.webm']);
   vidLoader(4, ['assets/already-over-trim.mp4','assets/already-over-trim.mov','assets/already-over-trim.webm']);
   vidLoader(5, ['assets/tijts.mp4','assets/tijts.mov','assets/tijts.webm']);
+  vidLoader(6, ['assets/woods-trim.mp4','assets/woods-trim.mov','assets/woods-trim.webm']);
 }
 
 function draw() {
@@ -79,7 +81,7 @@ function draw() {
       width/2-175,
       height/2-240
     );
-    textSize(15);
+    textSize(10);
     for (let i = 0; i < numImages; i++) {
       let loadText;
       let loadAlpha;
@@ -349,6 +351,30 @@ function draw() {
         img[18].width,
         img[18].height
       );
+    } else if (slide == 25) {
+      image(
+        img[19],
+        width/2-img[19].width/2,
+        height/2-img[19].height/2,
+        img[19].width,
+        img[19].height
+      );
+    } else if (slide == 26) {
+      image(
+        video[6],
+        width/2-video[6].width/2,
+        height/2-video[6].height/2,
+        video[6].width,
+        video[6].height
+      )
+    } else if (slide == 27) {
+      image(
+        img[19],
+        width/2-img[19].width/2,
+        height/2-img[19].height/2,
+        img[19].width,
+        img[19].height
+      );
     }
   }
 }
@@ -387,6 +413,11 @@ function keyPressed() {
     } else {
       video[5].stop()
     }
+    if (slide == 26) {
+      video[6].loop()
+    } else {
+      video[6].stop()
+    }
   } else if (keyCode === RIGHT_ARROW) {
     slide = slide + 1;
     if (slide == 8) {
@@ -418,6 +449,11 @@ function keyPressed() {
       video[5].loop()
     } else {
       video[5].stop()
+    }
+    if (slide == 26) {
+      video[6].loop()
+    } else {
+      video[6].stop()
     }
   }
   if (slide != oldSlide) {

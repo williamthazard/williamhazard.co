@@ -15,13 +15,6 @@ function resize() {
       ffmpeg -y -i ${file}.mp4 -preset veryfast -c:v h264_videotoolbox -q:v 50 -movflags +faststart ${file}.mov
       echo "$file.mov built"
     fi
-    if [ -e $file.ogg ]; then
-      echo "$file already converted to .ogg"
-    else
-      echo "building $file.ogg"
-      ffmpeg -y -i ${file}.mov -preset veryfast -movflags +faststart ${file}.ogg
-      echo "$file.ogg built"
-    fi
     if [ -e $file.webm ]; then
       echo "$file already converted to .webm"
     else
