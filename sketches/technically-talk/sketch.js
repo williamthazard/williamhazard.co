@@ -1,6 +1,6 @@
 let video = [];
-let numImages = 20;
-let numVids = 7;
+let numImages = 23;
+let numVids = 10;
 let slide = 0;
 let counter = 0;
 let vidCounter = 0;
@@ -50,6 +50,9 @@ function setup() {
   imageLoader(17, 'assets/already-over-trim.png');
   imageLoader(18, 'assets/tijts.png');
   imageLoader(19, 'assets/woods-trim.png');
+  imageLoader(20, 'assets/bigbug-trim.png');
+  imageLoader(21, 'assets/bmt-trim.png');
+  imageLoader(22, 'assets/naherinlied-trim.png');
   
   // Load videos
   vidLoader(0, ['assets/frolic-trim.mp4','assets/frolic-trim.mov','assets/frolic-trim.webm']);
@@ -59,6 +62,9 @@ function setup() {
   vidLoader(4, ['assets/already-over-trim.mp4','assets/already-over-trim.mov','assets/already-over-trim.webm']);
   vidLoader(5, ['assets/tijts.mp4','assets/tijts.mov','assets/tijts.webm']);
   vidLoader(6, ['assets/woods-trim.mp4','assets/woods-trim.mov','assets/woods-trim.webm']);
+  vidLoader(7, ['assets/bigbug-trim.mp4','assets/bigbug-trim.mov','assets/bigbug-trim.webm']);
+  vidLoader(8, ['assets/bmt-trim.mp4','assets/bmt-trim.webm']);
+  vidLoader(9, ['assets/naherinlied-trim.mp4','assets/naherinlied-trim.mov','assets/naherinlied-trim.webm']);
 }
 
 function draw() {
@@ -66,12 +72,12 @@ function draw() {
     loading = false;
   }
   if (loading) { //a nicer-looking loading screen
-    background(34+numImages-counter);
+    background(34+numImages-counter+numVids-vidCounter);
     fill(255,50);
     rect(width/2-155,height/2-205,300,20,10);
     noStroke();
     fill(255,100);
-    var w = 300 * (counter + 1) / numImages;
+    var w = 300 * (counter + vidCounter + 1) / (numImages+numVids);
     rect(width/2-155,height/2-205,w,20,10);
     textSize(100);
     fill(255);
@@ -375,6 +381,78 @@ function draw() {
         img[19].width,
         img[19].height
       );
+    } else if (slide == 28) {
+      image(
+        img[20],
+        width/2-img[20].width/2,
+        height/2-img[20].height/2,
+        img[20].width,
+        img[20].height
+      );
+    } else if (slide == 29) {
+      image(
+        video[7],
+        width/2-video[7].width/2,
+        height/2-video[7].height/2,
+        video[7].width,
+        video[7].height
+      )
+    } else if (slide == 30) {
+      image(
+        img[20],
+        width/2-img[20].width/2,
+        height/2-img[20].height/2,
+        img[20].width,
+        img[20].height
+      );
+    } else if (slide == 31) {
+      image(
+        img[21],
+        width/2-img[21].width/2,
+        height/2-img[21].height/2,
+        img[21].width,
+        img[21].height
+      );
+    } else if (slide == 32) {
+      image(
+        video[8],
+        width/2-video[8].width/2,
+        height/2-video[8].height/2,
+        video[8].width,
+        video[8].height
+      )
+    } else if (slide == 33) {
+      image(
+        img[21],
+        width/2-img[21].width/2,
+        height/2-img[21].height/2,
+        img[21].width,
+        img[21].height
+      );
+    } else if (slide == 34) {
+      image(
+        img[22],
+        width/2-img[22].width/2,
+        height/2-img[22].height/2,
+        img[22].width,
+        img[22].height
+      );
+    } else if (slide == 35) {
+      image(
+        video[9],
+        width/2-video[9].width/2,
+        height/2-video[9].height/2,
+        video[9].width,
+        video[9].height
+      )
+    } else if (slide == 36) {
+      image(
+        img[22],
+        width/2-img[22].width/2,
+        height/2-img[22].height/2,
+        img[22].width,
+        img[22].height
+      );
     }
   }
 }
@@ -418,6 +496,21 @@ function keyPressed() {
     } else {
       video[6].stop()
     }
+    if (slide == 29) {
+      video[7].loop()
+    } else {
+      video[7].stop()
+    }
+    if (slide == 32) {
+      video[8].loop()
+    } else {
+      video[8].stop()
+    }
+    if (slide == 35) {
+      video[9].loop()
+    } else {
+      video[9].stop()
+    }
   } else if (keyCode === RIGHT_ARROW) {
     slide = slide + 1;
     if (slide == 8) {
@@ -454,6 +547,21 @@ function keyPressed() {
       video[6].loop()
     } else {
       video[6].stop()
+    }
+    if (slide == 29) {
+      video[7].loop()
+    } else {
+      video[7].stop()
+    }
+    if (slide == 32) {
+      video[8].loop()
+    } else {
+      video[8].stop()
+    }
+    if (slide == 35) {
+      video[9].loop()
+    } else {
+      video[9].stop()
     }
   }
   if (slide != oldSlide) {
