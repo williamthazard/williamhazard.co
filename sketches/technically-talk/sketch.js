@@ -53,7 +53,7 @@ function setup() {
   imageLoader(20, 'assets/bigbug-trim.png');
   imageLoader(21, 'assets/bmt-trim.png');
   imageLoader(22, 'assets/naherinlied-trim.png');
-  imageLoader(22, 'assets/woods-text.PNG');
+  imageLoader(23, 'assets/woods-text.PNG');
   
   // Load videos
   vidLoader(0, ['assets/frolic-trim.mp4','assets/frolic-trim.mov','assets/frolic-trim.webm']);
