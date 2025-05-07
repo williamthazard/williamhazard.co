@@ -457,10 +457,10 @@ function draw() {
     } else if (slide == 37) {
       image(
         img[23],
-        width/2-img[23].width/8,
-        height/2-img[23].height/8,
-        img[23].width/4,
-        img[23].height/4
+        width/2-img[23].width/4,
+        height/2-img[23].height/4,
+        img[23].width/2,
+        img[23].height/2
       );
     }
   }
