@@ -1,5 +1,7 @@
 [![](sketches.jpeg)](../)
 # <p class='center'>sketches</p>
+[technical.ly-talk](technically-talk)
+
 [small-works](small-works)
 
 [teapot](teapot)
