@@ -14,6 +14,11 @@ post_arg = []
 tomorrow = False
 credentials = keyring.get_password('izzzzi-u', 'u')
 
+if num_args > 0 and sys.argv[1] == 'update-credentials':
+        keyring.delete_password('izzzzi-u','u')
+        keyring.delete_password('izzzzi-p','p')
+        credentials=None
+
 if credentials is None:
     username = input("izzzzi username: ")
     password = getpass.getpass(prompt='izzzzi password: ')
