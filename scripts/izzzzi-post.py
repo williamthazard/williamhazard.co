@@ -82,3 +82,6 @@ else:
         time.sleep(5)
         save_field.click()
         print('saved new entry successfully')
+        time.sleep(5)
+        driver.quit()
+        print('driver exited successfully')
