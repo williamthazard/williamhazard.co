@@ -79,6 +79,6 @@ if tomorrow == True:
 # Submit the form
 if tomorrow == True:
     save_field = driver.find_element(By.NAME, "action")
-    time.sleep(2)
+    time.sleep(5)
     save_field.click()
     print('saved new entry successfully')
