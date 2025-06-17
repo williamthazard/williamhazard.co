@@ -3,9 +3,9 @@ let links = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
-  links[0] = createA('https://williamhazard.co', 'this');
-  links[1] = createA('https://williamhazard.co', 'constant');
-  links[2] = createA('https://williamhazard.co', 'heat');
+  links[0] = createA('../2', 'this');
+  links[1] = createA('../3', 'constant');
+  links[2] = createA('../4', 'heat');
   for(let i = 0; i < links.length; i++){
     if(windowWidth > windowHeight){
       randoms.push(random(5,windowWidth-windowWidth/2))
