@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'Roboto Mono'; 
+  font-style: normal; 
+  font-weight: 400;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto Mono', monospace; 
+  font-size: 2em;
+  color: #fff;
+}
+canvas {
+  display: block;
+}
+a {
+  color: #fff;
+}
+a:hover {
+  color: #ccc;
+}
