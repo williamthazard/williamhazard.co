@@ -1,3 +1,3 @@
 <audio controls autoplay src="audio/zander.wav" loop="true"></audio>
 <br>
-[a](../1) two [blank](../3) [delta](../4)
+[a](../1) [blank](../3) [delta](../4)
