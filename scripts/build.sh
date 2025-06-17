@@ -5,4 +5,5 @@ zsh ./imgflip.sh
 zsh ./htmlify.sh
 zsh ./redate.sh
 zsh ./build-rss.sh
+zsh ./beadify.sh
 echo ">> site build complete"
