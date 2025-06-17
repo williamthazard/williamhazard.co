@@ -20,7 +20,6 @@ function preload() {
 
 function setup() {
   let cnv = createCanvas(windowWidth, windowHeight);
-  image(img, 0, (height/2)-225);
   a = 400;
   b = height/2;
   c = 12;
