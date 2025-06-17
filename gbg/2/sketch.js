@@ -29,7 +29,7 @@ function setup() {
 
 function draw() {
   background(34);
-  image(img, 0, (height/2)-200);
+  image(img, (width/2)-400, (height/2)-200);
   let wave = fft.waveform();
   noFill();
   beginShape();
