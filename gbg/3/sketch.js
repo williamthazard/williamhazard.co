@@ -49,6 +49,7 @@ function onSoundLoop(timeFromNow) {
 }
 
 function draw() {
+  background(34);
   if (mover === true) {
     a = a + random([1,-1]);
     b = b + random([1,-1]);
