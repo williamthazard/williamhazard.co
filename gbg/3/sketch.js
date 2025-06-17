@@ -54,7 +54,7 @@ function draw() {
     a = a + random([1,-1]);
     b = b + random([1,-1]);
     c = c + random([1,-1]);
-    image(img, (width/2)-450, (height/2)-225);
+    image(img, (width/2)-400, (height/2)-200);
     textSize(c);
     text('o',a,b);
   }
