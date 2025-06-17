@@ -1,7 +1,8 @@
 cd ../gbg
 echo ">> the glass bead game"
 function htmlify() {
-  if [ -e *.md ]; then
+  count=`ls -1 *.md 2>/dev/null | wc -l`
+  if [ $count != 0 ]; then
     for file in *.md; do
       file=${file%.*}
       folder=$(basename $(pwd))
