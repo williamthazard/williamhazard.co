@@ -15,6 +15,6 @@ function htmlify() {
 htmlify "../sub-head.htm_" "../gbg-foot.htm_"
 for subdir in ./*/ ; do
   cd $subdir
-  htmlify "../../sub-head.htm_" "../../gbg-foot.htm_"
+  htmlify "../sub-head.htm_" "../gbg-foot.htm_"
   cd ..
 done
