@@ -29,7 +29,7 @@ function setup() {
   soundLoop.start();
   mover = true;
   links[0] = createA('../1', 'another');
-  links[1] = createA('../2', 'person');
+  links[1] = createA('../archaic', 'person');
   links[2] = createA('../4', 'fishing');
   for(let i = 0; i < links.length; i++){
     if(windowWidth > windowHeight){

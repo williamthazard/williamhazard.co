@@ -2,6 +2,8 @@
   font-family: 'Roboto Mono'; 
   font-style: normal; 
   font-weight: 400;
+  src: local(''),
+    url('RobotoMono-VariableFont_wght.ttf') format('ttf'); 
 }
 html, body {
   background-color: #222; 
