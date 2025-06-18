@@ -1,6 +1,6 @@
 # ARCHAIC TORSO OF APOLLO
 #### Rainer Maria Rilke
-<br /><br /><br /><br />
+<br /><br />
 We cannot know his legendary [head](../1) <br />
 with eyes like ripening fruit. And yet his torso <br />
 is still suffused with brilliance from inside, <br />
