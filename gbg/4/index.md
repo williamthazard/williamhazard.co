@@ -10,6 +10,6 @@
 </p>
 <p class='center'>
 <h1>
-<a href="../1">one</a> <a href="../2">two</a> <a href="../3">three</a> four
+<a href="../1">these</a> <a href="../2">are</a> <a href="../3">the</a> frogs
 </h1>
 </p>
