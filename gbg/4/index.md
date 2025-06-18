@@ -4,6 +4,7 @@
 </video>
 <br />
 <h1>
+</p>
+<p class='center'>
 <a href="../1">one</a> <a href="../2">two</a> <a href="../3">three</a> four
-</h1>
 </p>
