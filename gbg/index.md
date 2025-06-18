@@ -1,1 +1,1 @@
-[THE](1) [GLASS](2) [BEAD](archaic) [GAME](dash)
+[THE](eggs) [GLASS](2) [BEAD](archaic) [GAME](dash)
