@@ -3,6 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.chrome.options import Options
 import keyring
 import getpass
 import time
@@ -13,6 +14,9 @@ num_args=len(sys.argv)-1
 post_arg = []
 tomorrow = False
 credentials = keyring.get_password('izzzzi-u', 'u')
+
+chrome_options = Options()
+chrome_options.add_argument("--headless=new") 
 
 if num_args > 0 and sys.argv[1] == 'update-credentials':
         keyring.delete_password('izzzzi-u','u')
@@ -28,7 +32,7 @@ else:
     username = keyring.get_password('izzzzi-u','u')
     password = keyring.get_password('izzzzi-p','p')
     # Set up the WebDriver
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(options=chrome_options)
     delay = 30 # seconds
     # Navigate to the login page
     print('navigating to izzzzi.net')
