@@ -2,6 +2,9 @@
 
 # sounds
 
+
+[Action, Spectacle](https://www.action-spectacle.com/) [Summer 2025 Volume](https://www.action-spectacle.com/summer-2025-1) [Part I](https://www.action-spectacle.com/summer-2025-part-i): ["carve"](https://www.action-spectacle.com/summer-2025-part-i/hazard)
+
 [Audio Flare Gun](https://audioflaregun.com) [Episode 5: Spaceship in the Jungle](https://audioflaregun.com/2025/03/02/episode-5-spaceship-in-the-jungle/): hosted by Dave Cedillo
 
 [At What Cost](https://atwhatcost.me/) [Catalog](https://catalogs.atwhatcost.me/) 1: [OBSESSION](https://obsession.atwhatcost.me/): ["Diseases of Astonishment"](https://obsession.atwhatcost.me/mandy-gutmann-gonzalez-and-william-hazard) – a collaboration with [Mandy Gutmann-Gonzalez](https://mandygutmanngonzalez.com/)
