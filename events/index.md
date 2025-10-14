@@ -8,11 +8,13 @@
 
 **September 19 2025** – w/ Woody Woodger, Molly's Books & Records (1010 S. 9th St), Philadelphia PA
 
+**August 1 2025** – [Termite TV Collective](https://termite.org/mound/) presents: [Understories](https://termite.org/mound/event/understories-exhibit-at-cherry-street-pier/) exhibit opening reception, [Cherry Street Pier](https://www.cherrystreetpier.com/) (121 North Christopher Columbus Boulevard), Philadelphia PA
+
 **July 19 2025** – [The Garret Theatre Co](https://garrettheatre.com/) Presents [Enough with the Dog Days Festival](https://garrettheatre.com/enough-with-the-dog-days/), [The Greek Cultural Center](https://www.greekculturalcenter.org/), New York NY
 
 **May 16 2025** – [_mix_lit](https://www.mixlit.io/) presents: a flat imagination workshop (featuring [Carlos Soto-Román](https://uglyducklingpresse.org/contributors/9186/) and [J †Johnson](https://creative.writing.upenn.edu/people/j-johnson)), [Emerald Wildflower Garden + The Perch Music / Arts Workshop](https://www.emeraldwildflowergarden.org/the-perch-music-arts-studio) (2321 Emerald Street), Philadelphia PA (hosting w/ [Warren Longmire](https://alongmirewriter.squarespace.com/))
 
-**May 7 2025** – [Technical.ly](https://technical.ly/) Developers Conference, 15th Annual [Philly Tech Week](https://www.phillytechweek.com/), Comcast Technology Center (1800 Arch St), Philadelphia PA; [tickets available here](https://www.eventbrite.com/e/technically-developers-conference-2025-tickets-1243070099129?aff=oddtdtcreator)
+**May 7 2025** – [Technical.ly](https://technical.ly/) Developers Conference, 15th Annual [Philly Tech Week](https://www.phillytechweek.com/), Comcast Technology Center (1800 Arch St), Philadelphia PA(w/ [Mike Bagwell](https://www.mikebagwell.me/); [tickets available here](https://www.eventbrite.com/e/technically-developers-conference-2025-tickets-1243070099129?aff=oddtdtcreator)
 
 **May 4 2025** – [Conglomerate](https://www.harvestworks.org/conglomerate2025-events/), Harvestworks Art and Technology Program Building 10a, Nolan Park, Governors Island, New York NY
 
