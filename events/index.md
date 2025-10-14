@@ -4,6 +4,8 @@
 
 <p class='right'> <b>2025</b> </p>
 
+**November 11 2025** – Constant Exposure Presents (w/ [Grace Stevens Phillips](http://gracephillips.info/), Living Mind, [Robert David Carey](https://robertdavidcarey.com/), & [Jazmyn Crosby](https://www.jazmyncrosby.com/), [Vox Populi](https://www.voxpopuligallery.org/) (319 North 11th Street), Philadelphia PA
+
 **September 19 2025** – w/ Woody Woodger, Molly's Books & Records (1010 S. 9th St), Philadelphia PA
 
 **July 19 2025** – [The Garret Theatre Co](https://garrettheatre.com/) Presents [Enough with the Dog Days Festival](https://garrettheatre.com/enough-with-the-dog-days/), [The Greek Cultural Center](https://www.greekculturalcenter.org/), New York NY
@@ -26,7 +28,7 @@
 
 **Jan 17 2025** – [_mix_lit](https://www.mixlit.io/) presents: a flat imagination workshop (featuring [dani derks](https://dndrks.com/) and The Goodbye Mind), [Emerald Wildflower Garden + The Perch Music / Arts Workshop](https://www.emeraldwildflowergarden.org/the-perch-music-arts-studio) (2321 Emerald Street), Philadelphia PA (hosting w/ [Warren Longmire](https://alongmirewriter.squarespace.com/)); [tickets available here](https://www.eventbrite.com/e/-mix-lit-presents-a-flat-imagination-workshop-goodbye-mind-dani-derks-tickets-1116860623189?aff=oddtdtcreator)
 
-**Jan 11 2025** – [The Splice Poetry Series](https://thesplice.org/) (w/ [Evie Shockley](https://evieshockley.com/), [Caroline Bergvall](https://carolinebergvall.com/), [Carlos Soto Roman](https://poets.org/poet/carlos-soto-roman), [Whitney Devos](https://www.whitneydevos.com/), [Clint Burnham](https://www.sfu.ca/english/people-dir/faculty/clint-burham.html), [Amish Trivedi](https://www.amishtrivedi.com/), [Cate Peebles](https://www.catepeebles.com/), [Edgar Garcia](https://english.uchicago.edu/people/edgar-garcia), [Laura Jaramillo](https://laurajaramillo-poetfilm.squarespace.com/), and [Mandy Gutmann-Gonzalez](https://mandygutmanngonzalez.com/)), [Saturn Bar](https://www.thesaturnbar.com/) (3067 Saint Claude Ave), New Orleans LA
+**Jan 11 2025** – [The Splice Poetry Series](https://thesplice.org/) (w/ [Evie Shockley](https://evieshockley.com/), [Caroline Bergvall](https://carolinebergvall.com/), [Carlos Soto-Román](https://poets.org/poet/carlos-soto-roman), [Whitney Devos](https://www.whitneydevos.com/), [Clint Burnham](https://www.sfu.ca/english/people-dir/faculty/clint-burham.html), [Amish Trivedi](https://www.amishtrivedi.com/), [Cate Peebles](https://www.catepeebles.com/), [Edgar Garcia](https://english.uchicago.edu/people/edgar-garcia), [Laura Jaramillo](https://laurajaramillo-poetfilm.squarespace.com/), and [Mandy Gutmann-Gonzalez](https://mandygutmanngonzalez.com/)), [Saturn Bar](https://www.thesaturnbar.com/) (3067 Saint Claude Ave), New Orleans LA
 <br><br><br><br>
 <p class='right'> <b>2024</b> </p>
 
