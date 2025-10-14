@@ -64,6 +64,8 @@
 
 **Feb 24 2024** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard), vol. 5: Common Place (w/ [Memory Object](https://memory-object.com)), Philadelphia PA
 
+**Feb 11 2024** – multimedia poetry with superLied online workshop for A Writers Party 2024
+
 **Jan 20 2024** – [Theatre of the Flat Imagination](https://llllllll.co/t/william-hazards-theatre-of-the-flat-imagination/65108?u=williamhazard), vol. 4: Feed (w/ [Warren Longmire](https://alongmirewriter.squarespace.com/)), Philadelphia PA
 <br><br><br><br>
 <p class='right'> <b>2023</b> </p>
