@@ -4,7 +4,7 @@
 
 <p class='right'> <b>2025</b> </p>
 
-**November 11 2025** – Constant Exposure Presents (w/ [Grace Stevens Phillips](http://gracephillips.info/), Living Mind, [Robert David Carey](https://robertdavidcarey.com/), & [Jazmyn Crosby](https://www.jazmyncrosby.com/), [Vox Populi](https://www.voxpopuligallery.org/) (319 North 11th Street), Philadelphia PA
+**November 11 2025** – Constant Exposure Presents (w/ [Grace Stevens Phillips](http://gracephillips.info/), Living Mind, [Robert David Carey](https://robertdavidcarey.com/), & [Jazmyn Crosby](https://www.jazmyncrosby.com/)), [Vox Populi](https://www.voxpopuligallery.org/) (319 North 11th Street), Philadelphia PA
 
 **September 19 2025** – w/ Woody Woodger, Molly's Books & Records (1010 S. 9th St), Philadelphia PA
 
