@@ -6,6 +6,8 @@
 
 ![headshot](pics/headshot.png)
 
+![ghost-harm](pics/ghost-harm.jpg)
+
 ![events](pics/events.jpeg)
 
 ![header](pics/header.jpeg)
