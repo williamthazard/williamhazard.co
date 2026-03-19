@@ -86,10 +86,12 @@ for file in $marks ; do
   echo "</item>" >> ../rss.xml
 done
 ((past=pagenum-1))
-echo "<p class='center'>" >> ../${log}.html
-echo "<br/><a href=../log/log${past}.html>[former]</a>" >> ../${log}.html
-echo "<br/><br/><a href=../log/log0.html>[final]</a>" >> ../${log}.html
-echo "</p>" >> ../${log}.html
+if [[ $pagenum > 0 ]]; then
+  echo "<p class='center'>" >> ../${log}.html
+  echo "<br/><a href=../log/log${past}.html>[former]</a>" >> ../${log}.html
+  echo "<br/><br/><a href=../log/log0.html>[final]</a>" >> ../${log}.html
+  echo "</p>" >> ../${log}.html
+fi
 cat ../../log-foot.htm_ >> ../${log}.html
 date=$(date -r ../${log}.html +%D)
 sed -i '' -e 's#DATE#'$date'#g' ../${log}.html
