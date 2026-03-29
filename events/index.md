@@ -2,6 +2,12 @@
 
 # events
 
+<p class='right'> <b>2026</b> </p>
+
+**March 21 2026** – [Ghost Harmonics](https://www.ghostharmonics.com/): [Oscillations](https://www.ghostharmonics.com/magazine) [Issue 01](https://www.ghostharmonics.com/magazine/issue-01) Release Reading with Bring a Blanket & More (featuring [John Pinto](https://pintopintopinto.com/), Emmett Lewis, PJ Lombardo, [Robert David Carey](https://robertdavidcarey.com/), [Matthew Klane](https://www.matthewklane.com/work), Yuyi Chen, [Will Newman](https://wmnewmanjr.wixsite.com/uumn), [Audrey Lee](https://neutralspaces.co/audreylee/), [Katie Bennett](https://www.katiepbennett.com/), Cody Roggio, [Alexandra Naughton](https://www.alexandranaughton.com/), Lauren Holguin, [Jay Shifman](https://www.jayshifman.com/), and Hanah Davenport), [Emerald Wildflower Garden + The Perch Music / Arts Workshop](https://www.emeraldwildflowergarden.org/the-perch-music-arts-studio) (2321 Emerald Street), Philadelphia PA (hosting w/ [Mike Bagwell](https://www.mikebagwell.me/)
+
+**March 21 2026** – Blogs Without the Bullshit workshop for A Writers Party 2026, Lot 49 Books (408 E Girard Ave), Philadelphia PA
+<br><br><br><br>
 <p class='right'> <b>2025</b> </p>
 
 **November 11 2025** – Constant Exposure Presents (w/ [Grace Stevens Phillips](http://gracephillips.info/), Living Mind, [Robert David Carey](https://robertdavidcarey.com/), & [Jazmyn Crosby](https://www.jazmyncrosby.com/)), [Vox Populi](https://www.voxpopuligallery.org/) (319 North 11th Street), Philadelphia PA
