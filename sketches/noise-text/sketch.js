@@ -183,41 +183,44 @@ function draw() {
 
   // Organic intensity: Sine backbone (starting at -1) + Perlin noise wobble (fading in)
   let sineWave = sin(frameCount * 0.0005 - HALF_PI);
-  let perlinNoise = noise(frameCount * 0.005) * 2 - 1; 
-  
+  let perlinNoise = noise(frameCount * 0.005) * 2 - 1;
+
   // Gradually introduce noise over the first 1000 frames to ensure a clean 0 start
   let noiseLevel = map(constrain(frameCount, 0, 1000), 0, 1000, 0, 0.05);
   let combinedVal = lerp(sineWave, perlinNoise, noiseLevel);
-  
+
   let intensity = map(combinedVal, -1, 1, 0, 225);
+  let normInt = intensity / 225; // Normalize to 0-1
+
+  // Visual Intensity: Pushing to 3.2 means it stays legible for much longer
+  let visualIntensity = pow(normInt, 3.2) * 225;
 
   // Advanced Audio Mirroring Logic + Resonant Glitch System
   if (audioStarted) {
-    let normInt = intensity / 225; // Normalize to 0-1
-
-    // 1. Muffle (LowPass Filter)
-    let f = map(pow(normInt, 1.2), 0, 1, 20000, 300);
+    // 1. Muffle (LowPass Filter): Even more aggressive drop
+    let f = map(pow(normInt, 0.45), 0, 1, 20000, 300);
     lowPass.freq(f);
 
-    // 2. Grittiness (Distortion)
-    let d = map(normInt, 0, 1, 0, 0.95);
+    // 2. Grittiness (Distortion): Grit introduced almost immediately
+    let d = map(pow(normInt, 0.35), 0, 1, 0, 0.95);
     distortion.set(d, 'none');
 
-    // 3. Wash (Reverb)
-    let rw = map(pow(normInt, 2.0), 0, 1, 0, 0.88);
+    // 3. Wash (Reverb): Linear wash
+    let rw = map(normInt, 0, 1, 0, 0.88);
     reverb.drywet(rw);
 
     // 4. Glitch: Pitch Jitter + Temporal Reversal
-    if (normInt > 0.05) {
-      let jitter = (noise(frameCount * 0.8) - 0.5) * normInt * 0.25;
-      
-      // Randomly flip direction when above peak threshold
-      if (normInt > 0.1 && random() < 0.05) {
+    if (normInt > 0.075) {
+      // Increased jitter magnitude and responsiveness
+      let jitter = (noise(frameCount * 0.8) - 0.5) * normInt * 0.45;
+
+      // Randomly flip direction - now starts flipping even earlier (2%) 
+      if (normInt > 0.6 && random() < 0.06) {
         playbackDirection *= -1;
       } else if (normInt <= 0.7) {
         playbackDirection = 1;
       }
-      
+
       poemAudio.rate((1 + jitter) * playbackDirection);
     } else {
       playbackDirection = 1;
@@ -225,7 +228,8 @@ function draw() {
     }
 
     // 5. Glitch: Temporal Stutter (Digital jumping/skipping)
-    if (normInt > 0.88 && random() < 0.04) {
+    // Moved from 0.78 down to 0.4 to ensure skipping begins while text is legible
+    if (normInt > 0.4 && random() < 0.04) {
       let skipAmount = random(0.01, 0.75);
       poemAudio.jump(max(0, poemAudio.currentTime() - skipAmount));
     }
@@ -249,8 +253,8 @@ function draw() {
 
     beginShape();
     for (let x of seg.pts) {
-      let dy = (noise(x * nf, seg.y * nf, t) - 0.5) * intensity;
-      let dx = (noise(x * nf + 500, seg.y * nf + 500, t) - 0.5) * intensity * 0.4;
+      let dy = (noise(x * nf, seg.y * nf, t) - 0.5) * visualIntensity;
+      let dx = (noise(x * nf + 500, seg.y * nf + 500, t) - 0.5) * visualIntensity * 0.4;
       vertex(x + dx, displayY + dy);
     }
     endShape();
