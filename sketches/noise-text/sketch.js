@@ -17,8 +17,8 @@ let isMuted = true;
 let audioStarted = false;
 let playbackDirection = 1.0;
 
-const FONT_SIZE = 42;
-const LINE_HEIGHT = FONT_SIZE * 1.6;
+let FONT_SIZE = 42;
+let LINE_HEIGHT = FONT_SIZE * 1.6;
 const LINE_SPACING = 1; // Vertical sampling step
 const SAMPLE_STEP = 1; // Horizontal sampling step
 
@@ -33,6 +33,7 @@ const speakerIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="
 const muteIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>`;
 
 function setup() {
+  calculateResponsiveSizes();
   createCanvas(windowWidth, windowHeight);
   pixelDensity(1);
 
@@ -63,6 +64,24 @@ function setup() {
 
   // Build the entire poem's segments once
   buildSegments();
+}
+
+function calculateResponsiveSizes() {
+  // Find the longest line to determine the maximum safe font size
+  let maxChars = 0;
+  for (let line of poemLines) {
+    if (line.length > maxChars) maxChars = line.length;
+  }
+  // If no lines, fallback to a sensible default
+  if (maxChars === 0) maxChars = 20;
+
+  // Mono fonts are typically ~0.6w of font size.
+  // We want (maxChars * FONT_SIZE * 0.6) < windowWidth * 0.85 (with some padding)
+  let targetSize = (windowWidth * 0.85) / (maxChars * 0.6);
+  
+  // Constrain between 18 and 42
+  FONT_SIZE = constrain(targetSize, 18, 42);
+  LINE_HEIGHT = FONT_SIZE * 1.6;
 }
 
 function createAudioUI() {
@@ -268,6 +287,7 @@ function mouseWheel(event) {
 }
 
 function windowResized() {
+  calculateResponsiveSizes();
   resizeCanvas(windowWidth, windowHeight);
   buildSegments();
 }
