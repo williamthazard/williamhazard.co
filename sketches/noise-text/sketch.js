@@ -181,8 +181,15 @@ function draw() {
   let nf = 0.15;
   let t = frameCount * 0.012;
 
-  // Calculate visual distortion intensity (0.0 to 225.0)
-  let intensity = map(sin(frameCount * 0.0005), -1, 1, 0, 150) * 1.5;
+  // Organic intensity: Sine backbone (starting at -1) + Perlin noise wobble (fading in)
+  let sineWave = sin(frameCount * 0.0005 - HALF_PI);
+  let perlinNoise = noise(frameCount * 0.005) * 2 - 1; 
+  
+  // Gradually introduce noise over the first 200 frames to ensure a clean 0 start
+  let noiseLevel = map(constrain(frameCount, 0, 200), 0, 200, 0, 0.35);
+  let combinedVal = lerp(sineWave, perlinNoise, noiseLevel);
+  
+  let intensity = map(combinedVal, -1, 1, 0, 225);
 
   // Advanced Audio Mirroring Logic + Resonant Glitch System
   if (audioStarted) {
