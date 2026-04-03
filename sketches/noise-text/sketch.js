@@ -185,8 +185,8 @@ function draw() {
   let sineWave = sin(frameCount * 0.0005 - HALF_PI);
   let perlinNoise = noise(frameCount * 0.005) * 2 - 1; 
   
-  // Gradually introduce noise over the first 200 frames to ensure a clean 0 start
-  let noiseLevel = map(constrain(frameCount, 0, 200), 0, 200, 0, 0.35);
+  // Gradually introduce noise over the first 1000 frames to ensure a clean 0 start
+  let noiseLevel = map(constrain(frameCount, 0, 1000), 0, 1000, 0, 0.05);
   let combinedVal = lerp(sineWave, perlinNoise, noiseLevel);
   
   let intensity = map(combinedVal, -1, 1, 0, 225);
@@ -208,11 +208,11 @@ function draw() {
     reverb.drywet(rw);
 
     // 4. Glitch: Pitch Jitter + Temporal Reversal
-    if (normInt > 0.15) {
+    if (normInt > 0.05) {
       let jitter = (noise(frameCount * 0.8) - 0.5) * normInt * 0.25;
       
       // Randomly flip direction when above peak threshold
-      if (normInt > 0.7 && random() < 0.05) {
+      if (normInt > 0.1 && random() < 0.05) {
         playbackDirection *= -1;
       } else if (normInt <= 0.7) {
         playbackDirection = 1;
