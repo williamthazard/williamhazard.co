@@ -1,6 +1,6 @@
 [![](sketches.jpeg)](../)
 # <p class='center'>sketches</p>
-[noise-text](noise-text)
+[noise-text](noise-text) ([perpetuum version](perpetuum))
 
 [technical.ly-talk](technically-talk)
 
