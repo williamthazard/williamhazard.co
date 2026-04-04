@@ -16,6 +16,8 @@ let volSlider;
 let isMuted = true;
 let audioStarted = false;
 let playbackDirection = 1.0;
+let lastDistAmount = 0;
+let lastJumpTime = 0;
 
 let FONT_SIZE = 42;
 let LINE_HEIGHT = FONT_SIZE * 1.6;
@@ -37,7 +39,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   pixelDensity(1);
 
-  // Advanced Audio Chain: Audio -> Filter -> Distortion -> Delay (Glitch) -> Reverb -> Output
+  // Audio Chain: Audio -> Filter -> Distortion -> Delay (Glitch) -> Reverb -> Output
   lowPass = new p5.LowPass();
   distortion = new p5.Distortion();
   glitchDelay = new p5.Delay();
@@ -78,7 +80,7 @@ function calculateResponsiveSizes() {
   // Mono fonts are typically ~0.6w of font size.
   // We want (maxChars * FONT_SIZE * 0.6) < windowWidth * 0.85 (with some padding)
   let targetSize = (windowWidth * 0.85) / (maxChars * 0.6);
-  
+
   // Constrain between 18 and 42
   FONT_SIZE = constrain(targetSize, 18, 42);
   LINE_HEIGHT = FONT_SIZE * 1.6;
@@ -159,7 +161,7 @@ function buildSegments() {
   pg.noStroke();
   pg.textAlign(CENTER, TOP);
   pg.textSize(FONT_SIZE);
-  pg.style('font-family', 'monospace');
+  pg.textFont('monospace');
 
   for (let i = 0; i < poemLines.length; i++) {
     let yDelta = i * LINE_HEIGHT + height * 0.2;
@@ -190,6 +192,9 @@ function buildSegments() {
     }
     if (inText && pts.length >= 1) segments.push({ y, pts });
   }
+
+  // Free the graphics context to prevent memory leak in p5's _elements internal list
+  pg.remove();
 }
 
 function draw() {
@@ -220,9 +225,12 @@ function draw() {
     let f = map(pow(normInt, 0.45), 0, 1, 20000, 300);
     lowPass.freq(f);
 
-    // 2. Grittiness (Distortion): Grit introduced almost immediately
+    // 2. Grittiness (Distortion): Throttle to reduce GC pressure from Float32Array allocations
     let d = map(pow(normInt, 0.35), 0, 1, 0, 0.95);
-    distortion.set(d, 'none');
+    if (abs(d - lastDistAmount) > 0.02) {
+      distortion.set(d, 'none');
+      lastDistAmount = d;
+    }
 
     // 3. Wash (Reverb): Linear wash
     let rw = map(normInt, 0, 1, 0, 0.88);
@@ -247,10 +255,22 @@ function draw() {
     }
 
     // 5. Glitch: Temporal Stutter (Digital jumping/skipping)
-    // Moved from 0.78 down to 0.4 to ensure skipping begins while text is legible
-    if (normInt > 0.4 && random() < 0.04) {
+    // Throttled jump to 4x per second max and manual node cleanup to prevent orphaned leaks
+    if (normInt > 0.4 && random() < 0.04 && frameCount - lastJumpTime > 15) {
+      // Manual cleanup: Reaching into p5.SoundFile's internal source to stop/disconnect
+      // This ensures the browser can safely garbage collect the previous AudioBufferSourceNode
+      if (poemAudio.bufferSource) {
+        try {
+          poemAudio.bufferSource.stop();
+          poemAudio.bufferSource.disconnect();
+        } catch (e) {
+          // Ignore state errors from already stopped nodes
+        }
+      }
+
       let skipAmount = random(0.01, 0.75);
       poemAudio.jump(max(0, poemAudio.currentTime() - skipAmount));
+      lastJumpTime = frameCount;
     }
 
     if (!isMuted) {
