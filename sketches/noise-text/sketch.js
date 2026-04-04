@@ -18,6 +18,7 @@ let audioStarted = false;
 let playbackDirection = 1.0;
 let lastDistAmount = 0;
 let lastJumpTime = 0;
+let touchY = 0;
 
 let FONT_SIZE = 42;
 let LINE_HEIGHT = FONT_SIZE * 1.6;
@@ -206,7 +207,7 @@ function draw() {
   let t = frameCount * 0.05; // Temporal drift speed
   let flow = frameCount * 0.02; // Spatial drift speed
 
-  // Organic intensity: Sine backbone (starting at -1) + Perlin noise wobble (fading in)
+  // Organic intensity: Sine (starting at -1) + Perlin noise for wobble (fading in)
   let sineWave = sin(frameCount * 0.0005 - HALF_PI);
   let perlinNoise = noise(frameCount * 0.005) * 2 - 1;
 
@@ -220,20 +221,20 @@ function draw() {
   // Visual Intensity: Pushing to 3.2 means it stays legible for much longer
   let visualIntensity = pow(normInt, 3.2) * 225;
 
-  // Audio Mirroring Logic + Resonant Glitch System
+  // Advanced Audio Mirroring Logic + Resonant Glitch System
   if (audioStarted) {
-    // 1. Muffle (LowPass Filter): Linear drop
+    // 1. LPF: Linear drop to keep it legible longer
     let f = map(normInt, 0, 1, 20000, 300);
     lowPass.freq(f);
 
-    // 2. Grittiness (Distortion): Smooth increase in grittiness
+    // 2. Distortion: Smooth increase in intensity
     let d = map(pow(normInt, 0.8), 0, 1, 0, 0.95);
     if (abs(d - lastDistAmount) > 0.02) {
       distortion.set(d, 'none');
       lastDistAmount = d;
     }
 
-    // 3. Wash (Reverb): Quadratic wash helps clarity at lower intensities
+    // 3. Reverb: Quadratic wash helps clarity at lower intensities
     let rw = map(pow(normInt, 2.0), 0, 1, 0, 0.88);
     reverb.drywet(rw);
 
@@ -256,7 +257,7 @@ function draw() {
     }
 
     // 5. Glitch: Temporal Stutter (Digital jumping/skipping)
-    // Throttled jump to 4x per second max and manual node cleanup to prevent orphaned leaks
+    // Throttled jump to 4x per second max
     if (normInt > 0.55 && random() < 0.04 && frameCount - lastJumpTime > 15) {
       // Manual cleanup: Reaching into p5.SoundFile's internal source to stop/disconnect
       // This ensures the browser can safely garbage collect the previous AudioBufferSourceNode
@@ -326,6 +327,27 @@ function brownian(x, y, t) {
 function mouseWheel(event) {
   targetScroll += event.delta;
   targetScroll = constrain(targetScroll, 0, totalPoemHeight - height);
+  return false;
+}
+
+function touchStarted() {
+  // Store initial touch position
+  touchY = mouseY;
+
+  // Audio should only start via the dedicated UI button, not global touch
+  return false;
+}
+
+function touchMoved() {
+  // Calculate drag distance
+  let deltaY = touchY - mouseY;
+  targetScroll += deltaY;
+  targetScroll = constrain(targetScroll, 0, totalPoemHeight - height);
+
+  // Update last touch position for continuous drag
+  touchY = mouseY;
+
+  // Prevent page scrolling
   return false;
 }
 
