@@ -202,8 +202,9 @@ function draw() {
 
   currentScroll = lerp(currentScroll, targetScroll, 0.1);
 
-  let nf = 0.15;
-  let t = frameCount * 0.012;
+  let nf = 0.18; // Baseline spatial frequency for Brown Noise
+  let t = frameCount * 0.05; // Temporal drift speed
+  let flow = frameCount * 0.02; // Spatial drift speed
 
   // Organic intensity: Sine backbone (starting at -1) + Perlin noise wobble (fading in)
   let sineWave = sin(frameCount * 0.0005 - HALF_PI);
@@ -219,30 +220,30 @@ function draw() {
   // Visual Intensity: Pushing to 3.2 means it stays legible for much longer
   let visualIntensity = pow(normInt, 3.2) * 225;
 
-  // Advanced Audio Mirroring Logic + Resonant Glitch System
+  // Audio Mirroring Logic + Resonant Glitch System
   if (audioStarted) {
-    // 1. Muffle (LowPass Filter): Even more aggressive drop
-    let f = map(pow(normInt, 0.45), 0, 1, 20000, 300);
+    // 1. Muffle (LowPass Filter): Linear drop
+    let f = map(normInt, 0, 1, 20000, 300);
     lowPass.freq(f);
 
-    // 2. Grittiness (Distortion): Throttle to reduce GC pressure from Float32Array allocations
-    let d = map(pow(normInt, 0.35), 0, 1, 0, 0.95);
+    // 2. Grittiness (Distortion): Smooth increase in grittiness
+    let d = map(pow(normInt, 0.8), 0, 1, 0, 0.95);
     if (abs(d - lastDistAmount) > 0.02) {
       distortion.set(d, 'none');
       lastDistAmount = d;
     }
 
-    // 3. Wash (Reverb): Linear wash
-    let rw = map(normInt, 0, 1, 0, 0.88);
+    // 3. Wash (Reverb): Quadratic wash helps clarity at lower intensities
+    let rw = map(pow(normInt, 2.0), 0, 1, 0, 0.88);
     reverb.drywet(rw);
 
     // 4. Glitch: Pitch Jitter + Temporal Reversal
-    if (normInt > 0.075) {
+    if (normInt > 0.15) {
       // Increased jitter magnitude and responsiveness
       let jitter = (noise(frameCount * 0.8) - 0.5) * normInt * 0.45;
 
-      // Randomly flip direction - now starts flipping even earlier (2%) 
-      if (normInt > 0.6 && random() < 0.06) {
+      // Randomly flip direction when above peak threshold
+      if (normInt > 0.65 && random() < 0.06) {
         playbackDirection *= -1;
       } else if (normInt <= 0.7) {
         playbackDirection = 1;
@@ -256,7 +257,7 @@ function draw() {
 
     // 5. Glitch: Temporal Stutter (Digital jumping/skipping)
     // Throttled jump to 4x per second max and manual node cleanup to prevent orphaned leaks
-    if (normInt > 0.4 && random() < 0.04 && frameCount - lastJumpTime > 15) {
+    if (normInt > 0.55 && random() < 0.04 && frameCount - lastJumpTime > 15) {
       // Manual cleanup: Reaching into p5.SoundFile's internal source to stop/disconnect
       // This ensures the browser can safely garbage collect the previous AudioBufferSourceNode
       if (poemAudio.bufferSource) {
@@ -291,13 +292,35 @@ function draw() {
     let displayY = seg.y - currentScroll;
 
     beginShape();
-    for (let x of seg.pts) {
-      let dy = (noise(x * nf, seg.y * nf, t) - 0.5) * visualIntensity;
-      let dx = (noise(x * nf + 500, seg.y * nf + 500, t) - 0.5) * visualIntensity * 0.4;
-      vertex(x + dx, displayY + dy);
+    // Only apply distortion if visualIntensity is above a tiny threshold
+    // Using Brown Noise (fBm) for continuous, nervous, and jaggy movement
+    if (visualIntensity > 0.1) {
+      for (let x of seg.pts) {
+        let dy = (brownian(x * nf + flow, seg.y * nf + flow, t) - 0.5) * visualIntensity;
+        let dx = (brownian(x * nf + 500 + flow, seg.y * nf + 500 + flow, t) - 0.5) * visualIntensity * 0.4;
+        vertex(x + dx, displayY + dy);
+      }
+    } else {
+      // Normal state: No noise, perfectly static
+      for (let x of seg.pts) {
+        vertex(x, displayY);
+      }
     }
     endShape();
   }
+}
+
+function brownian(x, y, t) {
+  let val = 0;
+  let amp = 0.5;
+  let freq = 1.0;
+  // 4 octaves of noise for a "nervous," jagged Brownian drift
+  for (let i = 0; i < 4; i++) {
+    val += noise(x * freq, y * freq, t * freq) * amp;
+    amp *= 0.5;
+    freq *= 2.1; // Slightly non-integer for more organic jitter
+  }
+  return val;
 }
 
 function mouseWheel(event) {
