@@ -333,22 +333,23 @@ function mouseWheel(event) {
 function touchStarted() {
   // Store initial touch position
   touchY = mouseY;
-
-  // Audio should only start via the dedicated UI button, not global touch
-  return false;
+  // No return false here, so we don't block clicks on the volume slider
 }
 
 function touchMoved() {
-  // Calculate drag distance
-  let deltaY = touchY - mouseY;
-  targetScroll += deltaY;
-  targetScroll = constrain(targetScroll, 0, totalPoemHeight - height);
-
-  // Update last touch position for continuous drag
-  touchY = mouseY;
-
-  // Prevent page scrolling
-  return false;
+  // Only scroll if we aren't interacting with the audio UI (bottom-right)
+  let isOverUI = (mouseX > width - 200 && mouseY > height - 100);
+  
+  if (!isOverUI) {
+    // Calculate drag distance
+    let deltaY = touchY - mouseY;
+    targetScroll += deltaY;
+    targetScroll = constrain(targetScroll, 0, totalPoemHeight - height);
+    touchY = mouseY;
+    
+    // Prevent page scrolling during canvas drag
+    return false;
+  }
 }
 
 function windowResized() {
