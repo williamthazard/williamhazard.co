@@ -19,8 +19,11 @@ chrome_options = Options()
 chrome_options.add_argument("--headless=new") 
 
 if num_args > 0 and sys.argv[1] == 'update-credentials':
-        keyring.delete_password('izzzzi-u','u')
-        keyring.delete_password('izzzzi-p','p')
+        for svc, usr in [('izzzzi-u','u'),('izzzzi-p','p')]:
+            try:
+                keyring.delete_password(svc, usr)
+            except keyring.errors.PasswordDeleteError:
+                pass
         credentials=None
 
 if credentials is None:

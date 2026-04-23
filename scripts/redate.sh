@@ -1,4 +1,5 @@
 echo ">> check log entry dates"
+PYTHON="../../.venv/bin/python3"
 cd ../log/entries
 marks=(*.md)
 function dateCheck() {
@@ -27,14 +28,14 @@ function charCheck() {
     echo ">> posting ${file} to Mastodon and izzzzi"
     if [ -e pics/$file.jpeg ]; then
       image="pics/${file}.jpeg" 
-      python ../../scripts/izzzzi-post.py text "${imgmark}" img "${image}"
+      $PYTHON ../../scripts/izzzzi-post.py text "${imgmark}" img "${image}"
       toot post $text --media $image --description $text
     elif [ -e pics/$file.png ] ; then
       image="pics/${file}.png"
-      python ../../scripts/izzzzi-post.py text "${imgmark}" img "${image}"
+      $PYTHON ../../scripts/izzzzi-post.py text "${imgmark}" img "${image}"
       toot post $text --media $image --description $text
     else
-      python ../../scripts/izzzzi-post.py text "${mark}"
+      $PYTHON ../../scripts/izzzzi-post.py text "${mark}"
       toot post $text
     fi
     rm ${file}-tail.md
@@ -44,17 +45,17 @@ function post() {
   echo ">> posting ${file} to Bluesky, Mastodon, and izzzzi"
   if [ -e pics/$file.jpeg ]; then
     image="pics/${file}.jpeg"
-    python ../../scripts/izzzzi-post.py text "${imgmark}" img "${image}"
+    $PYTHON ../../scripts/izzzzi-post.py text "${imgmark}" img "${image}"
     toot post $text --media $image --description $text
   elif [ -e pics/$file.png ] ; then
     image="pics/${file}.png"
-    python ../../scripts/izzzzi-post.py text "${imgmark}" img "${image}"
+    $PYTHON ../../scripts/izzzzi-post.py text "${imgmark}" img "${image}"
     toot post $text --media $image --description $text
   else
-    python ../../scripts/izzzzi-post.py text "${mark}"
+    $PYTHON ../../scripts/izzzzi-post.py text "${mark}"
     toot post $text
   fi
-  python ../../scripts/bs-post.py "${text}" "${image}" "${text}"
+  $PYTHON ../../scripts/bs-post.py "${text}" "${image}" "${text}"
   rm ${file}-tail.md
 }
 for file in $marks ; do

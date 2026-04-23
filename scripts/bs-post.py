@@ -11,9 +11,11 @@ import getpass
 # Your Bluesky credentials and API URLs
 credentials = keyring.get_password('bsky-u', 'u')
 if len(sys.argv) > 1 and sys.argv[1] == 'update-credentials':
-        keyring.delete_password('bsky-u','u')
-        keyring.delete_password('bsky-p','p')
-        keyring.delete_password('bsky-pds','pds')
+        for svc, usr in [('bsky-u','u'),('bsky-p','p'),('bsky-pds','pds')]:
+            try:
+                keyring.delete_password(svc, usr)
+            except keyring.errors.PasswordDeleteError:
+                pass
         credentials=None
 
 if credentials is None:
