@@ -1,43 +1,39 @@
 let seed;
+let noiseSlider, weightSlider, passesSlider, detailSlider;
 
 function setup() {
-  const canvas = createCanvas(800, 800);
-  canvas.parent('sketch-container');
+  createCanvas(800, 800);
   pixelDensity(2);
   seed = random(100000);
+
+  noiseSlider = createSlider(0, 40, 10, 0.5);
+  weightSlider = createSlider(1, 10, 3.5, 0.5);
+  passesSlider = createSlider(1, 5, 2, 1);
+  detailSlider = createSlider(0.2, 3, 1.0, 0.1);
+
+  noiseSlider.input(redraw);
+  weightSlider.input(redraw);
+  passesSlider.input(redraw);
+  detailSlider.input(redraw);
+
+  createButton('Regenerate').mousePressed(() => { seed = random(100000); redraw(); });
+  createButton('Download PNG').mousePressed(() => saveCanvas('circle-a', 'png'));
+  createButton('Download SVG').mousePressed(downloadSVG);
+
   noLoop();
-
-  for (const id of ['noise', 'weight', 'passes', 'detail']) {
-    const el = document.getElementById(id);
-    el.addEventListener('input', () => {
-      document.getElementById(id + '-val').textContent = el.value;
-      redraw();
-    });
-  }
-
-  document.getElementById('regen').addEventListener('click', () => {
-    seed = random(100000);
-    redraw();
-  });
-
-  document.getElementById('download-png').addEventListener('click', () => {
-    saveCanvas('circle-a', 'png');
-  });
-
-  document.getElementById('download-svg').addEventListener('click', downloadSVG);
 }
 
 function getParams() {
   return {
-    noiseAmt: parseFloat(document.getElementById('noise').value),
-    strokeW: parseFloat(document.getElementById('weight').value),
-    passes: parseInt(document.getElementById('passes').value),
-    noiseScale: parseFloat(document.getElementById('detail').value) * 0.008,
+    noiseAmt: noiseSlider.value(),
+    strokeW: weightSlider.value(),
+    passes: passesSlider.value(),
+    noiseScale: detailSlider.value() * 0.008,
   };
 }
 
 function draw() {
-  background(255);
+  background(244, 243, 241);
   const p = getParams();
 
   noiseSeed(floor(seed));
@@ -47,7 +43,7 @@ function draw() {
   const cy = height / 2;
   const r = 280;
 
-  stroke(0);
+  stroke(56, 54, 58);
   noFill();
 
   const circlePts = circlePoints(cx, cy, r, 400);
@@ -213,12 +209,12 @@ function downloadSVG() {
       d += ` L ${pts[i].x.toFixed(2)} ${pts[i].y.toFixed(2)}`;
     }
     if (closed) d += ' Z';
-    paths += `  <path d="${d}" fill="none" stroke="black" stroke-width="${sw.toFixed(2)}" stroke-linecap="round" stroke-linejoin="round"/>\n`;
+    paths += `  <path d="${d}" fill="none" stroke="rgb(56,54,58)" stroke-width="${sw.toFixed(2)}" stroke-linecap="round" stroke-linejoin="round"/>\n`;
   }
 
   const svg = `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
-  <rect width="${w}" height="${h}" fill="white"/>
+  <rect width="${w}" height="${h}" fill="rgb(244,243,241)"/>
 ${paths}</svg>`;
 
   const blob = new Blob([svg], { type: 'image/svg+xml' });
