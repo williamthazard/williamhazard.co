@@ -1,5 +1,9 @@
 [![](sketches.jpeg)](../)
 # <p class='center'>sketches</p>
+[circle-a](circle-a)
+
+[nopf-talk](nopf-talk)
+
 [noise-text](noise-text) ([perpetuum version](perpetuum))
 
 [technical.ly-talk](technically-talk)
