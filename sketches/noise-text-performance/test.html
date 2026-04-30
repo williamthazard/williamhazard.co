@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tests — Noise Text Performance</title>
+  <style>body { font-family: monospace; padding: 16px; } </style>
+</head>
+<body>
+  <h1>Noise Text Performance — tests</h1>
+  <p>Open the browser console to view results.</p>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+
+  <script src="tests.js"></script>
+  <script src="params.js"></script>
+  <script src="macros.js"></script>
+  <script src="engine.js"></script>
+
+  <script src="tests-params.js"></script>
+  <script src="tests-macros.js"></script>
+  <script src="tests-engine.js"></script>
+
+  <script>
+    window.addEventListener('load', () => TESTS.run());
+  </script>
+</body>
+</html>
