@@ -57,11 +57,14 @@ TESTS.test('setParam writes to manual, leaves value unchanged', () => {
     cc: 99, label: 'test', range: [0, 1], curve: 'linear',
     manual: 0, value: 0, lastSentToLed: -1, apply: () => {},
   };
-  PARAMS.setParam('testKnob', 0.42);
-  const p = PARAMS.byName('testKnob');
-  TESTS.assert(p.manual === 0.42, 'manual should be 0.42');
-  TESTS.assert(p.value === 0, 'value should still be 0');
-  delete PARAMS.params.testKnob;
+  try {
+    PARAMS.setParam('testKnob', 0.42);
+    const p = PARAMS.byName('testKnob');
+    TESTS.assert(p.manual === 0.42, 'manual should be 0.42');
+    TESTS.assert(p.value === 0, 'value should still be 0');
+  } finally {
+    delete PARAMS.params.testKnob;
+  }
 });
 
 TESTS.test('setParam constrains v to [0,1]', () => {
@@ -69,11 +72,14 @@ TESTS.test('setParam constrains v to [0,1]', () => {
     cc: 99, label: 'test', range: [0, 1], curve: 'linear',
     manual: 0.5, value: 0, lastSentToLed: -1, apply: () => {},
   };
-  PARAMS.setParam('testKnob', 1.5);
-  TESTS.assert(PARAMS.byName('testKnob').manual === 1);
-  PARAMS.setParam('testKnob', -0.3);
-  TESTS.assert(PARAMS.byName('testKnob').manual === 0);
-  delete PARAMS.params.testKnob;
+  try {
+    PARAMS.setParam('testKnob', 1.5);
+    TESTS.assert(PARAMS.byName('testKnob').manual === 1);
+    PARAMS.setParam('testKnob', -0.3);
+    TESTS.assert(PARAMS.byName('testKnob').manual === 0);
+  } finally {
+    delete PARAMS.params.testKnob;
+  }
 });
 
 TESTS.test('setParamByCC normalizes raw 0..127 to 0..1', () => {
@@ -81,13 +87,16 @@ TESTS.test('setParamByCC normalizes raw 0..127 to 0..1', () => {
     cc: 99, label: 'test', range: [0, 1], curve: 'linear',
     manual: 0, value: 0, lastSentToLed: -1, apply: () => {},
   };
-  PARAMS.setParamByCC(99, 127);
-  TESTS.assert(TESTS.approx(PARAMS.byName('testKnob').manual, 1));
-  PARAMS.setParamByCC(99, 0);
-  TESTS.assert(PARAMS.byName('testKnob').manual === 0);
-  PARAMS.setParamByCC(99, 64);
-  TESTS.assert(TESTS.approx(PARAMS.byName('testKnob').manual, 64 / 127, 0.001));
-  delete PARAMS.params.testKnob;
+  try {
+    PARAMS.setParamByCC(99, 127);
+    TESTS.assert(TESTS.approx(PARAMS.byName('testKnob').manual, 1));
+    PARAMS.setParamByCC(99, 0);
+    TESTS.assert(PARAMS.byName('testKnob').manual === 0);
+    PARAMS.setParamByCC(99, 64);
+    TESTS.assert(TESTS.approx(PARAMS.byName('testKnob').manual, 64 / 127, 0.001));
+  } finally {
+    delete PARAMS.params.testKnob;
+  }
 });
 
 TESTS.test('setParam queues an LED echo', () => {
@@ -96,12 +105,15 @@ TESTS.test('setParam queues an LED echo', () => {
     cc: 99, label: 'test', range: [0, 1], curve: 'linear',
     manual: 0, value: 0, lastSentToLed: -1, apply: () => {},
   };
-  PARAMS.setParam('testKnob', 0.5);
-  const queue = PARAMS.drainLedQueue();
-  TESTS.assert(queue.length === 1, `expected 1 echo, got ${queue.length}`);
-  TESTS.assert(queue[0].cc === 99);
-  TESTS.assert(queue[0].value === Math.round(0.5 * 127));
-  delete PARAMS.params.testKnob;
+  try {
+    PARAMS.setParam('testKnob', 0.5);
+    const queue = PARAMS.drainLedQueue();
+    TESTS.assert(queue.length === 1, `expected 1 echo, got ${queue.length}`);
+    TESTS.assert(queue[0].cc === 99);
+    TESTS.assert(queue[0].value === Math.round(0.5 * 127));
+  } finally {
+    delete PARAMS.params.testKnob;
+  }
 });
 
 TESTS.test('byCC finds param by CC number', () => {
@@ -109,9 +121,31 @@ TESTS.test('byCC finds param by CC number', () => {
     cc: 99, label: 'test', range: [0, 1], curve: 'linear',
     manual: 0, value: 0, lastSentToLed: -1, apply: () => {},
   };
-  TESTS.assert(PARAMS.byCC(99) === PARAMS.params.testKnob);
-  TESTS.assert(PARAMS.byCC(123) === undefined);
-  delete PARAMS.params.testKnob;
+  try {
+    TESTS.assert(PARAMS.byCC(99) === PARAMS.params.testKnob);
+    TESTS.assert(PARAMS.byCC(123) === undefined);
+  } finally {
+    delete PARAMS.params.testKnob;
+  }
+});
+
+TESTS.test('setParamByCC drops incoming raw matching lastSentToLed (echo-loop suppression)', () => {
+  PARAMS.drainLedQueue();
+  PARAMS.params.testKnob = {
+    cc: 99, label: 'test', range: [0, 1], curve: 'linear',
+    manual: 0.3, value: 0, lastSentToLed: 64, apply: () => {},
+  };
+  try {
+    PARAMS.setParamByCC(99, 64);  // matches lastSentToLed — should be dropped
+    TESTS.assert(PARAMS.byName('testKnob').manual === 0.3, 'manual should not change on echo');
+    const queue = PARAMS.drainLedQueue();
+    TESTS.assert(queue.length === 0, `expected 0 queued echoes, got ${queue.length}`);
+    // Same CC with a different raw should still go through.
+    PARAMS.setParamByCC(99, 65);
+    TESTS.assert(PARAMS.byName('testKnob').manual !== 0.3, 'non-matching raw should write through');
+  } finally {
+    delete PARAMS.params.testKnob;
+  }
 });
 
 // Step 10: Registry sanity-check tests

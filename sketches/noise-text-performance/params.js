@@ -79,9 +79,9 @@ const PARAMS = (() => {
   reg('lpfFreq',      { cc: 5,  label: 'LPF Cutoff',           range: [20000, 300],   curve: 'expInverted', default: 0,
                         engineFn: (e) => e.normInt });
   reg('distortion',   { cc: 6,  label: 'Distortion',           range: [0, 0.95],      curve: 'pow:0.8', default: 0,
-                        engineFn: (e) => Math.pow(e.normInt, 0.8) });
+                        engineFn: (e) => e.normInt });
   reg('reverbWet',    { cc: 7,  label: 'Reverb Wet',           range: [0, 0.88],      curve: 'pow:2.0', default: 0,
-                        engineFn: (e) => Math.pow(e.normInt, 2.0) });
+                        engineFn: (e) => e.normInt });
   reg('jitterAmt',    { cc: 8,  label: 'Jitter Amount',        range: [0, 0.45],      curve: 'linear', default: 0,
                         engineFn: (e) => e.normInt > 0.15 ? e.normInt : 0 });
   reg('stutterProb',  { cc: 9,  label: 'Stutter Probability',  range: [0, 0.04],      curve: 'linear', default: 0,
