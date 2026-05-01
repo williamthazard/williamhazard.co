@@ -11,8 +11,6 @@ let distortion;
 let glitchDelay;
 let reverb;
 
-let muteBtn;
-let volSlider;
 let isMuted = true;
 let audioStarted = false;
 let playbackDirection = 1.0;
@@ -31,39 +29,41 @@ function preload() {
   poemAudio = loadSound('assets/we-live-inside-a-dream.mp3');
 }
 
-// Audio icons (Lucide-inspired SVGs)
-const speakerIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>`;
-const muteIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>`;
 
 function setup() {
   calculateResponsiveSizes();
   createCanvas(windowWidth, windowHeight);
   pixelDensity(1);
 
-  // Audio Chain: Audio -> Filter -> Distortion -> Delay (Glitch) -> Reverb -> Output
   lowPass = new p5.LowPass();
   distortion = new p5.Distortion();
   glitchDelay = new p5.Delay();
   reverb = new p5.Reverb();
 
-  // Set initial clear state
-  lowPass.freq(20000);
-  reverb.drywet(0);
-  glitchDelay.delayTime(0.01);
-  glitchDelay.feedback(0);
-
-  // Route audio through the chain
   poemAudio.disconnect();
   poemAudio.connect(lowPass);
   lowPass.connect(distortion);
   distortion.connect(glitchDelay);
   glitchDelay.connect(reverb);
 
-  // Set initial muted state
   poemAudio.setVolume(0);
 
-  // Create UI for audio controls
-  createAudioUI();
+  // Wire each audio-bound param's apply() into the audio chain.
+  PARAMS.byName('lpfFreq').apply     = (mapped) => lowPass.freq(mapped);
+  PARAMS.byName('lpfRes').apply      = (mapped) => lowPass.res(mapped);
+  PARAMS.byName('distortion').apply  = (mapped) => {
+    if (Math.abs(mapped - lastDistAmount) > 0.02) {
+      distortion.set(mapped, 'none');
+      lastDistAmount = mapped;
+    }
+  };
+  PARAMS.byName('reverbWet').apply   = (mapped) => reverb.drywet(mapped);
+  PARAMS.byName('reverbDecay').apply = (mapped) => reverb.set(mapped, 2);
+  PARAMS.byName('delayTime').apply   = (mapped) => glitchDelay.delayTime(mapped);
+  PARAMS.byName('delayFbk').apply    = (mapped) => glitchDelay.feedback(mapped);
+  PARAMS.byName('masterVol').apply   = (mapped) => {
+    if (!isMuted && audioStarted) poemAudio.setVolume(mapped);
+  };
 
   // Build the entire poem's segments once
   buildSegments();
@@ -87,69 +87,19 @@ function calculateResponsiveSizes() {
   LINE_HEIGHT = FONT_SIZE * 1.6;
 }
 
-function createAudioUI() {
-  let ui = createDiv();
-  ui.id('audio-controls');
-  ui.style('position', 'fixed');
-  ui.style('bottom', '30px');
-  ui.style('right', '30px');
-  ui.style('display', 'flex');
-  ui.style('align-items', 'center');
-  ui.style('gap', '15px');
-  ui.style('background', 'rgba(15, 15, 25, 0.6)');
-  ui.style('padding', '10px 18px');
-  ui.style('border-radius', '50px');
-  ui.style('backdrop-filter', 'blur(12px)');
-  ui.style('border', '1px solid rgba(255, 255, 255, 0.1)');
-  ui.style('box-shadow', '0 8px 32px rgba(0,0,0,0.4)');
-  ui.style('z-index', '1000');
-  ui.style('user-select', 'none');
 
-  muteBtn = createButton(muteIcon);
-  muteBtn.parent(ui);
-  muteBtn.style('background', 'none');
-  muteBtn.style('border', 'none');
-  muteBtn.style('color', '#e0e0f0');
-  muteBtn.style('display', 'flex');
-  muteBtn.style('align-items', 'center');
-  muteBtn.style('justify-content', 'center');
-  muteBtn.style('cursor', 'pointer');
-  muteBtn.style('padding', '0');
-  muteBtn.style('width', '30px');
-  muteBtn.style('height', '30px');
-  muteBtn.mousePressed(toggleAudio);
-
-  volSlider = createSlider(0, 1, 0.5, 0.01);
-  volSlider.parent(ui);
-  volSlider.style('width', '80px');
-  volSlider.style('cursor', 'pointer');
-  volSlider.style('accent-color', '#ffffff');
-  volSlider.style('background', 'transparent');
-  volSlider.style('height', '4px');
-  volSlider.style('outline', 'none');
+function startAudio() {
+  if (audioStarted) return Promise.resolve();
+  return userStartAudio().then(() => {
+    poemAudio.loop();
+    audioStarted = true;
+  });
 }
 
-function toggleAudio() {
-  if (!audioStarted) {
-    // First time activation
-    userStartAudio().then(() => {
-      poemAudio.loop();
-      audioStarted = true;
-      isMuted = false;
-      muteBtn.html(speakerIcon);
-      poemAudio.setVolume(volSlider.value());
-    });
-  } else {
-    // Normal toggle
-    isMuted = !isMuted;
-    if (isMuted) {
-      muteBtn.html(muteIcon);
-      poemAudio.setVolume(0);
-    } else {
-      muteBtn.html(speakerIcon);
-      poemAudio.setVolume(volSlider.value());
-    }
-  }
+function setMuted(m) {
+  isMuted = m;
+  if (m) poemAudio.setVolume(0);
+  // Unmute is implicit: PARAMS.applyAll pushes masterVol next frame.
 }
 
 function buildSegments() {
@@ -203,82 +153,50 @@ function draw() {
 
   currentScroll = lerp(currentScroll, targetScroll, 0.1);
 
-  let nf = 0.18; // Baseline spatial frequency for Brown Noise
-  let t = frameCount * 0.05; // Temporal drift speed
-  let flow = frameCount * 0.02; // Spatial drift speed
+  if (typeof MIDI !== 'undefined' && MIDI.drainInputs) MIDI.drainInputs();
 
-  // Organic intensity: Sine (starting at -1) + Perlin noise for wobble (fading in)
-  let sineWave = sin(frameCount * 0.0005 - HALF_PI);
-  let perlinNoise = noise(frameCount * 0.005) * 2 - 1;
+  // (Auto-scroll integration is wired in Task 9.)
 
-  // Gradually introduce noise over the first 1000 frames to ensure a clean 0 start
-  let noiseLevel = map(constrain(frameCount, 0, 1000), 0, 1000, 0, 0.05);
-  let combinedVal = lerp(sineWave, perlinNoise, noiseLevel);
+  PARAMS.modulationPass();
+  PARAMS.applyAll();
 
-  let intensity = map(combinedVal, -1, 1, 0, 225);
-  let normInt = intensity / 225; // Normalize to 0-1
+  const visualIntensity   = PARAMS.mappedValue(PARAMS.byName('visualJag'));
+  const nf                = PARAMS.mappedValue(PARAMS.byName('vSpatial'));
+  const tInc              = PARAMS.mappedValue(PARAMS.byName('vTimeSpd'));
+  const flowInc           = PARAMS.mappedValue(PARAMS.byName('vFlowSpd'));
+  const t                 = frameCount * tInc;
+  const flow              = frameCount * flowInc;
+  const jitterAmt         = PARAMS.mappedValue(PARAMS.byName('jitterAmt'));
+  const jitterFreq        = PARAMS.mappedValue(PARAMS.byName('jitterFreq'));
+  const stutterProb       = PARAMS.mappedValue(PARAMS.byName('stutterProb'));
+  const stutterMax        = PARAMS.mappedValue(PARAMS.byName('stutterMax'));
+  const reverseProb       = PARAMS.mappedValue(PARAMS.byName('reverseProb'));
+  const masterPitch       = PARAMS.mappedValue(PARAMS.byName('masterPitch'));
 
-  // Visual Intensity: Pushing to 3.2 means it stays legible for much longer
-  let visualIntensity = pow(normInt, 3.2) * 225;
-
-  // Advanced Audio Mirroring Logic + Resonant Glitch System
   if (audioStarted) {
-    // 1. LPF: Linear drop to keep it legible longer
-    let f = map(normInt, 0, 1, 20000, 300);
-    lowPass.freq(f);
-
-    // 2. Distortion: Smooth increase in intensity
-    let d = map(pow(normInt, 0.8), 0, 1, 0, 0.95);
-    if (abs(d - lastDistAmount) > 0.02) {
-      distortion.set(d, 'none');
-      lastDistAmount = d;
-    }
-
-    // 3. Reverb: Quadratic wash helps clarity at lower intensities
-    let rw = map(pow(normInt, 2.0), 0, 1, 0, 0.88);
-    reverb.drywet(rw);
-
-    // 4. Glitch: Pitch Jitter + Temporal Reversal
-    if (normInt > 0.15) {
-      // Increased jitter magnitude and responsiveness
-      let jitter = (noise(frameCount * 0.8) - 0.5) * normInt * 0.45;
-
-      // Randomly flip direction when above peak threshold
-      if (normInt > 0.65 && random() < 0.06) {
-        playbackDirection *= -1;
-      } else if (normInt <= 0.7) {
-        playbackDirection = 1;
-      }
-
-      poemAudio.rate((1 + jitter) * playbackDirection);
+    if (jitterAmt > 0) {
+      const jitter = (noise(frameCount * jitterFreq) - 0.5) * jitterAmt;
+      if (random() < reverseProb) playbackDirection *= -1;
+      poemAudio.rate((1 + jitter) * playbackDirection * masterPitch);
     } else {
       playbackDirection = 1;
-      poemAudio.rate(1.0);
+      poemAudio.rate(masterPitch);
     }
 
-    // 5. Glitch: Temporal Stutter (Digital jumping/skipping)
-    // Throttled jump to 4x per second max
-    if (normInt > 0.55 && random() < 0.04 && frameCount - lastJumpTime > 15) {
-      // Manual cleanup: Reaching into p5.SoundFile's internal source to stop/disconnect
-      // This ensures the browser can safely garbage collect the previous AudioBufferSourceNode
+    if (random() < stutterProb && frameCount - lastJumpTime > 15) {
       if (poemAudio.bufferSource) {
         try {
           poemAudio.bufferSource.stop();
           poemAudio.bufferSource.disconnect();
-        } catch (e) {
-          // Ignore state errors from already stopped nodes
-        }
+        } catch (e) { /* ignore */ }
       }
-
-      let skipAmount = random(0.01, 0.75);
-      poemAudio.jump(max(0, poemAudio.currentTime() - skipAmount));
+      const skip = random(0.01, stutterMax);
+      poemAudio.jump(max(0, poemAudio.currentTime() - skip));
       lastJumpTime = frameCount;
     }
-
-    if (!isMuted) {
-      poemAudio.setVolume(volSlider.value());
-    }
   }
+
+  if (typeof MIDI !== 'undefined' && MIDI.flushLedQueue) MIDI.flushLedQueue();
 
   stroke(210, 215, 235);
   strokeWeight(2.5);
@@ -331,25 +249,15 @@ function mouseWheel(event) {
 }
 
 function touchStarted() {
-  // Store initial touch position
   touchY = mouseY;
-  // No return false here, so we don't block clicks on the volume slider
 }
 
 function touchMoved() {
-  // Only scroll if we aren't interacting with the audio UI (bottom-right)
-  let isOverUI = (mouseX > width - 200 && mouseY > height - 100);
-  
-  if (!isOverUI) {
-    // Calculate drag distance
-    let deltaY = touchY - mouseY;
-    targetScroll += deltaY;
-    targetScroll = constrain(targetScroll, 0, totalPoemHeight - height);
-    touchY = mouseY;
-    
-    // Prevent page scrolling during canvas drag
-    return false;
-  }
+  let deltaY = touchY - mouseY;
+  targetScroll += deltaY;
+  targetScroll = constrain(targetScroll, 0, totalPoemHeight - height);
+  touchY = mouseY;
+  return false;
 }
 
 function windowResized() {
