@@ -163,7 +163,18 @@ function draw() {
 
   if (typeof MIDI !== 'undefined' && MIDI.drainInputs) MIDI.drainInputs();
 
-  // (Auto-scroll integration is wired in Task 9.)
+  if (SWITCHES.state.autoScrollOn) {
+    const v = PARAMS.mappedValue(PARAMS.byName('autoScroll'));
+    if (Math.abs(v) > 0.05) {
+      const MAX_AUTO_SPEED = 10;
+      targetScroll += v * MAX_AUTO_SPEED;
+      targetScroll = constrain(targetScroll, 0, totalPoemHeight - height);
+    }
+    const denom = totalPoemHeight - height;
+    PARAMS.setParam('scrollPos', denom > 0 ? targetScroll / denom : 0);
+  } else {
+    targetScroll = PARAMS.byName('scrollPos').manual * (totalPoemHeight - height);
+  }
 
   PARAMS.modulationPass();
   PARAMS.applyAll();
