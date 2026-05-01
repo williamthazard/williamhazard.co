@@ -62,7 +62,34 @@ const MIDI = (() => {
   }
 
   function handleStateChange(e) {
-    onConnectionChange({ port: e.port, state: e.port.state });
+    const port = e.port;
+    if (port.state === 'disconnected') {
+      const wasBound = (port === inputPort || port === outputPort);
+      if (port === inputPort) inputPort = null;
+      if (port === outputPort) outputPort = null;
+      if (wasBound && typeof UI !== 'undefined') UI.showDisconnect();
+    } else if (port.state === 'connected') {
+      if (!inputPort && port.type === 'input' && MFT_NAME_RE.test(port.name)) {
+        bindInput(port);
+      }
+      if (!outputPort && port.type === 'output' && MFT_NAME_RE.test(port.name)) {
+        bindOutput(port);
+      }
+      if (inputPort && outputPort && typeof UI !== 'undefined') {
+        UI.hideDisconnect();
+        for (const p of PARAMS.all()) {
+          const v = Math.round(p.manual * 127);
+          sendCC(p.cc, v);
+          p.lastSentToLed = v;
+        }
+        if (typeof SWITCHES !== 'undefined') {
+          sendCC(1, SWITCHES.state.autoScrollOn ? 127 : 0, 1);
+          sendCC(2, SWITCHES.state.muted ? 127 : 0, 1);
+          sendCC(3, SWITCHES.state.engineOn ? 127 : 0, 1);
+        }
+      }
+    }
+    onConnectionChange({ port, state: port.state });
   }
 
   function drainInputs() {

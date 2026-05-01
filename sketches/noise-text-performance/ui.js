@@ -204,8 +204,21 @@ const UI = (() => {
     debugEl.appendChild(link);
   }
 
-  function showDisconnect() {}
-  function hideDisconnect() {}
+  function showDisconnect() {
+    if (disconnectEl) return;
+    disconnectEl = document.createElement('div');
+    Object.assign(disconnectEl.style, {
+      position: 'fixed', right: '14px', bottom: '14px',
+      width: '8px', height: '8px', borderRadius: '50%',
+      background: '#e54141', boxShadow: '0 0 6px rgba(229,65,65,0.6)',
+      zIndex: '9998',
+    });
+    document.body.appendChild(disconnectEl);
+  }
+
+  function hideDisconnect() {
+    if (disconnectEl) { disconnectEl.remove(); disconnectEl = null; }
+  }
 
   return {
     showBegin, hideBegin,
