@@ -119,7 +119,91 @@ const UI = (() => {
   function hidePicker() {
     if (pickerEl) { pickerEl.remove(); pickerEl = null; }
   }
-  function toggleDebug() {}
+  function toggleDebug() {
+    if (debugVisible) { hideDebug(); } else { showDebug(); }
+  }
+
+  function showDebug() {
+    if (debugEl) return;
+    debugEl = document.createElement('div');
+    Object.assign(debugEl.style, {
+      position: 'fixed', left: '12px', bottom: '12px',
+      background: 'rgba(10,10,18,0.85)', color: '#cfd0e0',
+      padding: '12px 16px', fontFamily: 'monospace', fontSize: '11px',
+      lineHeight: '1.4', borderRadius: '6px',
+      minWidth: '420px', maxWidth: '520px',
+      maxHeight: '70vh', overflow: 'auto', zIndex: '9999',
+      backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.06)',
+      whiteSpace: 'pre',
+    });
+    document.body.appendChild(debugEl);
+    debugVisible = true;
+    refreshDebugLoop();
+  }
+
+  function hideDebug() {
+    if (debugRefreshId) {
+      clearTimeout(debugRefreshId);
+      debugRefreshId = null;
+    }
+    if (debugEl) { debugEl.remove(); debugEl = null; }
+    debugVisible = false;
+  }
+
+  function refreshDebugLoop() {
+    if (!debugVisible) return;
+    renderDebug();
+    debugRefreshId = setTimeout(refreshDebugLoop, 100);
+  }
+
+  function renderDebug() {
+    if (!debugEl) return;
+    while (debugEl.firstChild) debugEl.removeChild(debugEl.firstChild);
+
+    function addLine(text, isHeader) {
+      const line = document.createElement('div');
+      line.textContent = text;
+      if (isHeader) line.style.fontWeight = 'bold';
+      debugEl.appendChild(line);
+    }
+    function addBlank() {
+      const line = document.createElement('div');
+      line.textContent = '';
+      debugEl.appendChild(line);
+    }
+
+    addLine(`MIDI: ${MIDI.isBound() ? '✓ bound' : '✗ not bound'}`, true);
+    addBlank();
+
+    addLine('PARAMS', true);
+    for (const p of PARAMS.all()) {
+      const m = p.manual.toFixed(3);
+      const v = p.value.toFixed(3);
+      const out = PARAMS.mappedValue(p).toFixed(3);
+      addLine(`  ${p.label.padEnd(28, ' ')} m=${m}  v=${v}  out=${out}`);
+    }
+    addBlank();
+
+    addLine('RECENT MIDI', true);
+    const msgs = MIDI.getRecentMessages ? MIDI.getRecentMessages() : [];
+    for (const m of msgs.slice(-10).reverse()) {
+      addLine(`  ch${m.channel} cc${m.cc} v${m.value}  → ${m.target || ''}`);
+    }
+    addBlank();
+
+    const link = document.createElement('a');
+    link.href = '#';
+    link.textContent = '[ Reopen device picker ]';
+    link.style.color = '#8af';
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPicker(MIDI.listDevices(), async ({ inputId, outputId }) => {
+        await MIDI.connect({ preferInputId: inputId, preferOutputId: outputId });
+      });
+    });
+    debugEl.appendChild(link);
+  }
+
   function showDisconnect() {}
   function hideDisconnect() {}
 

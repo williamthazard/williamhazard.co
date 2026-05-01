@@ -5,6 +5,13 @@ const MIDI = (() => {
   const inputQueue = [];
   let onConnectionChange = () => {};
 
+  const recentMessages = [];
+  const MAX_LOG = 20;
+  function logMessage(entry) {
+    recentMessages.push(entry);
+    if (recentMessages.length > MAX_LOG) recentMessages.shift();
+  }
+
   const MFT_NAME_RE = /midi.*fighter.*twister/i;
 
   async function connect(opts = {}) {
@@ -71,17 +78,24 @@ const MIDI = (() => {
     const value = data[2];
     if (status !== 0xB0) return;
 
+    const entry = { t: Date.now(), channel, cc, value };
     if (channel === 0) {
       const macroName = MACROS.nameByCC(cc);
       if (macroName) {
+        entry.target = `macro:${macroName}`;
         MACROS.apply(macroName, value / 127);
       } else {
+        const p = PARAMS.byCC(cc);
+        entry.target = p ? `param:${p.label}` : `unmapped:cc${cc}`;
         PARAMS.setParamByCC(cc, value);
       }
     } else if (channel === 1) {
-      if (value === 0) return;
-      if (typeof SWITCHES !== 'undefined' && SWITCHES.handle) SWITCHES.handle(cc);
+      entry.target = `switch:cc${cc}`;
+      if (value !== 0 && typeof SWITCHES !== 'undefined' && SWITCHES.handle) {
+        SWITCHES.handle(cc);
+      }
     }
+    logMessage(entry);
   }
 
   function sendCC(cc, value, channel = 0) {
@@ -123,6 +137,6 @@ const MIDI = (() => {
   return {
     connect, drainInputs, sendCC, bindInput, bindOutput,
     isBound, setOnConnectionChange, listDevices,
-    flushLedQueue,
+    flushLedQueue, getRecentMessages: () => recentMessages.slice(),
   };
 })();

@@ -308,3 +308,7 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   buildSegments();
 }
+
+function keyPressed() {
+  if (key === 'd' || key === 'D') UI.toggleDebug();
+}
