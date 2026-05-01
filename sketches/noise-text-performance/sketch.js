@@ -75,6 +75,19 @@ function setup() {
 
   // Build the entire poem's segments once
   buildSegments();
+
+  UI.showBegin(async () => {
+    await startAudio();
+    const result = await MIDI.connect();
+    if (result.ok && result.hasInput && result.hasOutput) {
+      PARAMS.setParam('masterVol', 0);
+    } else if (result.ok && (result.hasInput || result.hasOutput)) {
+      PARAMS.setParam('masterVol', 0);
+    } else {
+      PARAMS.setParam('masterVol', 0.5);
+    }
+    setMuted(false);
+  });
 }
 
 function calculateResponsiveSizes() {
