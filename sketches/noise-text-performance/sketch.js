@@ -15,6 +15,7 @@ let isMuted = true;
 let audioStarted = false;
 let playbackDirection = 1.0;
 let lastDistAmount = 0;
+let lastReverbDecay = -1;
 let lastJumpTime = 0;
 let touchY = 0;
 
@@ -58,7 +59,14 @@ function setup() {
     }
   };
   PARAMS.byName('reverbWet').apply   = (mapped) => reverb.drywet(mapped);
-  PARAMS.byName('reverbDecay').apply = (mapped) => reverb.set(mapped, 2);
+  PARAMS.byName('reverbDecay').apply = (mapped) => {
+    // p5.Reverb.set rebuilds the convolver impulse response on every call —
+    // expensive. Only call when the value actually changes meaningfully.
+    if (Math.abs(mapped - lastReverbDecay) > 0.05) {
+      reverb.set(mapped, 2);
+      lastReverbDecay = mapped;
+    }
+  };
   PARAMS.byName('delayTime').apply   = (mapped) => glitchDelay.delayTime(mapped);
   PARAMS.byName('delayFbk').apply    = (mapped) => glitchDelay.feedback(mapped);
   PARAMS.byName('masterVol').apply   = (mapped) => {
