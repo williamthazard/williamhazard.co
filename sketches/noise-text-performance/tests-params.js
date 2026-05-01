@@ -174,3 +174,37 @@ TESTS.test('engine-aware params have engineFn', () => {
     TESTS.assert(typeof PARAMS.byName(name).engineFn === 'function', `${name}: missing engineFn`);
   }
 });
+
+TESTS.test('modulationPass mod=0: value === manual for all params', () => {
+  PARAMS.setParam('lpfFreq', 0.7);
+  PARAMS.setParam('modAmount', 0);
+  PARAMS.modulationPass();
+  TESTS.assert(PARAMS.byName('lpfFreq').value === 0.7);
+});
+
+TESTS.test('modulationPass with mod>0 but engine inactive: value === manual', () => {
+  PARAMS.setParam('lpfFreq', 0.3);
+  PARAMS.setParam('modAmount', 1.0);
+  ENGINE.deactivate();
+  PARAMS.modulationPass();
+  TESTS.assert(PARAMS.byName('lpfFreq').value === 0.3);
+});
+
+TESTS.test('modulationPass with mod=1 + engine active: engine-aware value matches engineFn', () => {
+  PARAMS.setParam('visualJag', 0.0);
+  PARAMS.setParam('modAmount', 1.0);
+  ENGINE.activate();
+  PARAMS.modulationPass();
+  const v = PARAMS.byName('visualJag').value;
+  TESTS.assert(TESTS.approx(v, 0, 0.01), `expected ~0, got ${v}`);
+  ENGINE.deactivate();
+});
+
+TESTS.test('modulationPass: non-engine-aware params keep manual', () => {
+  PARAMS.setParam('delayTime', 0.42);
+  PARAMS.setParam('modAmount', 1.0);
+  ENGINE.activate();
+  PARAMS.modulationPass();
+  TESTS.assert(PARAMS.byName('delayTime').value === 0.42);
+  ENGINE.deactivate();
+});

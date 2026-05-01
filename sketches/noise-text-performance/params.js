@@ -52,9 +52,27 @@ const PARAMS = (() => {
     }
   }
 
+  function modulationPass() {
+    const m = byName('modAmount').manual;
+    const engineActive = (typeof ENGINE !== 'undefined') && ENGINE.isActive();
+    if (m <= 0 || !engineActive) {
+      for (const p of all()) p.value = p.manual;
+      return;
+    }
+    const e = ENGINE.tick();
+    for (const p of all()) {
+      if (p.engineFn) {
+        const eContrib = p.engineFn(e);
+        p.value = p.manual + (eContrib - p.manual) * m;
+      } else {
+        p.value = p.manual;
+      }
+    }
+  }
+
   return {
     params, all, byName, byCC, mappedValue,
-    setParam, setParamByCC, drainLedQueue, applyAll,
+    setParam, setParamByCC, drainLedQueue, applyAll, modulationPass,
   };
 })();
 
