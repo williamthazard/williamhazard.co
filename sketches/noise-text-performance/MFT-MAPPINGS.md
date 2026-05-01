@@ -71,12 +71,14 @@ The "press = snap to 0" action zeroes the macro knob *and* writes its v=0 mappin
 
 ### M1 — Intensity (recreates the original noise behavior)
 
+Each value is the unshaped 0..1 input; the param's `curve` does the shaping in `mappedValue` (e.g. distortion's `pow:0.8` curve, reverb wet's `pow:2.0` curve). Don't pre-shape in the macro — the curve gets applied once when the audio chain reads `value`.
+
 | Param               | Mapping from macro v |
 |---------------------|----------------------|
 | Visual Jagginess    | `v`                  |
 | LPF Cutoff          | `v`                  |
-| Distortion          | `pow(v, 0.8)`        |
-| Reverb Wet          | `pow(v, 2.0)`        |
+| Distortion          | `v`                  |
+| Reverb Wet          | `v`                  |
 | Jitter Amount       | `v` if `v > 0.15`, else `0` |
 | Stutter Probability | full if `v > 0.55`, else `0` |
 

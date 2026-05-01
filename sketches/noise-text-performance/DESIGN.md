@@ -184,11 +184,13 @@ Only the params the original `normInt` drove get an `engineFn`:
 |---------------------|----------------------------------|
 | Visual Jagginess    | `e.normInt`                      |
 | LPF Cutoff          | `e.normInt`                      |
-| Distortion          | `pow(e.normInt, 0.8)`            |
-| Reverb Wet          | `pow(e.normInt, 2.0)`            |
+| Distortion          | `e.normInt`                      |
+| Reverb Wet          | `e.normInt`                      |
 | Jitter Amount       | `e.normInt > 0.15 ? e.normInt : 0` |
 | Stutter Probability | `e.normInt > 0.55 ? 1 : 0`       |
 | Reverse Probability | `e.normInt > 0.65 ? 1 : 0`       |
+
+The engineFn returns the normalized 0..1 source value; the param's `curve` shapes it once via `mappedValue`. (Earlier drafts of this table had `pow(e.normInt, 0.8)` for Distortion and `pow(e.normInt, 2.0)` for Reverb Wet, which double-shaped against the params' `pow:0.8` and `pow:2.0` curves — fixed here.)
 
 Other params have no `engineFn` and aren't modulated.
 
@@ -200,11 +202,11 @@ Once per frame, after MIDI events, before `applyAll`:
 function modulationPass() {
   const m = PARAMS.byName('modAmount').manual;  // 0..1
   if (m <= 0 || !ENGINE.isActive()) {
-    for (const p of PARAMS.all) p.value = p.manual;
+    for (const p of PARAMS.all()) p.value = p.manual;
     return;
   }
   const e = ENGINE.tick();
-  for (const p of PARAMS.all) {
+  for (const p of PARAMS.all()) {
     p.value = p.engineFn ? lerp(p.manual, p.engineFn(e), m) : p.manual;
   }
 }
