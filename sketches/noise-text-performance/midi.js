@@ -100,9 +100,29 @@ const MIDI = (() => {
     } : { inputs: [], outputs: [] };
   }
 
+  const lastSentAt = new Map();
+  const THROTTLE_MS = 30;
+
+  function flushLedQueue() {
+    if (!outputPort) return;
+    const items = PARAMS.drainLedQueue();
+    if (!items.length) return;
+    const now = performance.now();
+    const latest = new Map();
+    for (const item of items) latest.set(item.cc, item.value);
+    for (const [cc, value] of latest) {
+      const last = lastSentAt.get(cc) || 0;
+      if (now - last < THROTTLE_MS) continue;
+      sendCC(cc, value);
+      lastSentAt.set(cc, now);
+      const p = PARAMS.byCC(cc);
+      if (p) p.lastSentToLed = value;
+    }
+  }
+
   return {
     connect, drainInputs, sendCC, bindInput, bindOutput,
     isBound, setOnConnectionChange, listDevices,
-    flushLedQueue: () => {}, // Task 8 implements
+    flushLedQueue,
   };
 })();
