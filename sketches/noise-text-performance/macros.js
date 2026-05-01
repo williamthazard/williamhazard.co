@@ -41,6 +41,11 @@ const MACROS = (() => {
     m4: {
       cc: 15,
       label: 'M4 Hush',
+      // M4 is inverted: v=1 is "fully hushed", v=0 is "full presence".
+      // Switch handler in switches.js should NOT call apply('m4', 0) on press
+      // (that would slam every param to max). Press should leave M4's targets
+      // alone — just reset the macro knob's LED and let the operator restore
+      // params manually. See PLAN.md Task 9 m4 press handler.
       compute: (v) => ({
         masterVol:   1 - v,
         visualJag:   1 - v,

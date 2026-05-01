@@ -517,9 +517,9 @@ Append to `params.js`:
   reg('lpfFreq',      { cc: 5,  label: 'LPF Cutoff',           range: [20000, 300],   curve: 'expInverted', default: 0,
                         engineFn: (e) => e.normInt });
   reg('distortion',   { cc: 6,  label: 'Distortion',           range: [0, 0.95],      curve: 'pow:0.8', default: 0,
-                        engineFn: (e) => Math.pow(e.normInt, 0.8) });
+                        engineFn: (e) => e.normInt });
   reg('reverbWet',    { cc: 7,  label: 'Reverb Wet',           range: [0, 0.88],      curve: 'pow:2.0', default: 0,
-                        engineFn: (e) => Math.pow(e.normInt, 2.0) });
+                        engineFn: (e) => e.normInt });
   reg('jitterAmt',    { cc: 8,  label: 'Jitter Amount',        range: [0, 0.45],      curve: 'linear', default: 0,
                         engineFn: (e) => e.normInt > 0.15 ? e.normInt : 0 });
   reg('stutterProb',  { cc: 9,  label: 'Stutter Probability',  range: [0, 0.04],      curve: 'linear', default: 0,
@@ -548,9 +548,9 @@ The `default` for params with non-zero "natural" starting values is the v that p
 Append to `tests-params.js`:
 
 ```js
-TESTS.test('all 22 params are registered', () => {
+TESTS.test('all 21 params are registered', () => {
   const names = Object.keys(PARAMS.params);
-  TESTS.assert(names.length === 22, `expected 22, got ${names.length}: ${names.join(',')}`);
+  TESTS.assert(names.length === 21, `expected 21, got ${names.length}: ${names.join(',')}`);
 });
 
 TESTS.test('every param has cc, range, curve, default', () => {
@@ -613,8 +613,8 @@ TESTS.test('M1 Intensity at v=1 maxes all targets', () => {
   const out = MACROS.compute('m1', 1);
   TESTS.assert(out.visualJag === 1);
   TESTS.assert(out.lpfFreq === 1);
-  TESTS.assert(TESTS.approx(out.distortion, Math.pow(1, 0.8)));
-  TESTS.assert(TESTS.approx(out.reverbWet, Math.pow(1, 2.0)));
+  TESTS.assert(out.distortion === 1);
+  TESTS.assert(out.reverbWet === 1);
   TESTS.assert(out.jitterAmt === 1);
   TESTS.assert(out.stutterProb === 1);
 });
@@ -689,10 +689,13 @@ const MACROS = (() => {
       cc: 12,
       label: 'M1 Intensity',
       compute: (v) => ({
+        // Each value is the unshaped 0..1 input; the param's curve does the
+        // shaping in mappedValue. (E.g. distortion's pow:0.8 curve is applied
+        // once when value is read by the audio chain — don't pre-shape here.)
         visualJag:   v,
         lpfFreq:     v,
-        distortion:  Math.pow(v, 0.8),
-        reverbWet:   Math.pow(v, 2.0),
+        distortion:  v,
+        reverbWet:   v,
         jitterAmt:   v > 0.15 ? v : 0,
         stutterProb: v > 0.55 ? 1 : 0,
       }),
@@ -1387,7 +1390,11 @@ const SWITCHES = (() => {
     12: () => { MACROS.apply('m1', 0); MIDI.sendCC(12, 0); },
     13: () => { MACROS.apply('m2', 0); MIDI.sendCC(13, 0); },
     14: () => { MACROS.apply('m3', 0); MIDI.sendCC(14, 0); },
-    15: () => { MACROS.apply('m4', 0); MIDI.sendCC(15, 0); },
+    // M4 press: do NOT call apply('m4', 0) — M4 is inverted, so v=0 writes
+    // every target to MAX (the opposite of "release cleanly"). Just reset the
+    // knob's LED ring and PARAMS manual value for the macro CC; leave the
+    // targets alone so the operator can decide manually. See macros.js M4 note.
+    15: () => { MIDI.sendCC(15, 0); },
     16: () => { PARAMS.setParam('vSpatial', 0.371); },
     17: () => { PARAMS.setParam('vTimeSpd', 0.625); },
     18: () => { PARAMS.setParam('vFlowSpd', 0.25); },
