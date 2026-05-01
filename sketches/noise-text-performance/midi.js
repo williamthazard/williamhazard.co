@@ -1,10 +1,108 @@
-// midi.js
 const MIDI = (() => {
+  let access = null;
+  let inputPort = null;
+  let outputPort = null;
+  const inputQueue = [];
+  let onConnectionChange = () => {};
+
+  const MFT_NAME_RE = /midi.*fighter.*twister/i;
+
+  async function connect(opts = {}) {
+    try {
+      access = await navigator.requestMIDIAccess({ sysex: false });
+    } catch (e) {
+      return { ok: false, reason: 'permission denied or not supported' };
+    }
+
+    access.onstatechange = handleStateChange;
+
+    const inputs = [...access.inputs.values()];
+    const outputs = [...access.outputs.values()];
+
+    if (opts.preferInputId) {
+      const explicit = inputs.find(p => p.id === opts.preferInputId);
+      if (explicit) bindInput(explicit);
+    } else {
+      const matchIn = inputs.find(p => MFT_NAME_RE.test(p.name));
+      if (matchIn) bindInput(matchIn);
+    }
+
+    if (opts.preferOutputId) {
+      const explicit = outputs.find(p => p.id === opts.preferOutputId);
+      if (explicit) bindOutput(explicit);
+    } else {
+      const matchOut = outputs.find(p => MFT_NAME_RE.test(p.name));
+      if (matchOut) bindOutput(matchOut);
+    }
+
+    return {
+      ok: true,
+      hasInput: !!inputPort,
+      hasOutput: !!outputPort,
+      inputs: inputs.map(p => ({ id: p.id, name: p.name })),
+      outputs: outputs.map(p => ({ id: p.id, name: p.name })),
+    };
+  }
+
+  function bindInput(port) {
+    if (inputPort) inputPort.onmidimessage = null;
+    inputPort = port;
+    inputPort.onmidimessage = (msg) => inputQueue.push(msg.data);
+  }
+
+  function bindOutput(port) {
+    outputPort = port;
+  }
+
+  function handleStateChange(e) {
+    onConnectionChange({ port: e.port, state: e.port.state });
+  }
+
+  function drainInputs() {
+    while (inputQueue.length) {
+      handleMessage(inputQueue.shift());
+    }
+  }
+
+  function handleMessage(data) {
+    const status = data[0] & 0xF0;
+    const channel = data[0] & 0x0F;
+    const cc = data[1];
+    const value = data[2];
+    if (status !== 0xB0) return;
+
+    if (channel === 0) {
+      const macroName = MACROS.nameByCC(cc);
+      if (macroName) {
+        MACROS.apply(macroName, value / 127);
+      } else {
+        PARAMS.setParamByCC(cc, value);
+      }
+    } else if (channel === 1) {
+      if (value === 0) return;
+      if (typeof SWITCHES !== 'undefined' && SWITCHES.handle) SWITCHES.handle(cc);
+    }
+  }
+
+  function sendCC(cc, value, channel = 0) {
+    if (!outputPort) return;
+    outputPort.send([0xB0 | channel, cc, value]);
+  }
+
+  function isBound() { return !!inputPort && !!outputPort; }
+
+  function setOnConnectionChange(fn) { onConnectionChange = fn; }
+
+  function listDevices() {
+    return access ? {
+      inputs:  [...access.inputs.values()].map(p => ({ id: p.id, name: p.name })),
+      outputs: [...access.outputs.values()].map(p => ({ id: p.id, name: p.name })),
+    } : { inputs: [], outputs: [] };
+  }
+
   return {
-    connect: async () => ({ ok: false, reason: 'not implemented' }),
-    sendCC: () => {},
-    flushLedQueue: () => {},
-    drainInputs: () => {},
-    isBound: () => false,
+    connect, drainInputs, sendCC, bindInput, bindOutput,
+    isBound, setOnConnectionChange, listDevices,
+    flushLedQueue: () => {}, // Task 8 implements
   };
 })();
