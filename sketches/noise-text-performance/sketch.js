@@ -79,14 +79,25 @@ function setup() {
   UI.showBegin(async () => {
     await startAudio();
     const result = await MIDI.connect();
-    if (result.ok && result.hasInput && result.hasOutput) {
-      PARAMS.setParam('masterVol', 0);
-    } else if (result.ok && (result.hasInput || result.hasOutput)) {
-      PARAMS.setParam('masterVol', 0);
-    } else {
+    if (!result.ok) {
       PARAMS.setParam('masterVol', 0.5);
+      setMuted(false);
+      return;
     }
-    setMuted(false);
+    if (result.hasInput && result.hasOutput) {
+      PARAMS.setParam('masterVol', 0);
+      setMuted(false);
+      return;
+    }
+    UI.showPicker(MIDI.listDevices(), async ({ inputId, outputId }) => {
+      if (inputId || outputId) {
+        await MIDI.connect({ preferInputId: inputId, preferOutputId: outputId });
+        PARAMS.setParam('masterVol', 0);
+      } else {
+        PARAMS.setParam('masterVol', 0.5);
+      }
+      setMuted(false);
+    });
   });
 }
 
