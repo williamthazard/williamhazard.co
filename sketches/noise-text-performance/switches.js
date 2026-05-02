@@ -28,9 +28,9 @@ const SWITCHES = (() => {
     14: () => { MACROS.apply('m3', 0); MIDI.sendCC(14, 0); },
     // M4 press: do NOT call apply('m4', 0) — M4 is inverted, so v=0 writes
     // every target to MAX (the opposite of "release cleanly"). Just reset the
-    // knob's LED ring; leave the targets alone so the operator can decide
-    // manually. See macros.js M4 note.
-    15: () => { MIDI.sendCC(15, 0); },
+    // knob's LED ring and the macro's tracked value; leave the targets alone
+    // so the operator can decide manually. See macros.js M4 note.
+    15: () => { MACROS.setValue('m4', 0); MIDI.sendCC(15, 0); },
     16: () => { PARAMS.setParam('vSpatial', 0.371); },
     17: () => { PARAMS.setParam('vTimeSpd', 0.625); },
     18: () => { PARAMS.setParam('vFlowSpd', 0.25); },

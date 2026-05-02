@@ -58,6 +58,16 @@ const MACROS = (() => {
     },
   };
 
+  // Track the last-applied value per macro so the debug overlay can render the
+  // knob position. Macros write through to PARAMS but don't store position
+  // there; this keeps a separate slot.
+  for (const m of Object.values(macros)) m.value = 0;
+
+  function setValue(name, v) {
+    const m = macros[name];
+    if (m) m.value = v;
+  }
+
   function compute(name, v) {
     const m = macros[name];
     if (!m) throw new Error(`unknown macro: ${name}`);
@@ -65,6 +75,7 @@ const MACROS = (() => {
   }
 
   function apply(name, v) {
+    setValue(name, v);
     const targets = compute(name, v);
     for (const [paramName, paramValue] of Object.entries(targets)) {
       PARAMS.setParam(paramName, paramValue);
@@ -80,7 +91,7 @@ const MACROS = (() => {
   }
 
   return {
-    macros, compute, apply, byCC, nameByCC,
+    macros, compute, apply, setValue, byCC, nameByCC,
     all: () => Object.values(macros),
   };
 })();
