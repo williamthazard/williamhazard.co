@@ -149,9 +149,9 @@ TESTS.test('setParamByCC drops incoming raw matching lastSentToLed (echo-loop su
 });
 
 // Step 10: Registry sanity-check tests
-TESTS.test('all 21 params are registered', () => {
+TESTS.test('all 36 params are registered', () => {
   const names = Object.keys(PARAMS.params);
-  TESTS.assert(names.length === 21, `expected 21, got ${names.length}: ${names.join(',')}`);
+  TESTS.assert(names.length === 36, `expected 36, got ${names.length}: ${names.join(',')}`);
 });
 
 TESTS.test('every param has cc, range, curve, default', () => {

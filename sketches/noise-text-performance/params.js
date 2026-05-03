@@ -118,4 +118,22 @@ const PARAMS = (() => {
   reg('reverseProb',  { cc: 25, label: 'Reverse Probability',       range: [0, 0.06],    curve: 'linear', default: 0,
                         engineFn: (e) => e.normInt > 0.65 ? 1 : 0 });
   reg('stutterMax',   { cc: 26, label: 'Stutter Max Skip',          range: [0.05, 2.0],  curve: 'linear', default: 0.359 });
+
+  // Bank 3 — Live mic chain
+  reg('micVol',       { cc: 32, label: 'Mic Volume',         range: [0, 1],         curve: 'pow:2.0', default: 0 });
+  reg('micGain',      { cc: 33, label: 'Mic Gain',           range: [0, 4],         curve: 'pow:2.0', default: 0.25 }); // default v=0.25 → mapped 0.25; mic input ×0.25 to start (safe)
+  reg('micLpfFreq',   { cc: 34, label: 'Mic LPF Cutoff',     range: [20000, 300],   curve: 'expInverted', default: 0 }); // open by default
+  reg('micDist',      { cc: 35, label: 'Mic Distortion',     range: [0, 0.95],      curve: 'pow:0.8', default: 0 });
+  reg('micDelayWet',  { cc: 36, label: 'Mic Delay Wet',      range: [0, 1],         curve: 'pow:2.0', default: 0 });
+  reg('micDelayTime', { cc: 37, label: 'Mic Delay Time',     range: [0.05, 1.5],    curve: 'exp',    default: 0.5 }); // base seconds
+  reg('micPreserve',  { cc: 38, label: 'Mic Preserve',       range: [0, 1],         curve: 'linear', default: 0 });
+  reg('micFbkLevel',  { cc: 39, label: 'Mic Feedback',       range: [0, 0.95],      curve: 'pow:2.0', default: 0 });
+  reg('micFbkHpf',    { cc: 40, label: 'Mic Fbk HPF',        range: [20, 800],      curve: 'exp',    default: 0 });
+  reg('micFbkNoise',  { cc: 41, label: 'Mic Fbk Noise',      range: [0, 0.5],       curve: 'pow:2.0', default: 0 });
+  reg('micFbkSine',   { cc: 42, label: 'Mic Fbk Sine',       range: [0, 0.5],       curve: 'pow:2.0', default: 0 });
+  reg('micFbkSineHz', { cc: 43, label: 'Mic Fbk Sine Hz',    range: [40, 1200],     curve: 'exp',    default: 0.45 }); // ~110 Hz default
+  reg('micFbkBalance',{ cc: 44, label: 'Mic Fbk Balance',    range: [-1, 1],        curve: 'bipolar', default: 0.5 });
+  reg('micRevWet',    { cc: 45, label: 'Mic Reverb Wet',     range: [0, 0.88],      curve: 'pow:2.0', default: 0 });
+  reg('micRevDecay',  { cc: 46, label: 'Mic Reverb Decay',   range: [0.5, 6],       curve: 'linear', default: 0.273 }); // ~2s
+  // CC 47 free
 })();
