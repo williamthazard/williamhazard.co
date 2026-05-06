@@ -8,8 +8,8 @@ let totalPoemHeight = 0;
 let poemAudio;
 let lowPass;
 let distortion;
-let glitchDelay;
 let reverb;
+let prerecDelay = null;
 
 let isMuted = true;
 let audioStarted = false;
@@ -38,14 +38,17 @@ function setup() {
 
   lowPass = new p5.LowPass();
   distortion = new p5.Distortion();
-  glitchDelay = new p5.Delay();
   reverb = new p5.Reverb();
+
+  // Prerecorded-chain delay: same Carter-flavored factory as the mic chain.
+  prerecDelay = Delay.create(getAudioContext());
 
   poemAudio.disconnect();
   poemAudio.connect(lowPass);
   lowPass.connect(distortion);
-  distortion.connect(glitchDelay);
-  glitchDelay.connect(reverb);
+  // distortion → delay subsystem (multi-tap + feedback patchcord) → reverb
+  distortion.connect(prerecDelay.input);
+  prerecDelay.output.connect(reverb);
 
   poemAudio.setVolume(0);
 
@@ -67,8 +70,14 @@ function setup() {
       lastReverbDecay = mapped;
     }
   };
-  PARAMS.byName('delayTime').apply   = (mapped) => glitchDelay.delayTime(mapped);
-  PARAMS.byName('delayFbk').apply    = (mapped) => glitchDelay.feedback(mapped);
+  PARAMS.byName('delayTime').apply   = (mapped) => prerecDelay.setDelayTime(mapped);
+  PARAMS.byName('delayFbk').apply    = (mapped) => prerecDelay.setFeedbackLevel(mapped);
+  PARAMS.byName('delayWet').apply    = (mapped) => prerecDelay.setDelayWet(mapped);
+  PARAMS.byName('preserve').apply    = (mapped) => prerecDelay.setPreserve(mapped);
+  PARAMS.byName('fbkHpf').apply      = (mapped) => prerecDelay.setFeedbackHpf(mapped);
+  PARAMS.byName('fbkNoise').apply    = (mapped) => prerecDelay.setFeedbackNoise(mapped);
+  PARAMS.byName('fbkSine').apply     = (mapped) => prerecDelay.setFeedbackSine(mapped);
+  PARAMS.byName('fbkSineHz').apply   = (mapped) => prerecDelay.setFeedbackSineHz(mapped);
   PARAMS.byName('masterVol').apply   = (mapped) => {
     if (!isMuted && audioStarted) poemAudio.setVolume(mapped);
   };

@@ -110,14 +110,20 @@ const PARAMS = (() => {
   reg('vSpatial',     { cc: 16, label: 'Visual Spatial Frequency', range: [0.05, 0.4],   curve: 'linear', default: 0.371 });
   reg('vTimeSpd',     { cc: 17, label: 'Visual Time Speed',         range: [0.005, 0.2], curve: 'exp',    default: 0.625 });
   reg('vFlowSpd',     { cc: 18, label: 'Visual Flow Speed',         range: [0.0, 0.08],  curve: 'linear', default: 0.25 });
+  reg('delayWet',     { cc: 19, label: 'Delay Wet',                 range: [0, 1],       curve: 'pow:2.0', default: 0 });
   reg('lpfRes',       { cc: 20, label: 'LPF Resonance',             range: [0.001, 30],  curve: 'exp',    default: 0 });
-  reg('delayTime',    { cc: 21, label: 'Delay Time',                range: [0.001, 0.6], curve: 'exp',    default: 0.367 });
+  reg('delayTime',    { cc: 21, label: 'Delay Time',                range: [0.05, 8.0],  curve: 'exp',    default: 0.45 });
   reg('delayFbk',     { cc: 22, label: 'Delay Feedback',            range: [0, 0.85],    curve: 'linear', default: 0 });
   reg('reverbDecay',  { cc: 23, label: 'Reverb Decay',              range: [0.5, 6],     curve: 'linear', default: 0.273 });
   reg('jitterFreq',   { cc: 24, label: 'Jitter Frequency',          range: [0.1, 3.0],   curve: 'exp',    default: 0.611 });
   reg('reverseProb',  { cc: 25, label: 'Reverse Probability',       range: [0, 0.06],    curve: 'linear', default: 0,
                         engineFn: (e) => e.normInt > 0.65 ? 1 : 0 });
   reg('stutterMax',   { cc: 26, label: 'Stutter Max Skip',          range: [0.05, 2.0],  curve: 'linear', default: 0.359 });
+  reg('preserve',     { cc: 27, label: 'Preserve',                  range: [0, 1],       curve: 'linear', default: 0 });
+  reg('fbkHpf',       { cc: 28, label: 'Fbk HPF',                   range: [20, 800],    curve: 'exp',    default: 0 });
+  reg('fbkNoise',     { cc: 29, label: 'Fbk Noise',                 range: [0, 0.5],     curve: 'pow:2.0', default: 0 });
+  reg('fbkSine',      { cc: 30, label: 'Fbk Sine',                  range: [0, 0.5],     curve: 'pow:2.0', default: 0 });
+  reg('fbkSineHz',    { cc: 31, label: 'Fbk Sine Hz',               range: [40, 1200],   curve: 'exp',    default: 0.45 });
 
   // Bank 3 — Live mic chain
   reg('micVol',       { cc: 32, label: 'Mic Volume',         range: [0, 1],         curve: 'pow:2.0', default: 0 });
