@@ -178,7 +178,10 @@ const Delay = (() => {
       pLfo.start();
 
       const g = ctx.createGain();
-      g.gain.value = 1.0 / TAP_COUNT;
+      // Decorrelated taps (different delays + pitches + pan) RMS-sum, so 1/√N
+      // compensates roughly for that. 1/N (the "naive equal mix" value) leaves
+      // the wet path at ~half the loudness of dry.
+      g.gain.value = 1.0 / Math.sqrt(TAP_COUNT);
 
       const pitchShifter = buildPitchShifter(ctx, TAP_PITCH_RATIO[i]);
       delayInputBus.connect(d);
@@ -252,7 +255,12 @@ const Delay = (() => {
     return {
       input,
       output,
-      setDelayWet:        (mapped) => { delayWetGain.gain.value = mapped; },
+      // Crossfade — the knob is a wet/dry mix, not a wet level.
+      // At 0: pure dry. At 1: pure wet (with feedback character intact).
+      setDelayWet:        (mapped) => {
+        delayWetGain.gain.value = mapped;
+        dryPassthru.gain.value = 1 - mapped;
+      },
       setDelayTime:       (mapped) => {
         const now = ctx.currentTime;
         for (let i = 0; i < tapDelay.length; i++) {
