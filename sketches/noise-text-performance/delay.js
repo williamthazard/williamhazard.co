@@ -8,6 +8,10 @@ const Delay = (() => {
   const TAP_SCRAMBLE = [0.5, 1.0, 1.7, 2.5];
   const TAP_PAN_LFO_HZ    = [0.13, 0.21, 0.31, 0.17];
   const TAP_CUTOFF_LFO_HZ = [0.07, 0.18, 0.11, 0.23];
+  const TAP_PITCH_RATIO = [1.0, 0.5, 1.5, 2.0];
+  // Tap 1 unison, tap 2 octave down, tap 3 perfect fifth up, tap 4 octave up.
+  // Combined with TAP_SCRAMBLE delay times, gives a Carter-style cloud where each
+  // echo is at a different point in the buffer history AND a different pitch.
   const MAX_DELAY_SECONDS = 20.0;
 
   function makeSoftClipCurve(amount) {
@@ -39,6 +43,75 @@ const Delay = (() => {
       b6 = white * 0.115926;
     }
     return buffer;
+  }
+
+  function buildPitchShifter(ctx, pitchRatio) {
+    const input  = ctx.createGain();
+    const output = ctx.createGain();
+
+    // Unison: pure passthrough, no scheduling needed.
+    if (Math.abs(pitchRatio - 1.0) < 0.001) {
+      input.connect(output);
+      return { input, output };
+    }
+
+    const dA = ctx.createDelay(1.0);
+    const dB = ctx.createDelay(1.0);
+    const gA = ctx.createGain();
+    const gB = ctx.createGain();
+
+    input.connect(dA);
+    input.connect(dB);
+    dA.connect(gA);
+    dB.connect(gB);
+    gA.connect(output);
+    gB.connect(output);
+
+    gA.gain.value = 0;
+    gB.gain.value = 0;
+
+    const windowSec     = 0.1;                               // 100 ms window
+    const slideRate     = 1 - pitchRatio;                    // s of delay change per s real time
+    const slideDuration = windowSec / Math.abs(slideRate);   // s real time per window pass
+    const startDelay    = slideRate >= 0 ? 0 : windowSec;
+    const endDelay      = slideRate >= 0 ? windowSec : 0;
+    // slideRate > 0 (R<1, pitch DOWN):  delay grows → reads older buffer → slower playback
+    // slideRate < 0 (R>1, pitch UP):    delay shrinks → reads newer buffer → faster playback
+
+    let scheduledUntil = ctx.currentTime;
+
+    function scheduleCycles(numCycles) {
+      let t = Math.max(scheduledUntil, ctx.currentTime + 0.05);
+      for (let n = 0; n < numCycles; n++) {
+        // Two delay lines, offset by half-window.
+        [[dA, gA, 0], [dB, gB, 0.5]].forEach(([d, g, phaseOffset]) => {
+          const startT = t + phaseOffset * slideDuration;
+          const endT   = startT + slideDuration;
+          const midT   = (startT + endT) / 2;
+
+          // Delay-time slide (linear).
+          d.delayTime.setValueAtTime(startDelay, startT);
+          d.delayTime.linearRampToValueAtTime(endDelay, endT);
+
+          // Crossfade gain: 0 → 1 → 0 over the window (triangular).
+          g.gain.setValueAtTime(0, startT);
+          g.gain.linearRampToValueAtTime(1, midT);
+          g.gain.linearRampToValueAtTime(0, endT);
+        });
+        t += slideDuration;
+      }
+      scheduledUntil = t;
+    }
+
+    // Initial schedule — enough buffer ahead for several seconds of audio.
+    scheduleCycles(40);
+
+    // Re-schedule periodically to stay ahead.
+    setInterval(() => {
+      if (ctx.currentTime > scheduledUntil - 1.0) scheduleCycles(20);
+    }, 1000);
+
+    return { input, output };
   }
 
   // Build one independent delay subsystem instance.
@@ -107,8 +180,10 @@ const Delay = (() => {
       const g = ctx.createGain();
       g.gain.value = 1.0 / TAP_COUNT;
 
+      const pitchShifter = buildPitchShifter(ctx, TAP_PITCH_RATIO[i]);
       delayInputBus.connect(d);
-      d.connect(f);
+      d.connect(pitchShifter.input);
+      pitchShifter.output.connect(f);
       f.connect(p);
       p.connect(g);
       g.connect(tapsSumGain);
