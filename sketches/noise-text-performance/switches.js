@@ -3,6 +3,7 @@ const SWITCHES = (() => {
     autoScrollOn: false,
     muted: true,
     engineOn: false,
+    micMuted: true,
   };
 
   const handlers = {
@@ -34,6 +35,11 @@ const SWITCHES = (() => {
     16: () => { PARAMS.setParam('vSpatial', 0.371); },
     17: () => { PARAMS.setParam('vTimeSpd', 0.625); },
     18: () => { PARAMS.setParam('vFlowSpd', 0.25); },
+    32: () => {
+      state.micMuted = !state.micMuted;
+      if (typeof MIC !== 'undefined' && MIC.setMuted) MIC.setMuted(state.micMuted);
+      MIDI.sendCC(32, state.micMuted ? 127 : 0, 1);
+    },
   };
 
   function handle(cc) {

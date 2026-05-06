@@ -6,6 +6,7 @@ const MIC = (() => {
   let audioCtx = null;
   let micStream = null;
   let started = false;
+  let muteGate = null;
 
   // Audio nodes (created in start()).
   let sourceNode = null;
@@ -294,7 +295,10 @@ const MIC = (() => {
     // Splice the delay subsystem in between distortion and output.
     micDistNode.connect(dryPassthruGain);
     micDistNode.connect(delayInputBus);
-    outputGainNode.connect(audioCtx.destination);
+    muteGate = audioCtx.createGain();
+    muteGate.gain.value = 0; // start muted; switch CC 32 unmutes
+    outputGainNode.connect(muteGate);
+    muteGate.connect(audioCtx.destination);
 
     bindParams();
     started = true;
@@ -342,5 +346,11 @@ const MIC = (() => {
 
   function isStarted() { return started; }
 
-  return { start, isStarted, makeSoftClipCurve };
+  function setMuted(m) {
+    if (muteGate) {
+      muteGate.gain.value = m ? 0 : 1;
+    }
+  }
+
+  return { start, isStarted, setMuted, makeSoftClipCurve };
 })();

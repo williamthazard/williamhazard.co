@@ -167,6 +167,12 @@ const UI = (() => {
     vSpatial: 'V.Spat',   vTimeSpd: 'V.Time',    vFlowSpd: 'V.Flow',
     lpfRes: 'LPFRes',     delayTime: 'DelTm',    delayFbk: 'DelFbk',   reverbDecay: 'RvbDec',
     jitterFreq: 'JitFrq', reverseProb: 'RevPrb', stutterMax: 'StuMax',
+    // Bank 3
+    micVol: 'MicVol',     micGain: 'MicGain',    micLpfFreq: 'MicLPF', micDist: 'MicDist',
+    micDelayWet: 'MDelWet', micDelayTime: 'MDelTm', micPreserve: 'Preserve',
+    micFbkLevel: 'Fbk',   micFbkHpf: 'FbkHPF',   micFbkNoise: 'FbkNoi',
+    micFbkSine: 'FbkSin', micFbkSineHz: 'FbkSnHz',
+    micFbkBalance: 'FbkBal', micRevWet: 'MRvbWet', micRevDecay: 'MRvbDec',
   };
 
   // Per-param formatters. Default falls back to magnitude-based formatting.
@@ -192,6 +198,21 @@ const UI = (() => {
     jitterFreq:  (m) => m.toFixed(2),
     reverseProb: (m) => m.toFixed(3),
     stutterMax:  (m) => m.toFixed(2) + 's',
+    micVol:        (m) => (m * 100).toFixed(0) + '%',
+    micGain:       (m) => m.toFixed(2) + '×',
+    micLpfFreq:    (m) => m >= 1000 ? (m / 1000).toFixed(1) + 'k' : m.toFixed(0) + 'Hz',
+    micDist:       (m) => m.toFixed(2),
+    micDelayWet:   (m) => m.toFixed(2),
+    micDelayTime:  (m) => (m * 1000).toFixed(0) + 'ms',
+    micPreserve:   (m) => m.toFixed(2),
+    micFbkLevel:   (m) => m.toFixed(2),
+    micFbkHpf:     (m) => m.toFixed(0) + 'Hz',
+    micFbkNoise:   (m) => m.toFixed(2),
+    micFbkSine:    (m) => m.toFixed(2),
+    micFbkSineHz:  (m) => m.toFixed(0) + 'Hz',
+    micFbkBalance: (m) => (m >= 0 ? '+' : '') + m.toFixed(2),
+    micRevWet:     (m) => m.toFixed(2),
+    micRevDecay:   (m) => m.toFixed(1) + 's',
   };
 
   function paramShortLabel(name, fallback) {
@@ -325,6 +346,7 @@ const UI = (() => {
         if (cc === 1 && SWITCHES.state.autoScrollOn) ringColor = '#5fbf5f';
         if (cc === 2 && SWITCHES.state.muted) ringColor = '#e54141';
         if (cc === 3 && SWITCHES.state.engineOn) ringColor = '#5fa7e8';
+        if (cc === 32 && SWITCHES.state.micMuted) ringColor = '#e54141';
       }
     } else {
       // macro
@@ -385,12 +407,13 @@ const UI = (() => {
     Object.assign(header.style, { fontWeight: 'bold', marginBottom: '10px' });
     debugEl.appendChild(header);
 
-    // Two bank grids side by side
-    const banksRow = document.createElement('div');
-    Object.assign(banksRow.style, { display: 'flex', gap: '16px', marginBottom: '12px' });
-    banksRow.appendChild(buildBankGrid('BANK 1', 0));
-    banksRow.appendChild(buildBankGrid('BANK 2', 16));
-    debugEl.appendChild(banksRow);
+    // Three banks stacked vertically (top to bottom: Bank 1, Bank 2, Bank 3).
+    const banksColumn = document.createElement('div');
+    Object.assign(banksColumn.style, { display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '12px' });
+    banksColumn.appendChild(buildBankGrid('BANK 1 — PERFORMANCE', 0));
+    banksColumn.appendChild(buildBankGrid('BANK 2 — DETAIL', 16));
+    banksColumn.appendChild(buildBankGrid('BANK 3 — LIVE MIC', 32));
+    debugEl.appendChild(banksColumn);
 
     // Recent MIDI log
     const logHeader = document.createElement('div');

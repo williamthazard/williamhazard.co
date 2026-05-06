@@ -78,6 +78,13 @@ function setup() {
 
   UI.showBegin(async () => {
     await startAudio();
+    // Request the microphone in parallel with MIDI. Mic is optional;
+    // permission denial or unavailable hardware → bank 3 knobs become no-ops.
+    try {
+      await MIC.start();
+    } catch (e) {
+      // Already handled inside MIC.start (returns ok:false). Non-fatal.
+    }
     const result = await MIDI.connect();
     if (!result.ok) {
       PARAMS.setParam('masterVol', 0.5);
