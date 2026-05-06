@@ -51,7 +51,7 @@ function setup() {
 
   // Sensible static defaults — autonomous mode keeps these fixed; only the
   // most expressive controls (delayWet, feedback, preserve) get modulated by normInt.
-  prerecDelay.setDelayTime(0.5);   // 0.5s base delay; with TAP_SCRAMBLE → 0.25, 0.5, 0.85, 1.25 s
+  prerecDelay.setDelayTime(3.0);   // 3s base delay; with new TAP_SCRAMBLE → 1.5, 4.5, 9, 18s — Carter range
   prerecDelay.setFeedbackHpf(80);  // remove low rumble in the loop
   prerecDelay.setFeedbackNoise(0); // off — keep the autonomous mode clean
   prerecDelay.setFeedbackSine(0);  // off
