@@ -5,14 +5,23 @@ const Delay = (() => {
 
   // Tap layout (deterministic but varied)
   const TAP_COUNT = 4;
-  const TAP_SCRAMBLE = [0.5, 1.0, 1.7, 2.5];
+  const TAP_SCRAMBLE = [0.5, 1.5, 3.0, 6.0];
   const TAP_PAN_LFO_HZ    = [0.13, 0.21, 0.31, 0.17];
   const TAP_CUTOFF_LFO_HZ = [0.07, 0.18, 0.11, 0.23];
   const TAP_PITCH_RATIO = [1.0, 0.5, 1.5, 2.0];
   // Tap 1 unison, tap 2 octave down, tap 3 perfect fifth up, tap 4 octave up.
   // Combined with TAP_SCRAMBLE delay times, gives a Carter-style cloud where each
   // echo is at a different point in the buffer history AND a different pitch.
-  const MAX_DELAY_SECONDS = 20.0;
+  // SCRAMBLE max 6× × max base 15s = 90s longest tap. MAX_DELAY_SECONDS sized for that.
+  const MAX_DELAY_SECONDS = 100.0;
+
+  // Random tap-gating timing — taps fade in and out at irregular intervals so
+  // they don't all play continuously, imitating Carter's per-grain density variation.
+  const GATE_ON_MIN_MS  = 8000;
+  const GATE_ON_MAX_MS  = 20000;
+  const GATE_OFF_MIN_MS = 2000;
+  const GATE_OFF_MAX_MS = 5000;
+  const GATE_TRANSITION_SEC = 0.5;
 
   function makeSoftClipCurve(amount) {
     const samples = 2048;
@@ -183,13 +192,37 @@ const Delay = (() => {
       // the wet path at ~half the loudness of dry.
       g.gain.value = 1.0 / Math.sqrt(TAP_COUNT);
 
+      // Random gate — taps fade in and out at irregular intervals so the
+      // ensemble breathes (not all 4 sound continuously). Carter's grains
+      // have similar density variation per voice.
+      const gate = ctx.createGain();
+      gate.gain.value = Math.random() < 0.5 ? 1 : 0;
+
       const pitchShifter = buildPitchShifter(ctx, TAP_PITCH_RATIO[i]);
       delayInputBus.connect(d);
       d.connect(pitchShifter.input);
       pitchShifter.output.connect(f);
       f.connect(p);
       p.connect(g);
-      g.connect(tapsSumGain);
+      g.connect(gate);
+      gate.connect(tapsSumGain);
+
+      // Schedule the irregular gate flips per tap.
+      (function setupGate(g_ref) {
+        function flip() {
+          const now = ctx.currentTime;
+          const target = g_ref.gain.value > 0.5 ? 0 : 1;
+          g_ref.gain.cancelScheduledValues(now);
+          g_ref.gain.setValueAtTime(g_ref.gain.value, now);
+          g_ref.gain.linearRampToValueAtTime(target, now + GATE_TRANSITION_SEC);
+          const nextMs = target > 0.5
+            ? GATE_ON_MIN_MS  + Math.random() * (GATE_ON_MAX_MS  - GATE_ON_MIN_MS)
+            : GATE_OFF_MIN_MS + Math.random() * (GATE_OFF_MAX_MS - GATE_OFF_MIN_MS);
+          setTimeout(flip, nextMs);
+        }
+        // Stagger initial flips so taps don't all transition together.
+        setTimeout(flip, Math.random() * 4000);
+      })(gate);
 
       tapDelay.push(d);
       tapFilter.push(f);
