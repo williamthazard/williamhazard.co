@@ -469,10 +469,21 @@ const UI = (() => {
     if (disconnectEl) { disconnectEl.remove(); disconnectEl = null; }
   }
 
+  // Returns true if the (viewport-relative) point is inside the visible debug
+  // overlay. Used by sketch.js mouseWheel to avoid hijacking scrolls that
+  // should belong to the overlay's own internal scrollbar.
+  function isMouseOverDebug(clientX, clientY) {
+    if (!debugEl) return false;
+    const rect = debugEl.getBoundingClientRect();
+    return clientX >= rect.left && clientX <= rect.right &&
+           clientY >= rect.top  && clientY <= rect.bottom;
+  }
+
   return {
     showBegin, hideBegin,
     showPicker, hidePicker,
     toggleDebug,
     showDisconnect, hideDisconnect,
+    isMouseOverDebug,
   };
 })();

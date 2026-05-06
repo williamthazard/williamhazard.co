@@ -10,6 +10,7 @@ const MIC = (() => {
 
   // Audio nodes (created in start()).
   let sourceNode = null;
+  let micHpfNode = null;   // Fixed input HPF — kills sub-bass rumble (fan, mains hum, table thumps).
   let micGainNode = null;
   let micLpfNode = null;
   let micDistNode = null;
@@ -51,7 +52,7 @@ const MIC = (() => {
 
   // Tap layout (deterministic but varied)
   const TAP_COUNT = 4;
-  const TAP_SCRAMBLE = [1.0, 1.51, 0.73, 1.27];
+  const TAP_SCRAMBLE = [0.5, 1.0, 1.7, 2.5]; // wider spread → more "cloud" feel; tap 4 = 2.5× base
   const TAP_PAN_LFO_HZ    = [0.13, 0.21, 0.31, 0.17];
   const TAP_CUTOFF_LFO_HZ = [0.07, 0.18, 0.11, 0.23];
 
@@ -182,7 +183,7 @@ const MIC = (() => {
     tapCutoffLfoDepth = [];
     tapCutoffOffset = [];
     for (let i = 0; i < TAP_COUNT; i++) {
-      const d = ctx.createDelay(3.0);
+      const d = ctx.createDelay(20.0); // max delay buffer; with TAP_SCRAMBLE max 2.5 and base max 8s, we can hit 20s
       d.delayTime.value = 0.5 * TAP_SCRAMBLE[i];
 
       const f = ctx.createBiquadFilter();
@@ -288,8 +289,17 @@ const MIC = (() => {
     pinkNoiseSource.start();
     sineOscNode.start();
 
+    // Fixed input HPF — removes sub-bass rumble (fan, mains hum, table thumps)
+    // before any processing or delay path. Not exposed as a knob; ~80 Hz is a
+    // safe vocal/instrument default.
+    micHpfNode = audioCtx.createBiquadFilter();
+    micHpfNode.type = 'highpass';
+    micHpfNode.frequency.value = 80;
+    micHpfNode.Q.value = 0.7;
+
     // Wire the chain.
-    sourceNode.connect(micGainNode);
+    sourceNode.connect(micHpfNode);
+    micHpfNode.connect(micGainNode);
     micGainNode.connect(micLpfNode);
     micLpfNode.connect(micDistNode);
     // Splice the delay subsystem in between distortion and output.

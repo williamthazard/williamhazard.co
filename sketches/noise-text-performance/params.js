@@ -125,7 +125,7 @@ const PARAMS = (() => {
   reg('micLpfFreq',   { cc: 34, label: 'Mic LPF Cutoff',     range: [20000, 300],   curve: 'expInverted', default: 0 }); // open by default
   reg('micDist',      { cc: 35, label: 'Mic Distortion',     range: [0, 0.95],      curve: 'pow:0.8', default: 0 });
   reg('micDelayWet',  { cc: 36, label: 'Mic Delay Wet',      range: [0, 1],         curve: 'pow:2.0', default: 0 });
-  reg('micDelayTime', { cc: 37, label: 'Mic Delay Time',     range: [0.05, 1.5],    curve: 'exp',    default: 0.5 }); // base seconds
+  reg('micDelayTime', { cc: 37, label: 'Mic Delay Time',     range: [0.05, 8.0],    curve: 'exp',    default: 0.45 }); // base seconds; default ≈ 0.5s; taps span ~0.25-1.25s at default
   reg('micPreserve',  { cc: 38, label: 'Mic Preserve',       range: [0, 1],         curve: 'linear', default: 0 });
   reg('micFbkLevel',  { cc: 39, label: 'Mic Feedback',       range: [0, 0.95],      curve: 'pow:2.0', default: 0 });
   reg('micFbkHpf',    { cc: 40, label: 'Mic Fbk HPF',        range: [20, 800],      curve: 'exp',    default: 0 });

@@ -293,6 +293,12 @@ function brownian(x, y, t) {
 }
 
 function mouseWheel(event) {
+  // If the cursor is over the debug overlay, let the overlay handle the wheel
+  // event natively (it has its own scrollbar). Don't preventDefault.
+  if (typeof UI !== 'undefined' && UI.isMouseOverDebug &&
+      UI.isMouseOverDebug(event.clientX, event.clientY)) {
+    return;
+  }
   targetScroll += event.delta;
   targetScroll = constrain(targetScroll, 0, totalPoemHeight - height);
   return false;
