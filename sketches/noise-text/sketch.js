@@ -8,7 +8,7 @@ let totalPoemHeight = 0;
 let poemAudio;
 let lowPass;
 let distortion;
-let glitchDelay;
+let prerecDelay = null;
 let reverb;
 
 let muteBtn;
@@ -40,24 +40,34 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   pixelDensity(1);
 
-  // Audio Chain: Audio -> Filter -> Distortion -> Delay (Glitch) -> Reverb -> Output
+  // Audio Chain: Audio -> Filter -> Distortion -> Delay (Carter multi-tap) -> Reverb -> Output
   lowPass = new p5.LowPass();
   distortion = new p5.Distortion();
-  glitchDelay = new p5.Delay();
   reverb = new p5.Reverb();
+
+  // Carter-flavored multi-tap delay (4 scrambled taps with per-tap LFOs,
+  // feedback patchcord, and OLA pitch shifters at unison/oct-down/5th-up/oct-up).
+  prerecDelay = Delay.create(getAudioContext());
+
+  // Sensible static defaults — autonomous mode keeps these fixed; only the
+  // most expressive controls (delayWet, feedback, preserve) get modulated by normInt.
+  prerecDelay.setDelayTime(0.5);   // 0.5s base delay; with TAP_SCRAMBLE → 0.25, 0.5, 0.85, 1.25 s
+  prerecDelay.setFeedbackHpf(80);  // remove low rumble in the loop
+  prerecDelay.setFeedbackNoise(0); // off — keep the autonomous mode clean
+  prerecDelay.setFeedbackSine(0);  // off
+  prerecDelay.setFeedbackSineHz(110);
+  prerecDelay.setFeedbackBalance(0);
 
   // Set initial clear state
   lowPass.freq(20000);
   reverb.drywet(0);
-  glitchDelay.delayTime(0.01);
-  glitchDelay.feedback(0);
 
-  // Route audio through the chain
+  // Route audio through the chain.
   poemAudio.disconnect();
   poemAudio.connect(lowPass);
   lowPass.connect(distortion);
-  distortion.connect(glitchDelay);
-  glitchDelay.connect(reverb);
+  distortion.connect(prerecDelay.input);
+  prerecDelay.output.connect(reverb);
 
   // Set initial muted state
   poemAudio.setVolume(0);
@@ -274,6 +284,11 @@ function draw() {
       poemAudio.jump(max(0, poemAudio.currentTime() - skipAmount));
       lastJumpTime = frameCount;
     }
+
+    // 6. Multi-tap delay: subtle wet+feedback growth with normInt.
+    prerecDelay.setDelayWet(normInt * 0.3);          // 0 → 0.3
+    prerecDelay.setFeedbackLevel(normInt * 0.4);     // 0 → 0.4
+    prerecDelay.setPreserve(normInt * 0.2);          // 0 → 0.2
 
     if (!isMuted) {
       poemAudio.setVolume(volSlider.value());
