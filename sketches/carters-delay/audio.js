@@ -530,6 +530,14 @@ const AUDIO = (() => {
     return PARAMS.mappedValue(PARAMS.byName('micVol'));
   }
 
+  function getVoicePanAndAmp(v) {
+    if (!voicePanners || !voicePanners[v] || !voiceAmpGains[v]) return { pan: 0, amp: 0 };
+    return {
+      pan: voicePanners[v].pan.value,         // current pan, -1..+1
+      amp: voiceAmpGains[v].gain.value,       // current amp gain, 0..ampRange
+    };
+  }
+
   // ─── Public API ───────────────────────────────────────────────────────────
 
   return {
@@ -540,5 +548,6 @@ const AUDIO = (() => {
     getVoiceAnalysers,
     getInputAnalyser,
     getInputLevel,
+    getVoicePanAndAmp,
   };
 })();
