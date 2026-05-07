@@ -280,8 +280,18 @@ const AUDIO = (() => {
     fbkHpf.Q.value = 0.7;
 
     fbkSoftClip = audioCtx.createWaveShaper();
-    fbkSoftClip.curve = makeSoftClipCurve(0.3);
+    fbkSoftClip.curve = makeSoftClipCurve(0.05); // gentle by default; user knob can go harsher
     fbkSoftClip.oversample = '2x';
+
+    // Fixed LPF in the feedback path — rolls off the high-frequency content
+    // that accumulates each round-trip from grain readout discontinuities and
+    // softclip harmonics. Without this, even at modest feedback the loop
+    // tends to "fizzle" into noise. Cutoff is permissive (4kHz) so the
+    // recursive cloud still has presence and detail.
+    const fbkLpf = audioCtx.createBiquadFilter();
+    fbkLpf.type = 'lowpass';
+    fbkLpf.frequency.value = 4000;
+    fbkLpf.Q.value = 0.5;
 
     fbkGain = audioCtx.createGain();
     fbkGain.gain.value = 0;
@@ -295,7 +305,8 @@ const AUDIO = (() => {
     sineGain.connect(fbkInjectionSum);
     fbkInjectionSum.connect(fbkHpf);
     fbkHpf.connect(fbkSoftClip);
-    fbkSoftClip.connect(fbkGain);
+    fbkSoftClip.connect(fbkLpf);
+    fbkLpf.connect(fbkGain);
     fbkGain.connect(preserveGain);
     preserveGain.connect(delayInputBus);
 

@@ -100,6 +100,6 @@ const PARAMS = (() => {
   reg('fbkNoise',     { cc: 20, label: 'Fbk Noise',           range: [0, 0.5],       curve: 'pow:2.0', default: 0 });
   reg('fbkSine',      { cc: 21, label: 'Fbk Sine',            range: [0, 0.5],       curve: 'pow:2.0', default: 0 });
   reg('fbkSineHz',    { cc: 22, label: 'Fbk Sine Hz',         range: [40, 1200],     curve: 'exp',    default: 0.45 });
-  reg('softClipDrive',{ cc: 23, label: 'Softclip Drive',      range: [0, 1],         curve: 'linear', default: 0.3 });
+  reg('softClipDrive',{ cc: 23, label: 'Softclip Drive',      range: [0, 1],         curve: 'linear', default: 0.05 }); // gentle by default; turning it up adds saturation/noise character to feedback
   // CCs 24-31 free in Bank 2 (rows 3+4)
 })();
