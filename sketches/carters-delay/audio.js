@@ -52,10 +52,13 @@ const AUDIO = (() => {
 
   // ─── LFO frequency tables (deterministic per-voice rates) ─────────────────
 
-  const PAN_LFO_HZ_BASE    = [0.43, 0.21, 0.61, 0.13, 0.27, 0.71, 0.15, 0.31, 0.45, 0.19, 0.51, 0.23, 0.37, 0.59, 0.17, 0.29];
-  const AMP_LFO_HZ_BASE    = [0.11, 0.31, 0.07, 0.41, 0.15, 0.27, 0.53, 0.13, 0.39, 0.21, 0.47, 0.09, 0.33, 0.17, 0.55, 0.25];
-  const CUTOFF_LFO_HZ_BASE = [0.07, 0.13, 0.23, 0.37, 0.11, 0.31, 0.43, 0.17, 0.27, 0.41, 0.19, 0.29, 0.53, 0.09, 0.47, 0.39];
-  const RES_LFO_HZ_BASE    = [0.05, 0.17, 0.29, 0.11, 0.41, 0.07, 0.31, 0.19, 0.13, 0.37, 0.23, 0.43, 0.59, 0.15, 0.51, 0.21];
+  // LFO base frequencies — kept slow (~10–60s cycles) so motion feels organic,
+  // matching small-works' Perlin-noise pacing. Per-voice variation gives a sense
+  // of independent drift without any voice being uniformly faster.
+  const PAN_LFO_HZ_BASE    = [0.043, 0.021, 0.061, 0.013, 0.027, 0.071, 0.015, 0.031, 0.045, 0.019, 0.051, 0.023, 0.037, 0.059, 0.017, 0.029];
+  const AMP_LFO_HZ_BASE    = [0.011, 0.031, 0.007, 0.041, 0.015, 0.027, 0.053, 0.013, 0.039, 0.021, 0.047, 0.009, 0.033, 0.017, 0.055, 0.025];
+  const CUTOFF_LFO_HZ_BASE = [0.007, 0.013, 0.023, 0.037, 0.011, 0.031, 0.043, 0.017, 0.027, 0.041, 0.019, 0.029, 0.053, 0.009, 0.047, 0.039];
+  const RES_LFO_HZ_BASE    = [0.005, 0.017, 0.029, 0.011, 0.041, 0.007, 0.031, 0.019, 0.013, 0.037, 0.023, 0.043, 0.059, 0.015, 0.051, 0.021];
 
   // ─── Module-scope node references ─────────────────────────────────────────
 
@@ -207,7 +210,10 @@ const AUDIO = (() => {
     // ── Per-voice processing chains ──────────────────────────────────────────
 
     voicesSum = audioCtx.createGain();
-    voicesSum.gain.value = 1;
+    // 16 decorrelated voices RMS-sum to ~sqrt(16) = 4, but per-voice levels
+    // are attenuated by the amp LFO (avg ~0.5) and the grain envelope (avg ~0.5),
+    // so a 4× boost here brings the grain layer up to dry-passthru parity.
+    voicesSum.gain.value = 4;
 
     for (let v = 0; v < 16; v++) {
       const filter = audioCtx.createBiquadFilter();
@@ -541,12 +547,14 @@ const AUDIO = (() => {
     return PARAMS.mappedValue(PARAMS.byName('micVol'));
   }
 
-  // Compute the current pan and amp values FROM THE LFO CONFIG, not from
-  // AudioParam.value (which returns the intrinsic value 0 — modulators added
-  // to a param don't update the .value field). We replicate the LFO math in
-  // JS so the visualization mirrors what's actually happening in audio.
-  function getVoicePanAndAmp(v) {
-    if (!audioCtx || !panLfos[v] || !ampLfos[v]) return { pan: 0, amp: 0 };
+  // Compute the current pan, amp, and cutoff LFO values FROM THE LFO CONFIG,
+  // not from AudioParam.value (which returns the intrinsic value — modulators
+  // added to a param don't update .value). We replicate the LFO math in JS
+  // so the visualization mirrors what's actually happening in audio.
+  function getVoiceLfoState(v) {
+    if (!audioCtx || !panLfos[v] || !ampLfos[v] || !cutoffLfos[v]) {
+      return { pan: 0, amp: 0, cutoffTri: 0 };
+    }
     const t = audioCtx.currentTime - lfoStartTime;
 
     const panFreq = panLfos[v].frequency.value;
@@ -560,7 +568,13 @@ const AUDIO = (() => {
     const ampP = ((t * ampFreq) % 1 + 1) % 1;
     const amp = ampOffset + triangleAtPhase(ampP) * ampDepth;
 
-    return { pan, amp };
+    // Raw triangle output for cutoff LFO — visualization wants the LFO motion,
+    // not the resulting filter frequency. -1..+1.
+    const cutoffFreq = cutoffLfos[v].frequency.value;
+    const cutoffP = ((t * cutoffFreq) % 1 + 1) % 1;
+    const cutoffTri = triangleAtPhase(cutoffP);
+
+    return { pan, amp, cutoffTri };
   }
 
   // ─── Public API ───────────────────────────────────────────────────────────
@@ -573,6 +587,6 @@ const AUDIO = (() => {
     getVoiceAnalysers,
     getInputAnalyser,
     getInputLevel,
-    getVoicePanAndAmp,
+    getVoiceLfoState,
   };
 })();

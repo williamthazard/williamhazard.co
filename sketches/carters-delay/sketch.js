@@ -99,28 +99,25 @@ function drawVoiceCircles() {
   const analysers = AUDIO.getVoiceAnalysers();
   if (!analysers || analysers.length === 0) return;
 
-  const margin = Math.min(width, height) * 0.15; // keep circles away from edges
-  const minR = Math.min(width, height) * 0.02;
-  const maxR = Math.min(width, height) * 0.10;
+  // Tight margin so circles roam over essentially the whole screen.
+  const margin = Math.min(width, height) * 0.04;
+  const minR = Math.min(width, height) * 0.015;
+  const maxR = Math.min(width, height) * 0.07;
 
   for (let v = 0; v < VOICE_COUNT; v++) {
     const a = analysers[v];
     if (!a) continue;
 
-    const { pan, amp } = AUDIO.getVoicePanAndAmp(v);
+    const { pan, amp, cutoffTri } = AUDIO.getVoiceLfoState(v);
 
-    // Position: pan → x, amp → y (LFO-driven motion).
+    // Mapping (matches small-works): pan → X, cutoff LFO → Y, amp → size.
+    // pan is already scaled by panRange (so range is roughly -panRange..+panRange);
+    // we use ±1 as the full-canvas span so panRange=1 fills it.
     const x = map(pan, -1, 1, margin, width - margin);
-    const y = map(amp, 0, 2, height - margin, margin);   // higher amp = higher on screen
-
-    // Diameter: from analyser RMS.
-    const bufLen = a.fftSize || 256;
-    const wave = new Float32Array(bufLen);
-    a.getFloatTimeDomainData(wave);
-    let sumSq = 0;
-    for (let i = 0; i < bufLen; i++) sumSq += wave[i] * wave[i];
-    const rms = Math.sqrt(sumSq / bufLen);
-    const diameter = map(constrain(rms, 0, 0.5), 0, 0.5, minR, maxR);
+    // Cutoff LFO triangle is -1..+1; map to full vertical canvas.
+    const y = map(cutoffTri, -1, 1, margin, height - margin);
+    // Amp LFO output = ampOffset + tri*ampDepth, in 0..ampRange (ampRange max = 2).
+    const diameter = map(constrain(amp, 0, 2), 0, 2, minR, maxR);
 
     // Filled circle.
     const c = voiceColors[v];
@@ -130,7 +127,10 @@ function drawVoiceCircles() {
     fill(hue(c), saturation(c), brightness(c), 60);
     circle(x, y, diameter * 2);
 
-    // Oscilloscope ring around the circle.
+    // Oscilloscope ring around the circle, fed by per-voice analyser.
+    const bufLen = a.fftSize || 256;
+    const wave = new Float32Array(bufLen);
+    a.getFloatTimeDomainData(wave);
     if (diameter > 1) {
       noFill();
       stroke(hue(c), saturation(c), brightness(c), 90);
