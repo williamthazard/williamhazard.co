@@ -10,10 +10,11 @@ const MIC = (() => {
   // Audio nodes (created in start()).
   let sourceNode = null;
   let micHpfNode = null;   // Fixed input HPF — kills sub-bass rumble (fan, mains hum, table thumps).
-  let micGainNode = null;
+  let micInputGain = null; // micVol — gates the source into the chain (analog of poemAudio.setVolume).
+                           //          When 0, no fresh audio enters the delay; tail keeps playing.
+  let micGainNode = null;  // micGain — pre-amp before LPF/distortion (drive).
   let micLpfNode = null;
   let micDistNode = null;
-  let outputGainNode = null;
 
   // Delay subsystem (factory instance).
   let delaySubsystem = null;
@@ -71,8 +72,14 @@ const MIC = (() => {
     audioCtx = (typeof getAudioContext === 'function') ? getAudioContext() : new AudioContext();
     sourceNode = audioCtx.createMediaStreamSource(micStream);
 
+    // Source-level input gate — the analog of poemAudio.setVolume on the
+    // prerecorded chain. Cutting this stops fresh mic from entering the chain
+    // but lets the delay tail continue playing out from the buffer.
+    micInputGain = audioCtx.createGain();
+    micInputGain.gain.value = 0; // start silent (micVol default = 0)
+
     micGainNode = audioCtx.createGain();
-    micGainNode.gain.value = 0; // muted until knobs read
+    micGainNode.gain.value = 1; // pre-amp; default 1 (operator turns up via micGain knob)
 
     micLpfNode = audioCtx.createBiquadFilter();
     micLpfNode.type = 'lowpass';
@@ -82,9 +89,6 @@ const MIC = (() => {
     micDistNode = audioCtx.createWaveShaper();
     micDistNode.curve = makeSoftClipCurve(0);
     micDistNode.oversample = '2x';
-
-    outputGainNode = audioCtx.createGain();
-    outputGainNode.gain.value = 0; // start silent (Mic Vol default = 0)
 
     // ---------- Carter-flavored delay (factored module) ----------
     delaySubsystem = Delay.create(audioCtx);
@@ -97,11 +101,15 @@ const MIC = (() => {
     micReverbDryGain.gain.value = 1;
     micReverbWetGain.gain.value = 0;
 
+    muteGate = audioCtx.createGain();
+    muteGate.gain.value = 0; // start hard-muted; switch CC 32 unmutes
+
     delaySubsystem.output.connect(micReverbDryGain);
     delaySubsystem.output.connect(micReverbNode);
     micReverbNode.connect(micReverbWetGain);
-    micReverbDryGain.connect(outputGainNode);
-    micReverbWetGain.connect(outputGainNode);
+    micReverbDryGain.connect(muteGate);
+    micReverbWetGain.connect(muteGate);
+    muteGate.connect(audioCtx.destination);
 
     // Fixed input HPF — removes sub-bass rumble (fan, mains hum, table thumps)
     // before any processing or delay path. Not exposed as a knob; ~80 Hz is a
@@ -111,16 +119,14 @@ const MIC = (() => {
     micHpfNode.frequency.value = 80;
     micHpfNode.Q.value = 0.7;
 
-    // Wire the chain.
+    // Wire the chain. micInputGain comes BEFORE the rest so cutting it leaves
+    // the delay buffer intact (matching prerecorded masterVol behavior).
     sourceNode.connect(micHpfNode);
-    micHpfNode.connect(micGainNode);
+    micHpfNode.connect(micInputGain);
+    micInputGain.connect(micGainNode);
     micGainNode.connect(micLpfNode);
     micLpfNode.connect(micDistNode);
     micDistNode.connect(delaySubsystem.input);
-    muteGate = audioCtx.createGain();
-    muteGate.gain.value = 0; // start muted; switch CC 32 unmutes
-    outputGainNode.connect(muteGate);
-    muteGate.connect(audioCtx.destination);
 
     bindParams();
     started = true;
@@ -128,7 +134,7 @@ const MIC = (() => {
   }
 
   function bindParams() {
-    PARAMS.byName('micVol').apply       = (mapped) => { if (outputGainNode) outputGainNode.gain.value = mapped; };
+    PARAMS.byName('micVol').apply       = (mapped) => { if (micInputGain) micInputGain.gain.value = mapped; };
     PARAMS.byName('micGain').apply      = (mapped) => { if (micGainNode) micGainNode.gain.value = mapped; };
     PARAMS.byName('micLpfFreq').apply   = (mapped) => { if (micLpfNode) micLpfNode.frequency.value = mapped; };
     PARAMS.byName('micDist').apply      = (mapped) => {
