@@ -45,6 +45,8 @@ function draw() {
   if (typeof MIDI !== 'undefined' && MIDI.drainInputs) MIDI.drainInputs();
   PARAMS.modulationPass();
   PARAMS.applyAll();
+  // Perlin-noise LFOs run on the main thread, ticked once per frame.
+  if (AUDIO.updateLfos) AUDIO.updateLfos();
 
   // Draw if audio is ready.
   if (AUDIO.isStarted()) {
@@ -108,16 +110,15 @@ function drawVoiceCircles() {
     const a = analysers[v];
     if (!a) continue;
 
-    const { pan, amp, cutoffTri } = AUDIO.getVoiceLfoState(v);
+    // Perlin LFO outputs — all 0..1 (raw noise). Scale to canvas/diameter here.
+    const { pan, amp, cutoff } = AUDIO.getVoiceLfoState(v);
 
-    // Mapping (matches small-works): pan → X, cutoff LFO → Y, amp → size.
-    // pan is already scaled by panRange (so range is roughly -panRange..+panRange);
-    // we use ±1 as the full-canvas span so panRange=1 fills it.
-    const x = map(pan, -1, 1, margin, width - margin);
-    // Cutoff LFO triangle is -1..+1; map to full vertical canvas.
-    const y = map(cutoffTri, -1, 1, margin, height - margin);
-    // Amp LFO output = ampOffset + tri*ampDepth, in 0..ampRange (ampRange max = 2).
-    const diameter = map(constrain(amp, 0, 2), 0, 2, minR, maxR);
+    // X = pan LFO (0..1) → full width.
+    const x = map(pan, 0, 1, margin, width - margin);
+    // Y = cutoff LFO (0..1) → full height.
+    const y = map(cutoff, 0, 1, margin, height - margin);
+    // Size = amp LFO (0..1) → minR..maxR.
+    const diameter = map(amp, 0, 1, minR, maxR);
 
     // Filled circle.
     const c = voiceColors[v];
