@@ -54,6 +54,21 @@ class CartersGrainsProcessor extends AudioWorkletProcessor {
     const numSamples = outputs[0][0].length;
     const inputCh = (input && input.length > 0) ? input[0] : null;
 
+    // ── DIAGNOSTIC PASS-THROUGH ──
+    // If grains aren't working, this lets us confirm whether the worklet's
+    // input + 16-output routing is functional. Each voice just outputs the
+    // raw mic input, attenuated. If you hear mic on the voice path, we know
+    // the worklet's I/O is wired correctly and the bug is in grain rendering.
+    if (inputCh) {
+      for (let s = 0; s < numSamples; s++) {
+        const v = inputCh[s] * 0.25;
+        for (let voice = 0; voice < 16; voice++) {
+          outputs[voice][0][s] = v;
+        }
+      }
+    }
+    return true;
+
     const densityScale = parameters.densityScale[0];
     const durScale = parameters.durScale[0];
     const beatDur = parameters.beatDur[0];
