@@ -442,17 +442,19 @@ const AUDIO = (() => {
     const t60 = audioCtx.currentTime * 60; // ~ frameCount equivalent
     const now = audioCtx.currentTime;
 
-    // Voice-pair-spread for variance: at variance=0 all voices share rates; at
-    // variance=1 each voice's rate scales by (v+1) so they spread.
+    // voiceFactor=(v+1) matches small-works' (i+1) so voices have distinct
+    // rates. lfoVariance optionally widens the spread further.
     for (let v = 0; v < 16; v++) {
-      const voiceFactor = 1 + lfoVariance * v; // 1..16
+      const voiceFactor = (v + 1) * (1 + lfoVariance * 2); // 1..48 at variance=1
 
       // Each LFO type uses j+1 in the small-works divisor:
       //   panInput   uses j=0 → factor 1
       //   ampInput   uses j=1 → factor 2
       //   cutoffInput uses j=2 → factor 3
       //   resInput   uses j=3 → factor 4
-      const baseScale = lfoSpeed * voiceFactor / 80000;
+      // Divisor 8000 (vs small-works' 80000) gives ~10x faster motion at the
+      // ampInput layer, which is where most of the visible movement lives.
+      const baseScale = lfoSpeed * voiceFactor / 8000;
 
       // Distinct seed offsets so noise patterns differ per (LFO, voice).
       const panX    = (1 * baseScale * t60) + v * 17;
@@ -465,13 +467,12 @@ const AUDIO = (() => {
       const cutoffN = noise(cutoffX);
       const resN    = noise(resX);
 
-      // Apply to audio params. Direct .value assignment is fine at 60Hz with
-      // slow Perlin noise inputs — the per-frame deltas are tiny so there's no
-      // audible zipper noise.
+      // Apply to audio params.
       voicePanners[v].pan.value = (panN * 2 - 1) * panRange;
-      voiceAmpGains[v].gain.value = ampN * ampRange;
-      // Cutoff: noise(0..1) maps to a band around cutoffBase. ±0.5 of base
-      // gives reasonable filter sweep without ever clamping to 40Hz.
+      // Amp: 0.3 minimum baseline so voices never go fully silent (Perlin can
+      // hover at low values for slow inputs); LFO modulates the upper portion.
+      voiceAmpGains[v].gain.value = 0.3 + ampN * ampRange * 0.7;
+      // Cutoff: noise(0..1) maps to a band around cutoffBase.
       const cutoffHz = Math.max(80, cutoffBase * (0.5 + cutoffN));
       voiceFilters[v].frequency.value = Math.min(cutoffHz, 12000);
       voiceFilters[v].Q.value = resN * resonance;
