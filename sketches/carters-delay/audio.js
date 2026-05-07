@@ -190,11 +190,15 @@ const AUDIO = (() => {
 
     grainsWorkletNode = new AudioWorkletNode(audioCtx, 'carters-grains', {
       numberOfInputs: 1,
-      numberOfOutputs: 16,
-      outputChannelCount: new Array(16).fill(1),
+      numberOfOutputs: 1,
+      outputChannelCount: [16],
     });
 
     delayInputBus.connect(grainsWorkletNode);
+
+    // Split the worklet's 16 channels into 16 separate routes, one per voice.
+    const grainsSplitter = audioCtx.createChannelSplitter(16);
+    grainsWorkletNode.connect(grainsSplitter);
 
     // ── Per-voice processing chains ──────────────────────────────────────────
 
@@ -219,8 +223,8 @@ const AUDIO = (() => {
       analyser.fftSize = 256;
       analyser.smoothingTimeConstant = 0.6;
 
-      // Worklet output v → filter → panner → ampGain → analyser → voicesSum
-      grainsWorkletNode.connect(filter, v, 0);
+      // Splitter channel v → filter → panner → ampGain → analyser → voicesSum
+      grainsSplitter.connect(filter, v, 0);
       filter.connect(panner);
       panner.connect(ampGain);
       ampGain.connect(analyser);

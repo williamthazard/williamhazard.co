@@ -48,26 +48,13 @@ class CartersGrainsProcessor extends AudioWorkletProcessor {
 
   process(inputs, outputs, parameters) {
     const input = inputs[0];
-    // 16 separate outputs, each one mono. outputs[v][0] is voice v's channel.
-    if (!outputs || outputs.length < 16 || !outputs[0] || !outputs[0][0]) return true;
+    // ONE output with 16 channels — outputs[0][v] is voice v's channel.
+    // (Multi-output config didn't deliver audio reliably in Chrome.)
+    const out = outputs[0];
+    if (!out || out.length < 16) return true;
 
-    const numSamples = outputs[0][0].length;
+    const numSamples = out[0].length;
     const inputCh = (input && input.length > 0) ? input[0] : null;
-
-    // ── DIAGNOSTIC PASS-THROUGH ──
-    // If grains aren't working, this lets us confirm whether the worklet's
-    // input + 16-output routing is functional. Each voice just outputs the
-    // raw mic input, attenuated. If you hear mic on the voice path, we know
-    // the worklet's I/O is wired correctly and the bug is in grain rendering.
-    if (inputCh) {
-      for (let s = 0; s < numSamples; s++) {
-        const v = inputCh[s] * 0.25;
-        for (let voice = 0; voice < 16; voice++) {
-          outputs[voice][0][s] = v;
-        }
-      }
-    }
-    return true;
 
     const densityScale = parameters.densityScale[0];
     const durScale = parameters.durScale[0];
@@ -125,7 +112,7 @@ class CartersGrainsProcessor extends AudioWorkletProcessor {
           voice.grainPhase++;
         }
 
-        outputs[v][0][s] = voiceOut;
+        out[v][s] = voiceOut;
       }
 
       // 3. Advance pointers.
