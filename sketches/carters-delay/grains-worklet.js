@@ -83,8 +83,10 @@ class CartersGrainsProcessor extends AudioWorkletProcessor {
           // Random jitter on read position: ±25% of the base ptrSamples.
           const jitter = (Math.random() - 0.5) * 2 * cappedPtr * 0.25;
           const readStart = (this.writePtr - cappedPtr + jitter + bufLen * 2) % bufLen;
-          // Grain duration in samples — scaled by durScale.
-          const baseGrainSec = beatDur * 0.15 * (voice.ptrIndex % 4 + 1) * durScale;
+          // Grain duration — matches SuperCarter's `beatDur * (i+1)` formula:
+          // 0.5s..8s at beatDur=0.5, scaled by durScale. Capped at 15s so we
+          // can't read past the buffer wrap.
+          const baseGrainSec = Math.min(15, beatDur * (voice.ptrIndex + 1) * durScale);
           voice.grainLength = Math.max(64, Math.floor(baseGrainSec * sr));
           voice.grainPhase = 0;
           voice.grainReadStart = readStart;

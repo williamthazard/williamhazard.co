@@ -203,10 +203,10 @@ const AUDIO = (() => {
     // ── Per-voice processing chains ──────────────────────────────────────────
 
     voicesSum = audioCtx.createGain();
-    // 16 decorrelated voices RMS-sum to ~sqrt(16) = 4, but per-voice levels
-    // are attenuated by the amp LFO (avg ~0.5) and the grain envelope (avg ~0.5),
-    // so a 4× boost here brings the grain layer up to dry-passthru parity.
-    voicesSum.gain.value = 4;
+    // Per-voice levels (with 0.3 baseline ampGain + Hann envelope avg ~0.5) +
+    // 16-voice decorrelated sum already give grain-layer-vs-dry-passthru parity.
+    // No extra boost needed; 4× boost was driving the feedback loop into noise.
+    voicesSum.gain.value = 1;
 
     for (let v = 0; v < 16; v++) {
       const filter = audioCtx.createBiquadFilter();
@@ -442,19 +442,19 @@ const AUDIO = (() => {
     const t60 = audioCtx.currentTime * 60; // ~ frameCount equivalent
     const now = audioCtx.currentTime;
 
-    // voiceFactor=(v+1) matches small-works' (i+1) so voices have distinct
-    // rates. lfoVariance optionally widens the spread further.
+    // voiceFactor=(v+1) matches small-works' (i+1) so each voice drifts at a
+    // distinct rate (slowest voice 0, fastest voice 15).
     for (let v = 0; v < 16; v++) {
-      const voiceFactor = (v + 1) * (1 + lfoVariance * 2); // 1..48 at variance=1
+      const voiceFactor = (v + 1) * (1 + lfoVariance);
 
       // Each LFO type uses j+1 in the small-works divisor:
       //   panInput   uses j=0 → factor 1
       //   ampInput   uses j=1 → factor 2
       //   cutoffInput uses j=2 → factor 3
       //   resInput   uses j=3 → factor 4
-      // Divisor 8000 (vs small-works' 80000) gives ~10x faster motion at the
-      // ampInput layer, which is where most of the visible movement lives.
-      const baseScale = lfoSpeed * voiceFactor / 8000;
+      // Divisor 25000 gives roughly small-works' max LFO rate at v=15 with
+      // lfoSpeed=1 — feels active without being twitchy.
+      const baseScale = lfoSpeed * voiceFactor / 25000;
 
       // Distinct seed offsets so noise patterns differ per (LFO, voice).
       const panX    = (1 * baseScale * t60) + v * 17;
