@@ -83,13 +83,13 @@ const PARAMS = (() => {
   reg('preDist',       { cc: 5,  label: 'Pre-Distortion',     range: [0, 0.95],      curve: 'pow:0.8', default: 0 });
   reg('reverbWet',     { cc: 6,  label: 'Reverb Wet',         range: [0, 0.88],      curve: 'pow:2.0', default: 0 });
   reg('reverbDecay',   { cc: 7,  label: 'Reverb Decay',       range: [0.5, 6],       curve: 'linear', default: 0.273 });
-  reg('density',       { cc: 8,  label: 'Density',            range: [0.1, 10],      curve: 'exp',    default: 0.5 });
-  reg('grainDurScale', { cc: 9,  label: 'Grain Duration',     range: [0.1, 3],       curve: 'exp',    default: 0.5 });
+  reg('density',       { cc: 8,  label: 'Density',            range: [0.1, 10],      curve: 'exp',    default: 0.2 }); // mapped ~0.25× — sparse by default, room to grow
+  reg('grainDurScale', { cc: 9,  label: 'Grain Duration',     range: [0.1, 3],       curve: 'exp',    default: 0.85 }); // mapped ~1.85× — long, sustained grains by default
   reg('cutoffBase',    { cc: 10, label: 'Cutoff Center',      range: [200, 12000],   curve: 'exp',    default: 0.6 });
   reg('resonance',     { cc: 11, label: 'Resonance',          range: [0, 3],         curve: 'linear', default: 0.3 });
   reg('panRange',      { cc: 12, label: 'Pan Range',          range: [0, 1],         curve: 'linear', default: 0.7 });
   reg('ampRange',      { cc: 13, label: 'Amp Range',          range: [0, 2],         curve: 'linear', default: 0.5 });
-  reg('lfoSpeed',      { cc: 14, label: 'LFO Speed',          range: [0.1, 5],       curve: 'exp',    default: 0.5 });
+  reg('lfoSpeed',      { cc: 14, label: 'LFO Speed',          range: [0.1, 5],       curve: 'exp',    default: 0.25 }); // mapped ~0.28× — slow drift by default
   reg('lfoVariance',   { cc: 15, label: 'LFO Variance',       range: [0, 1],         curve: 'linear', default: 0.5 });
 
   // Bank 2 — Feedback patchcord
