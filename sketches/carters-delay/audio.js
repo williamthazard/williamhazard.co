@@ -494,7 +494,10 @@ const AUDIO = (() => {
 
   // ─── startLfos() ──────────────────────────────────────────────────────────
 
+  let lfoStartTime = 0;
+
   function startLfos() {
+    lfoStartTime = audioCtx.currentTime;
     for (let v = 0; v < 16; v++) {
       panLfos[v].start();
       ampLfos[v].start();
@@ -505,6 +508,14 @@ const AUDIO = (() => {
     }
     pinkNoiseSource.start();
     sineOsc.start();
+  }
+
+  // Triangle wave at phase p in [0,1). Matches Web Audio's triangle:
+  // 0 → 0, peaks +1 at 0.25, back to 0 at 0.5, -1 at 0.75, 0 at 1.
+  function triangleAtPhase(p) {
+    if (p < 0.25) return 4 * p;
+    if (p < 0.75) return 2 - 4 * p;
+    return -4 + 4 * p;
   }
 
   // ─── Public controls ──────────────────────────────────────────────────────
@@ -530,12 +541,26 @@ const AUDIO = (() => {
     return PARAMS.mappedValue(PARAMS.byName('micVol'));
   }
 
+  // Compute the current pan and amp values FROM THE LFO CONFIG, not from
+  // AudioParam.value (which returns the intrinsic value 0 — modulators added
+  // to a param don't update the .value field). We replicate the LFO math in
+  // JS so the visualization mirrors what's actually happening in audio.
   function getVoicePanAndAmp(v) {
-    if (!voicePanners || !voicePanners[v] || !voiceAmpGains[v]) return { pan: 0, amp: 0 };
-    return {
-      pan: voicePanners[v].pan.value,         // current pan, -1..+1
-      amp: voiceAmpGains[v].gain.value,       // current amp gain, 0..ampRange
-    };
+    if (!audioCtx || !panLfos[v] || !ampLfos[v]) return { pan: 0, amp: 0 };
+    const t = audioCtx.currentTime - lfoStartTime;
+
+    const panFreq = panLfos[v].frequency.value;
+    const panDepth = panLfoDepths[v].gain.value;
+    const panP = ((t * panFreq) % 1 + 1) % 1;
+    const pan = triangleAtPhase(panP) * panDepth;
+
+    const ampFreq = ampLfos[v].frequency.value;
+    const ampDepth = ampLfoDepths[v].gain.value;
+    const ampOffset = ampLfoOffsets[v].offset.value;
+    const ampP = ((t * ampFreq) % 1 + 1) % 1;
+    const amp = ampOffset + triangleAtPhase(ampP) * ampDepth;
+
+    return { pan, amp };
   }
 
   // ─── Public API ───────────────────────────────────────────────────────────
