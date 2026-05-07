@@ -103,8 +103,11 @@ function drawVoiceCircles() {
 
   // Tight margin so circles roam over essentially the whole screen.
   const margin = Math.min(width, height) * 0.04;
-  const minR = Math.min(width, height) * 0.015;
-  const maxR = Math.min(width, height) * 0.07;
+  // Match small-works' size dynamic range (width*height/2500 ≈ 800px at 1080p)
+  // so amp LFO variations are dramatically visible — circles can shrink to
+  // nearly invisible or grow to fill a sizeable area.
+  const minR = 0;
+  const maxR = Math.sqrt(width * height) / 4;
 
   for (let v = 0; v < VOICE_COUNT; v++) {
     const a = analysers[v];
@@ -135,9 +138,9 @@ function drawVoiceCircles() {
     if (diameter > 1) {
       noFill();
       stroke(hue(c), saturation(c), brightness(c), 90);
-      strokeWeight(1);
-      const ringMin = diameter * 1.1;
-      const ringWobble = diameter * 0.5;
+      strokeWeight(1.5);
+      const ringMin = diameter * 0.6;
+      const ringWobble = Math.max(40, diameter * 0.8);
       for (let half = 0; half < 2; half++) {
         const flip = half === 0 ? -1 : 1;
         beginShape();
