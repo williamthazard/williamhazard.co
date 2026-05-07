@@ -48,10 +48,10 @@ class CartersGrainsProcessor extends AudioWorkletProcessor {
 
   process(inputs, outputs, parameters) {
     const input = inputs[0];
-    const output = outputs[0];
-    if (!output || output.length < 16) return true;
+    // 16 separate outputs, each one mono. outputs[v][0] is voice v's channel.
+    if (!outputs || outputs.length < 16 || !outputs[0] || !outputs[0][0]) return true;
 
-    const numSamples = output[0].length;
+    const numSamples = outputs[0][0].length;
     const inputCh = (input && input.length > 0) ? input[0] : null;
 
     const densityScale = parameters.densityScale[0];
@@ -110,7 +110,7 @@ class CartersGrainsProcessor extends AudioWorkletProcessor {
           voice.grainPhase++;
         }
 
-        output[v][s] = voiceOut;
+        outputs[v][0][s] = voiceOut;
       }
 
       // 3. Advance pointers.
