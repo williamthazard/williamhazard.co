@@ -213,7 +213,7 @@ const AUDIO = (() => {
       const panner = audioCtx.createStereoPanner();
 
       const ampGain = audioCtx.createGain();
-      ampGain.gain.value = 0; // LFO drives this
+      ampGain.gain.value = 0.5; // audible baseline; LFO modulates from here
 
       const analyser = audioCtx.createAnalyser();
       analyser.fftSize = 256;
@@ -461,14 +461,16 @@ const AUDIO = (() => {
       const cutoffN = noise(cutoffX);
       const resN    = noise(resX);
 
-      // Apply to audio params with a one-frame smooth so step changes don't click.
-      const ramp = 0.016;
-      voicePanners[v].pan.setTargetAtTime((panN * 2 - 1) * panRange, now, ramp);
-      voiceAmpGains[v].gain.setTargetAtTime(ampN * ampRange, now, ramp);
-      // Cutoff: noise(0..1) maps to ±0.5 around cutoffBase, scaled to ±5000 Hz.
-      const cutoffHz = Math.max(40, cutoffBase + (cutoffN - 0.5) * 10000);
-      voiceFilters[v].frequency.setTargetAtTime(cutoffHz, now, ramp);
-      voiceFilters[v].Q.setTargetAtTime(resN * resonance, now, ramp);
+      // Apply to audio params. Direct .value assignment is fine at 60Hz with
+      // slow Perlin noise inputs — the per-frame deltas are tiny so there's no
+      // audible zipper noise.
+      voicePanners[v].pan.value = (panN * 2 - 1) * panRange;
+      voiceAmpGains[v].gain.value = ampN * ampRange;
+      // Cutoff: noise(0..1) maps to a band around cutoffBase. ±0.5 of base
+      // gives reasonable filter sweep without ever clamping to 40Hz.
+      const cutoffHz = Math.max(80, cutoffBase * (0.5 + cutoffN));
+      voiceFilters[v].frequency.value = Math.min(cutoffHz, 12000);
+      voiceFilters[v].Q.value = resN * resonance;
 
       // Cache for visualization.
       voiceLfoCache[v].pan    = panN;
