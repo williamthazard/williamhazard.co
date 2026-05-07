@@ -1,7 +1,11 @@
 const SWITCHES = (() => {
   const state = {
-    micMuted: true,   // mic input gated to 0 until first unmute
-    outMuted: false,  // output not muted by default after Begin
+    // Both gates start open — operator controls audibility via the Mic Vol /
+    // Master Vol knobs. Press toggles into mute. Initial values match the
+    // actual gain-node values built in audio.js so the first press isn't a
+    // silent state-sync no-op.
+    micMuted: false,
+    outMuted: false,
   };
 
   const handlers = {
