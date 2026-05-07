@@ -148,6 +148,12 @@ function setMuted(m) {
   isMuted = m;
   if (m) poemAudio.setVolume(0);
   // Unmute is implicit: PARAMS.applyAll pushes masterVol next frame.
+  // Keep the switch state in sync so the press handler always knows the
+  // actual mute state (otherwise programmatic setMuted calls — e.g. Begin —
+  // can desync from SWITCHES.state.muted, requiring a redundant first press).
+  if (typeof SWITCHES !== 'undefined' && SWITCHES.state) {
+    SWITCHES.state.muted = m;
+  }
 }
 
 function buildSegments() {

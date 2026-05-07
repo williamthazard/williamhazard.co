@@ -1,7 +1,10 @@
 const SWITCHES = (() => {
   const state = {
     autoScrollOn: false,
-    muted: true,
+    // 'muted' tracks the prerecorded chain's mute toggle. After Begin runs
+    // setMuted(false), audio is "not muted" — so initial state is false.
+    // (micMuted stays true because the mic-side muteGate actually starts at 0.)
+    muted: false,
     engineOn: false,
     micMuted: true,
   };
