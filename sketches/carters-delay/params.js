@@ -79,7 +79,7 @@ const PARAMS = (() => {
   reg('masterVol',     { cc: 1,  label: 'Master Volume',      range: [0, 1],         curve: 'pow:2.0', default: 0 });
   reg('bpm',           { cc: 2,  label: 'BPM',                range: [40, 240],      curve: 'linear', default: 0.4 }); // ~120 BPM
   reg('modAmount',     { cc: 3,  label: 'Mod Amount',         range: [0, 1],         curve: 'linear', default: 0 });
-  reg('preLpf',        { cc: 4,  label: 'Pre-LPF Cutoff',     range: [20000, 200],   curve: 'expInverted', default: 0 });
+  reg('preLpf',        { cc: 4,  label: 'Pre-LPF Cutoff',     range: [12000, 200],   curve: 'expInverted', default: 0 }); // 12k cap avoids BiquadFilter nominal-range clamping warnings on low-sample-rate audio contexts
   reg('preDist',       { cc: 5,  label: 'Pre-Distortion',     range: [0, 0.95],      curve: 'pow:0.8', default: 0 });
   reg('reverbWet',     { cc: 6,  label: 'Reverb Wet',         range: [0, 0.88],      curve: 'pow:2.0', default: 0 });
   reg('reverbDecay',   { cc: 7,  label: 'Reverb Decay',       range: [0.5, 6],       curve: 'linear', default: 0.273 });
