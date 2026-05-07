@@ -42,24 +42,49 @@ The four knobs you'll touch most. The piece can be played using only this bank.
 
 Granular sub-controls. Reach for these when you want detail.
 
-| Pos   | CC  | Knob (rotation)          | Range            | Curve  | Default | Press action |
-|-------|-----|--------------------------|------------------|--------|---------|--------------|
-| (1,1) | 16  | Visual Spatial Frequency | 0.05 .. 0.4      | linear | 0.18    | reset        |
-| (1,2) | 17  | Visual Time Speed        | 0.005 .. 0.2     | exp    | 0.05    | reset        |
-| (1,3) | 18  | Visual Flow Speed        | 0.0 .. 0.08      | linear | 0.02    | reset        |
-| (1,4) | 19  | (free)                   |                  |        |         |              |
-| (2,1) | 20  | LPF Resonance            | 0.001 .. 30      | exp    | 0.001   | —            |
-| (2,2) | 21  | Delay Time               | 0.001 .. 0.6 s   | exp    | 0.01    | —            |
-| (2,3) | 22  | Delay Feedback           | 0..0.85          | linear | 0       | —            |
-| (2,4) | 23  | Reverb Decay             | 0.5 .. 6 s       | linear | 2       | —            |
-| (3,1) | 24  | Jitter Frequency         | 0.1 .. 3.0       | exp    | 0.8     | —            |
-| (3,2) | 25  | Reverse Probability      | 0..0.06 / frame  | linear | 0       | —            |
-| (3,3) | 26  | Stutter Max Skip         | 0.05 .. 2.0 s    | linear | 0.75    | —            |
-| (3,4) | 27  | (free)                   |                  |        |         |              |
-| (4,1) | 28  | (free)                   |                  |        |         |              |
-| (4,2) | 29  | (free)                   |                  |        |         |              |
-| (4,3) | 30  | (free)                   |                  |        |         |              |
-| (4,4) | 31  | (free)                   |                  |        |         |              |
+| Pos   | CC  | Knob (rotation)          | Range            | Curve  | Default  | Press action |
+|-------|-----|--------------------------|------------------|--------|----------|--------------|
+| (1,1) | 16  | Visual Spatial Frequency | 0.05 .. 0.4      | linear | 0.18     | reset        |
+| (1,2) | 17  | Visual Time Speed        | 0.005 .. 0.2     | exp    | 0.05     | reset        |
+| (1,3) | 18  | Visual Flow Speed        | 0.0 .. 0.08      | linear | 0.02     | reset        |
+| (1,4) | 19  | Delay Wet                | 0..1             | pow:2  | 0        | —            |
+| (2,1) | 20  | LPF Resonance            | 0.001 .. 30      | exp    | 0.001    | —            |
+| (2,2) | 21  | Delay Time               | 0.1 .. 15 s      | exp    | ~1.5s    | —            |
+| (2,3) | 22  | Delay Feedback           | 0..0.85          | linear | 0        | —            |
+| (2,4) | 23  | Reverb Decay             | 0.5 .. 6 s       | linear | 2        | —            |
+| (3,1) | 24  | Jitter Frequency         | 0.1 .. 3.0       | exp    | 0.8      | —            |
+| (3,2) | 25  | Reverse Probability      | 0..0.06 / frame  | linear | 0        | —            |
+| (3,3) | 26  | Stutter Max Skip         | 0.05 .. 2.0 s    | linear | 0.75     | —            |
+| (3,4) | 27  | Preserve                 | 0..1             | linear | 0        | —            |
+| (4,1) | 28  | Fbk HPF                  | 20 .. 800 Hz     | exp    | 20 Hz    | —            |
+| (4,2) | 29  | Fbk Noise                | 0..0.5           | pow:2  | 0        | —            |
+| (4,3) | 30  | Fbk Sine                 | 0..0.5           | pow:2  | 0        | —            |
+| (4,4) | 31  | Fbk Sine Hz              | 40 .. 1200 Hz    | exp    | ~110 Hz  | —            |
+
+---
+
+## Bank 3 — "Live Mic"
+
+The mic processing chain. Layout aligns the delay/feedback patchcord with Bank 2 so when the debug overlay shows banks side-by-side, analogous controls (Delay Wet, Delay Time, Delay Fbk, Reverb Decay, Preserve, Fbk HPF/Noise/Sine/Sine Hz) line up in the same column on screen.
+
+| Pos   | CC  | Knob (rotation)          | Range            | Curve  | Default                | Press action      |
+|-------|-----|--------------------------|------------------|--------|------------------------|-------------------|
+| (1,1) | 32  | Mic Volume (input gate)  | 0..1             | pow:2  | 0                      | mic mute toggle   |
+| (1,2) | 33  | Mic Gain (pre-amp)       | 0..4×            | pow:2  | 0.25×                  | —                 |
+| (1,3) | 34  | Mic LPF Cutoff           | 20000..300 Hz    | expInv | 20 kHz                 | —                 |
+| (1,4) | 35  | Mic Delay Wet            | 0..1             | pow:2  | 0                      | —                 |
+| (2,1) | 36  | Mic Distortion           | 0..0.95          | pow:0.8| 0                      | —                 |
+| (2,2) | 37  | Mic Delay Time           | 0.1 .. 15 s      | exp    | ~1.5s                  | —                 |
+| (2,3) | 38  | Mic Feedback Level       | 0..0.95          | pow:2  | 0                      | —                 |
+| (2,4) | 39  | Mic Reverb Decay         | 0.5 .. 6 s       | linear | ~2s                    | —                 |
+| (3,1) | 40  | Mic Reverb Wet           | 0..0.88          | pow:2  | 0                      | —                 |
+| (3,2) | 41  | Mic Fbk Balance          | −1 .. +1         | bipolar| 0 (center)             | —                 |
+| (3,3) | 42  | (free)                   |                  |        |                        |                   |
+| (3,4) | 43  | Mic Preserve             | 0..1             | linear | 0                      | —                 |
+| (4,1) | 44  | Mic Fbk HPF              | 20 .. 800 Hz     | exp    | 20 Hz                  | —                 |
+| (4,2) | 45  | Mic Fbk Noise            | 0..0.5           | pow:2  | 0                      | —                 |
+| (4,3) | 46  | Mic Fbk Sine             | 0..0.5           | pow:2  | 0                      | —                 |
+| (4,4) | 47  | Mic Fbk Sine Hz          | 40 .. 1200 Hz    | exp    | ~110 Hz                | —                 |
 
 ---
 

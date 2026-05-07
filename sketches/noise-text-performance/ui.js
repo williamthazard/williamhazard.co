@@ -127,12 +127,16 @@ const UI = (() => {
     if (debugEl) return;
     debugEl = document.createElement('div');
     Object.assign(debugEl.style, {
-      position: 'fixed', left: '12px', bottom: '12px',
+      // Anchored across the bottom, horizontally centered. Banks lay out side
+      // by side inside, so analogous controls in different banks line up
+      // vertically (same column on screen).
+      position: 'fixed', left: '50%', bottom: '12px',
+      transform: 'translateX(-50%)',
       background: 'rgba(10,10,18,0.85)', color: '#cfd0e0',
       padding: '12px 16px', fontFamily: 'monospace', fontSize: '11px',
       lineHeight: '1.4', borderRadius: '6px',
-      minWidth: '540px', maxWidth: '580px',
-      maxHeight: '85vh', overflow: 'auto', zIndex: '9999',
+      maxWidth: 'calc(100vw - 24px)',
+      maxHeight: '60vh', overflow: 'auto', zIndex: '9999',
       backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.06)',
     });
     document.body.appendChild(debugEl);
@@ -415,13 +419,14 @@ const UI = (() => {
     Object.assign(header.style, { fontWeight: 'bold', marginBottom: '10px' });
     debugEl.appendChild(header);
 
-    // Three banks stacked vertically (top to bottom: Bank 1, Bank 2, Bank 3).
-    const banksColumn = document.createElement('div');
-    Object.assign(banksColumn.style, { display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '12px' });
-    banksColumn.appendChild(buildBankGrid('BANK 1 — PERFORMANCE', 0));
-    banksColumn.appendChild(buildBankGrid('BANK 2 — DETAIL', 16));
-    banksColumn.appendChild(buildBankGrid('BANK 3 — LIVE MIC', 32));
-    debugEl.appendChild(banksColumn);
+    // Three banks side-by-side along the bottom. Analogous controls in
+    // different banks line up in the same column on screen.
+    const banksRow = document.createElement('div');
+    Object.assign(banksRow.style, { display: 'flex', flexDirection: 'row', gap: '20px', marginBottom: '12px', alignItems: 'flex-start' });
+    banksRow.appendChild(buildBankGrid('BANK 1 — PERFORMANCE', 0));
+    banksRow.appendChild(buildBankGrid('BANK 2 — DETAIL', 16));
+    banksRow.appendChild(buildBankGrid('BANK 3 — LIVE MIC', 32));
+    debugEl.appendChild(banksRow);
 
     // Recent MIDI log
     const logHeader = document.createElement('div');
