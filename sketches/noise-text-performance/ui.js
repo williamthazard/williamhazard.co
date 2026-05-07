@@ -136,7 +136,10 @@ const UI = (() => {
       padding: '12px 16px', fontFamily: 'monospace', fontSize: '11px',
       lineHeight: '1.4', borderRadius: '6px',
       maxWidth: 'calc(100vw - 24px)',
-      maxHeight: '60vh', overflow: 'auto', zIndex: '9999',
+      // Only constrain to viewport. On any decently-sized window the content
+      // fits naturally and no scrollbar appears; tiny windows still scroll.
+      maxHeight: 'calc(100vh - 24px)',
+      overflow: 'auto', zIndex: '9999',
       backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.06)',
     });
     document.body.appendChild(debugEl);
