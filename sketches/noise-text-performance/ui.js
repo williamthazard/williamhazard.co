@@ -419,38 +419,44 @@ const UI = (() => {
     Object.assign(header.style, { fontWeight: 'bold', marginBottom: '10px' });
     debugEl.appendChild(header);
 
-    // Three banks side-by-side along the bottom. Analogous controls in
-    // different banks line up in the same column on screen.
+    // Main row: three banks on the left, MIDI log on the right.
+    // Putting the log alongside (not below) keeps the overlay short — the
+    // banks are the tallest thing, and the log fills the space next to them.
+    const mainRow = document.createElement('div');
+    Object.assign(mainRow.style, { display: 'flex', flexDirection: 'row', gap: '20px', alignItems: 'flex-start' });
+
     const banksRow = document.createElement('div');
-    Object.assign(banksRow.style, { display: 'flex', flexDirection: 'row', gap: '20px', marginBottom: '12px', alignItems: 'flex-start' });
+    Object.assign(banksRow.style, { display: 'flex', flexDirection: 'row', gap: '20px', alignItems: 'flex-start' });
     banksRow.appendChild(buildBankGrid('BANK 1 — PERFORMANCE', 0));
     banksRow.appendChild(buildBankGrid('BANK 2 — DETAIL', 16));
     banksRow.appendChild(buildBankGrid('BANK 3 — LIVE MIC', 32));
-    debugEl.appendChild(banksRow);
+    mainRow.appendChild(banksRow);
 
-    // Recent MIDI log
+    // Recent MIDI column (heading + log + reopen-picker link).
+    const logColumn = document.createElement('div');
+    Object.assign(logColumn.style, { display: 'flex', flexDirection: 'column', minWidth: '220px', maxWidth: '300px' });
+
     const logHeader = document.createElement('div');
     logHeader.textContent = 'RECENT MIDI';
     Object.assign(logHeader.style, {
       fontSize: '10px', fontWeight: 'bold', color: '#888',
-      letterSpacing: '0.08em', marginTop: '8px', marginBottom: '4px',
+      letterSpacing: '0.08em', marginBottom: '6px',
     });
-    debugEl.appendChild(logHeader);
+    logColumn.appendChild(logHeader);
 
     const logBox = document.createElement('div');
-    Object.assign(logBox.style, { fontSize: '10px', color: '#9a9aa8', whiteSpace: 'pre' });
+    Object.assign(logBox.style, { fontSize: '10px', color: '#9a9aa8', whiteSpace: 'pre', flexGrow: '1' });
     const msgs = MIDI.getRecentMessages ? MIDI.getRecentMessages() : [];
     if (msgs.length === 0) {
       logBox.textContent = '  (no messages yet)';
     } else {
       const lines = msgs.slice(-10).reverse().map(m =>
-        `  ch${m.channel} cc${String(m.cc).padStart(2, ' ')} v${String(m.value).padStart(3, ' ')}  → ${m.target || ''}`
+        `ch${m.channel} cc${String(m.cc).padStart(2, ' ')} v${String(m.value).padStart(3, ' ')}  → ${m.target || ''}`
       );
       logBox.textContent = lines.join('\n');
     }
-    debugEl.appendChild(logBox);
+    logColumn.appendChild(logBox);
 
-    // Reopen-picker link
     const link = document.createElement('a');
     link.href = '#';
     link.textContent = '[ Reopen device picker ]';
@@ -463,7 +469,10 @@ const UI = (() => {
         await MIDI.connect({ preferInputId: inputId, preferOutputId: outputId });
       });
     });
-    debugEl.appendChild(link);
+    logColumn.appendChild(link);
+
+    mainRow.appendChild(logColumn);
+    debugEl.appendChild(mainRow);
   }
 
   function showDisconnect() {
