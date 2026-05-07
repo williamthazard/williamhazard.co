@@ -82,10 +82,10 @@ const MIDI = (() => {
           sendCC(p.cc, v);
           p.lastSentToLed = v;
         }
-        if (typeof SWITCHES !== 'undefined') {
-          sendCC(1, SWITCHES.state.autoScrollOn ? 127 : 0, 1);
-          sendCC(2, SWITCHES.state.muted ? 127 : 0, 1);
-          sendCC(3, SWITCHES.state.engineOn ? 127 : 0, 1);
+        if (typeof SWITCHES !== 'undefined' && SWITCHES.state) {
+          // Carter's Delay uses CC 0 (mic mute) and CC 1 (output mute) on switch channel.
+          sendCC(0, SWITCHES.state.micMuted ? 127 : 0, 1);
+          sendCC(1, SWITCHES.state.outMuted ? 127 : 0, 1);
         }
       }
     }
@@ -107,7 +107,8 @@ const MIDI = (() => {
 
     const entry = { t: Date.now(), channel, cc, value };
     if (channel === 0) {
-      const macroName = MACROS.nameByCC(cc);
+      // Macros are optional — sketches without a MACROS module skip this branch.
+      const macroName = (typeof MACROS !== 'undefined' && MACROS.nameByCC) ? MACROS.nameByCC(cc) : null;
       if (macroName) {
         entry.target = `macro:${macroName}`;
         MACROS.apply(macroName, value / 127);
