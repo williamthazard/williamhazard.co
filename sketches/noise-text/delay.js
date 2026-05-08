@@ -1,27 +1,8 @@
-// delay.js — Carter-flavored multi-tap delay + feedback patchcord factory.
-// Each call to Delay.create(ctx) builds an independent instance.
-// Reverb is NOT included; each chain handles its own reverb tail.
+// delay.js — granular Carter's Delay factory.
+// Each call to Delay.create(ctx) returns a Promise of an independent instance
+// (loads grains-worklet.js on first call; subsequent calls reuse the module).
 const Delay = (() => {
-
-  // Tap layout (deterministic but varied)
-  const TAP_COUNT = 4;
-  const TAP_SCRAMBLE = [0.5, 1.5, 3.0, 6.0];
-  const TAP_PAN_LFO_HZ    = [0.13, 0.21, 0.31, 0.17];
-  const TAP_CUTOFF_LFO_HZ = [0.07, 0.18, 0.11, 0.23];
-  const TAP_PITCH_RATIO = [1.0, 0.5, 1.5, 2.0];
-  // Tap 1 unison, tap 2 octave down, tap 3 perfect fifth up, tap 4 octave up.
-  // Combined with TAP_SCRAMBLE delay times, gives a Carter-style cloud where each
-  // echo is at a different point in the buffer history AND a different pitch.
-  // SCRAMBLE max 6× × max base 15s = 90s longest tap. MAX_DELAY_SECONDS sized for that.
-  const MAX_DELAY_SECONDS = 100.0;
-
-  // Random tap-gating timing — taps fade in and out at irregular intervals so
-  // they don't all play continuously, imitating Carter's per-grain density variation.
-  const GATE_ON_MIN_MS  = 8000;
-  const GATE_ON_MAX_MS  = 20000;
-  const GATE_OFF_MIN_MS = 2000;
-  const GATE_OFF_MAX_MS = 5000;
-  const GATE_TRANSITION_SEC = 0.5;
+  let workletLoadPromise = null;
 
   function makeSoftClipCurve(amount) {
     const samples = 2048;
@@ -54,207 +35,88 @@ const Delay = (() => {
     return buffer;
   }
 
-  function buildPitchShifter(ctx, pitchRatio) {
-    const input  = ctx.createGain();
-    const output = ctx.createGain();
-
-    // Unison: pure passthrough, no scheduling needed.
-    if (Math.abs(pitchRatio - 1.0) < 0.001) {
-      input.connect(output);
-      return { input, output };
+  async function ensureWorklet(ctx) {
+    if (!workletLoadPromise) {
+      workletLoadPromise = ctx.audioWorklet.addModule('grains-worklet.js');
     }
-
-    const dA = ctx.createDelay(1.0);
-    const dB = ctx.createDelay(1.0);
-    const gA = ctx.createGain();
-    const gB = ctx.createGain();
-
-    input.connect(dA);
-    input.connect(dB);
-    dA.connect(gA);
-    dB.connect(gB);
-    gA.connect(output);
-    gB.connect(output);
-
-    gA.gain.value = 0;
-    gB.gain.value = 0;
-
-    const windowSec     = 0.1;                               // 100 ms window
-    const slideRate     = 1 - pitchRatio;                    // s of delay change per s real time
-    const slideDuration = windowSec / Math.abs(slideRate);   // s real time per window pass
-    const startDelay    = slideRate >= 0 ? 0 : windowSec;
-    const endDelay      = slideRate >= 0 ? windowSec : 0;
-    // slideRate > 0 (R<1, pitch DOWN):  delay grows → reads older buffer → slower playback
-    // slideRate < 0 (R>1, pitch UP):    delay shrinks → reads newer buffer → faster playback
-
-    let scheduledUntil = ctx.currentTime;
-
-    function scheduleCycles(numCycles) {
-      let t = Math.max(scheduledUntil, ctx.currentTime + 0.05);
-      for (let n = 0; n < numCycles; n++) {
-        // Two delay lines, offset by half-window.
-        [[dA, gA, 0], [dB, gB, 0.5]].forEach(([d, g, phaseOffset]) => {
-          const startT = t + phaseOffset * slideDuration;
-          const endT   = startT + slideDuration;
-          const midT   = (startT + endT) / 2;
-
-          // Delay-time slide (linear).
-          d.delayTime.setValueAtTime(startDelay, startT);
-          d.delayTime.linearRampToValueAtTime(endDelay, endT);
-
-          // Crossfade gain: 0 → 1 → 0 over the window (triangular).
-          g.gain.setValueAtTime(0, startT);
-          g.gain.linearRampToValueAtTime(1, midT);
-          g.gain.linearRampToValueAtTime(0, endT);
-        });
-        t += slideDuration;
-      }
-      scheduledUntil = t;
-    }
-
-    // Initial schedule — enough buffer ahead for several seconds of audio.
-    scheduleCycles(40);
-
-    // Re-schedule periodically to stay ahead.
-    setInterval(() => {
-      if (ctx.currentTime > scheduledUntil - 1.0) scheduleCycles(20);
-    }, 1000);
-
-    return { input, output };
+    await workletLoadPromise;
   }
 
-  // Build one independent delay subsystem instance.
-  function create(ctx) {
-    // Entry/exit points.
-    const input  = ctx.createGain();      // upstream connects here
-    const output = ctx.createGain();      // downstream connects to this
-    input.gain.value = 1;
-    output.gain.value = 1;
+  async function create(ctx) {
+    await ensureWorklet(ctx);
 
-    // Dry passthru and dry/wet sum (output goes to .output).
+    // Configurable state — read by updateLfos() each frame.
+    let cutoffBaseHz = 4000;
+    let resonanceQ   = 0.7;
+    let panRange     = 0.7;
+    let ampRange     = 1.0;
+    let lfoSpeed     = 0.5;
+    let lfoVariance  = 0.5;
+
+    const input = ctx.createGain();
+    input.gain.value = 1;
+
+    const grainsWorkletNode = new AudioWorkletNode(ctx, 'carters-grains', {
+      numberOfInputs: 1,
+      numberOfOutputs: 1,
+      outputChannelCount: [16],
+    });
+    input.connect(grainsWorkletNode);
+
+    const grainsSplitter = ctx.createChannelSplitter(16);
+    grainsWorkletNode.connect(grainsSplitter);
+
+    const voicesSum = ctx.createGain();
+    voicesSum.gain.value = 1;
+
+    const voiceFilters = [];
+    const voicePanners = [];
+    const voiceAmpGains = [];
+    for (let v = 0; v < 16; v++) {
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.value = 5000;
+      filter.Q.value = 0.7;
+      const panner = ctx.createStereoPanner();
+      const ampGain = ctx.createGain();
+      ampGain.gain.value = 0.5;
+      const analyser = ctx.createAnalyser();
+      analyser.fftSize = 256;
+      analyser.smoothingTimeConstant = 0.6;
+      grainsSplitter.connect(filter, v, 0);
+      filter.connect(panner);
+      panner.connect(ampGain);
+      ampGain.connect(analyser);
+      analyser.connect(voicesSum);
+      voiceFilters.push(filter);
+      voicePanners.push(panner);
+      voiceAmpGains.push(ampGain);
+    }
+
     const dryPassthru = ctx.createGain(); dryPassthru.gain.value = 1;
     const dryWetSum = ctx.createGain(); dryWetSum.gain.value = 1;
     input.connect(dryPassthru);
     dryPassthru.connect(dryWetSum);
 
-    // Feedback / delay-input bus.
-    const delayInputBus = ctx.createGain(); delayInputBus.gain.value = 1;
-    input.connect(delayInputBus);
-
-    // Tap chain (4 taps).
-    const tapsSumGain = ctx.createGain(); tapsSumGain.gain.value = 1;
-    const tapDelay = [];
-    const tapFilter = [];
-    const tapPanner = [];
-    const tapGain = [];
-    const tapPanLfo = [];
-    const tapPanLfoDepth = [];
-    const tapCutoffLfo = [];
-    const tapCutoffLfoDepth = [];
-    const tapCutoffOffset = [];
-
-    for (let i = 0; i < TAP_COUNT; i++) {
-      const d = ctx.createDelay(MAX_DELAY_SECONDS);
-      d.delayTime.value = 0.5 * TAP_SCRAMBLE[i];
-
-      const f = ctx.createBiquadFilter();
-      f.type = 'lowpass';
-      f.frequency.value = 5000;
-      f.Q.value = 0.7;
-
-      const cutoffOffset = ctx.createConstantSource();
-      cutoffOffset.offset.value = 5000;
-      cutoffOffset.connect(f.frequency);
-      cutoffOffset.start();
-
-      const cLfo = ctx.createOscillator();
-      cLfo.type = 'triangle';
-      cLfo.frequency.value = TAP_CUTOFF_LFO_HZ[i];
-      const cLfoDepth = ctx.createGain();
-      cLfoDepth.gain.value = 2500;
-      cLfo.connect(cLfoDepth);
-      cLfoDepth.connect(f.frequency);
-      cLfo.start();
-
-      const p = ctx.createStereoPanner();
-      const pLfo = ctx.createOscillator();
-      pLfo.type = 'triangle';
-      pLfo.frequency.value = TAP_PAN_LFO_HZ[i];
-      const pLfoDepth = ctx.createGain();
-      pLfoDepth.gain.value = 0.7;
-      pLfo.connect(pLfoDepth);
-      pLfoDepth.connect(p.pan);
-      pLfo.start();
-
-      const g = ctx.createGain();
-      // Decorrelated taps (different delays + pitches + pan) RMS-sum, so 1/√N
-      // compensates roughly for that. 1/N (the "naive equal mix" value) leaves
-      // the wet path at ~half the loudness of dry.
-      g.gain.value = 1.0 / Math.sqrt(TAP_COUNT);
-
-      // Random gate — taps fade in and out at irregular intervals so the
-      // ensemble breathes (not all 4 sound continuously). Carter's grains
-      // have similar density variation per voice.
-      const gate = ctx.createGain();
-      gate.gain.value = Math.random() < 0.5 ? 1 : 0;
-
-      const pitchShifter = buildPitchShifter(ctx, TAP_PITCH_RATIO[i]);
-      delayInputBus.connect(d);
-      d.connect(pitchShifter.input);
-      pitchShifter.output.connect(f);
-      f.connect(p);
-      p.connect(g);
-      g.connect(gate);
-      gate.connect(tapsSumGain);
-
-      // Schedule the irregular gate flips per tap.
-      (function setupGate(g_ref) {
-        function flip() {
-          const now = ctx.currentTime;
-          const target = g_ref.gain.value > 0.5 ? 0 : 1;
-          g_ref.gain.cancelScheduledValues(now);
-          g_ref.gain.setValueAtTime(g_ref.gain.value, now);
-          g_ref.gain.linearRampToValueAtTime(target, now + GATE_TRANSITION_SEC);
-          const nextMs = target > 0.5
-            ? GATE_ON_MIN_MS  + Math.random() * (GATE_ON_MAX_MS  - GATE_ON_MIN_MS)
-            : GATE_OFF_MIN_MS + Math.random() * (GATE_OFF_MAX_MS - GATE_OFF_MIN_MS);
-          setTimeout(flip, nextMs);
-        }
-        // Stagger initial flips so taps don't all transition together.
-        setTimeout(flip, Math.random() * 4000);
-      })(gate);
-
-      tapDelay.push(d);
-      tapFilter.push(f);
-      tapPanner.push(p);
-      tapGain.push(g);
-      tapPanLfo.push(pLfo);
-      tapPanLfoDepth.push(pLfoDepth);
-      tapCutoffLfo.push(cLfo);
-      tapCutoffLfoDepth.push(cLfoDepth);
-      tapCutoffOffset.push(cutoffOffset);
-    }
-
-    // Wet level (between tapsSum and dryWetSum).
     const delayWetGain = ctx.createGain();
     delayWetGain.gain.value = 0;
-    tapsSumGain.connect(delayWetGain);
+    voicesSum.connect(delayWetGain);
     delayWetGain.connect(dryWetSum);
 
-    // Pink noise + sine for feedback injection.
     const pinkNoiseSource = ctx.createBufferSource();
     pinkNoiseSource.buffer = makePinkNoiseBuffer(ctx);
     pinkNoiseSource.loop = true;
     const pinkNoiseGain = ctx.createGain(); pinkNoiseGain.gain.value = 0;
     pinkNoiseSource.connect(pinkNoiseGain);
+    pinkNoiseSource.start();
 
-    const sineOscNode = ctx.createOscillator();
-    sineOscNode.type = 'sine';
-    sineOscNode.frequency.value = 110;
+    const sineOsc = ctx.createOscillator();
+    sineOsc.type = 'sine';
+    sineOsc.frequency.value = 110;
     const sineGain = ctx.createGain(); sineGain.gain.value = 0;
-    sineOscNode.connect(sineGain);
+    sineOsc.connect(sineGain);
+    sineOsc.start();
 
-    // Feedback patchcord.
     const fbkBalance = ctx.createStereoPanner();
     const fbkInjectionSum = ctx.createGain(); fbkInjectionSum.gain.value = 1;
     const fbkHpf = ctx.createBiquadFilter();
@@ -262,56 +124,84 @@ const Delay = (() => {
     fbkHpf.frequency.value = 80;
     fbkHpf.Q.value = 0.7;
     const fbkSoftClip = ctx.createWaveShaper();
-    fbkSoftClip.curve = makeSoftClipCurve(0.5);
+    fbkSoftClip.curve = makeSoftClipCurve(0.05);
     fbkSoftClip.oversample = '2x';
+    const fbkLpf = ctx.createBiquadFilter();
+    fbkLpf.type = 'lowpass';
+    fbkLpf.frequency.value = 4000;
+    fbkLpf.Q.value = 0.5;
     const fbkGain = ctx.createGain(); fbkGain.gain.value = 0;
     const preserveGain = ctx.createGain(); preserveGain.gain.value = 0;
 
-    tapsSumGain.connect(fbkBalance);
+    voicesSum.connect(fbkBalance);
     fbkBalance.connect(fbkInjectionSum);
     pinkNoiseGain.connect(fbkInjectionSum);
     sineGain.connect(fbkInjectionSum);
     fbkInjectionSum.connect(fbkHpf);
     fbkHpf.connect(fbkSoftClip);
-    fbkSoftClip.connect(fbkGain);
+    fbkSoftClip.connect(fbkLpf);
+    fbkLpf.connect(fbkGain);
     fbkGain.connect(preserveGain);
-    preserveGain.connect(delayInputBus);
+    preserveGain.connect(input);
 
-    // Final exit.
+    const output = ctx.createGain();
+    output.gain.value = 1;
     dryWetSum.connect(output);
 
-    // Start oscillators / loops.
-    pinkNoiseSource.start();
-    sineOscNode.start();
+    function updateLfos() {
+      if (typeof noise !== 'function') return;
+      const t60 = ctx.currentTime * 60;
+      for (let v = 0; v < 16; v++) {
+        const voiceFactor = (v + 1) * (1 + lfoVariance);
+        const baseScale = lfoSpeed * voiceFactor / 25000;
+        const panX    = (1 * baseScale * t60) + v * 17;
+        const ampX    = (2 * baseScale * t60) + v * 31 + 1000;
+        const cutoffX = (3 * baseScale * t60) + v * 47 + 2000;
+        const resX    = (4 * baseScale * t60) + v * 61 + 3000;
+        const panN    = noise(panX);
+        const ampN    = noise(ampX);
+        const cutoffN = noise(cutoffX);
+        const resN    = noise(resX);
+        voicePanners[v].pan.value = (panN * 2 - 1) * panRange;
+        voiceAmpGains[v].gain.value = 0.3 + ampN * ampRange * 0.7;
+        const cutoffHz = Math.max(80, cutoffBaseHz * (0.5 + cutoffN));
+        voiceFilters[v].frequency.value = Math.min(cutoffHz, 12000);
+        voiceFilters[v].Q.value = resN * resonanceQ;
+      }
+    }
 
-    // ---- Setter API (for binding to PARAMS.byName(...).apply) ----
     return {
-      input,
-      output,
-      // Crossfade — the knob is a wet/dry mix, not a wet level.
-      // At 0: pure dry. At 1: pure wet (with feedback character intact).
-      setDelayWet:        (mapped) => {
-        delayWetGain.gain.value = mapped;
-        dryPassthru.gain.value = 1 - mapped;
+      input, output,
+      setDelayWet:        (m) => { delayWetGain.gain.value = m; dryPassthru.gain.value = 1 - m; },
+      setDelayTime:       (s) => {
+        const p = grainsWorkletNode.parameters.get('beatDur');
+        if (p) p.setTargetAtTime(s, ctx.currentTime, 0.05);
       },
-      setDelayTime:       (mapped) => {
-        const now = ctx.currentTime;
-        for (let i = 0; i < tapDelay.length; i++) {
-          tapDelay[i].delayTime.setTargetAtTime(mapped * TAP_SCRAMBLE[i], now, 0.05);
-        }
+      setPreserve:        (m) => { preserveGain.gain.value = m; },
+      setFeedbackLevel:   (m) => { fbkGain.gain.value = m; },
+      setFeedbackHpf:     (m) => { fbkHpf.frequency.value = m; },
+      setFeedbackNoise:   (m) => { pinkNoiseGain.gain.value = m; },
+      setFeedbackSine:    (m) => { sineGain.gain.value = m; },
+      setFeedbackSineHz:  (m) => { sineOsc.frequency.setTargetAtTime(m, ctx.currentTime, 0.02); },
+      setFeedbackBalance: (m) => { fbkBalance.pan.value = m; },
+      setSoftClipDrive:   (m) => { fbkSoftClip.curve = makeSoftClipCurve(m); },
+      setCutoffBase:      (hz) => { cutoffBaseHz = hz; },
+      setResonance:       (q) => { resonanceQ = q; },
+      setPanRange:        (m) => { panRange = m; },
+      setAmpRange:        (m) => { ampRange = m; },
+      setLfoSpeed:        (m) => { lfoSpeed = m; },
+      setLfoVariance:     (m) => { lfoVariance = m; },
+      setDensity:         (m) => {
+        const p = grainsWorkletNode.parameters.get('densityScale');
+        if (p) p.setTargetAtTime(m, ctx.currentTime, 0.1);
       },
-      setPreserve:        (mapped) => { preserveGain.gain.value = mapped; },
-      setFeedbackLevel:   (mapped) => { fbkGain.gain.value = mapped; },
-      setFeedbackHpf:     (mapped) => { fbkHpf.frequency.value = mapped; },
-      setFeedbackNoise:   (mapped) => { pinkNoiseGain.gain.value = mapped; },
-      setFeedbackSine:    (mapped) => { sineGain.gain.value = mapped; },
-      setFeedbackSineHz:  (mapped) => {
-        const now = ctx.currentTime;
-        sineOscNode.frequency.setTargetAtTime(mapped, now, 0.02);
+      setGrainDurScale:   (m) => {
+        const p = grainsWorkletNode.parameters.get('durScale');
+        if (p) p.setTargetAtTime(m, ctx.currentTime, 0.1);
       },
-      setFeedbackBalance: (mapped) => { fbkBalance.pan.value = mapped; },
+      updateLfos,
     };
   }
 
-  return { create, makeSoftClipCurve, makePinkNoiseBuffer };
+  return { create };
 })();

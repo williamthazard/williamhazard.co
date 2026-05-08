@@ -35,7 +35,7 @@ function preload() {
 const speakerIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>`;
 const muteIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>`;
 
-function setup() {
+async function setup() {
   calculateResponsiveSizes();
   createCanvas(windowWidth, windowHeight);
   pixelDensity(1);
@@ -45,18 +45,26 @@ function setup() {
   distortion = new p5.Distortion();
   reverb = new p5.Reverb();
 
-  // Carter-flavored multi-tap delay (4 scrambled taps with per-tap LFOs,
-  // feedback patchcord, and OLA pitch shifters at unison/oct-down/5th-up/oct-up).
-  prerecDelay = Delay.create(getAudioContext());
+  // 16-voice granular Carter's Delay.
+  prerecDelay = await Delay.create(getAudioContext());
 
   // Sensible static defaults — autonomous mode keeps these fixed; only the
   // most expressive controls (delayWet, feedback, preserve) get modulated by normInt.
-  prerecDelay.setDelayTime(3.0);   // 3s base delay; with new TAP_SCRAMBLE → 1.5, 4.5, 9, 18s — Carter range
-  prerecDelay.setFeedbackHpf(80);  // remove low rumble in the loop
-  prerecDelay.setFeedbackNoise(0); // off — keep the autonomous mode clean
-  prerecDelay.setFeedbackSine(0);  // off
+  prerecDelay.setDelayTime(3.0);
+  prerecDelay.setFeedbackHpf(80);
+  prerecDelay.setFeedbackNoise(0);
+  prerecDelay.setFeedbackSine(0);
   prerecDelay.setFeedbackSineHz(110);
   prerecDelay.setFeedbackBalance(0);
+  prerecDelay.setSoftClipDrive(0.05);
+  prerecDelay.setCutoffBase(4000);
+  prerecDelay.setResonance(0.7);
+  prerecDelay.setPanRange(0.7);
+  prerecDelay.setAmpRange(1.0);
+  prerecDelay.setLfoSpeed(0.5);
+  prerecDelay.setLfoVariance(0.5);
+  prerecDelay.setDensity(0.5);
+  prerecDelay.setGrainDurScale(1.5);
 
   // Set initial clear state
   lowPass.freq(20000);
@@ -230,6 +238,11 @@ function draw() {
 
   // Visual Intensity: Pushing to 3.2 means it stays legible for much longer
   let visualIntensity = pow(normInt, 3.2) * 225;
+
+  // Granular delay LFOs — drive per-voice panning, amp, and filter each frame.
+  if (audioStarted) {
+    if (prerecDelay && prerecDelay.updateLfos) prerecDelay.updateLfos();
+  }
 
   // Advanced Audio Mirroring Logic + Resonant Glitch System
   if (audioStarted) {
