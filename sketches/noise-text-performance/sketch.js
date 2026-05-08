@@ -31,7 +31,7 @@ function preload() {
 }
 
 
-function setup() {
+async function setup() {
   calculateResponsiveSizes();
   createCanvas(windowWidth, windowHeight);
   pixelDensity(1);
@@ -40,8 +40,8 @@ function setup() {
   distortion = new p5.Distortion();
   reverb = new p5.Reverb();
 
-  // Prerecorded-chain delay: same Carter-flavored factory as the mic chain.
-  prerecDelay = Delay.create(getAudioContext());
+  // Prerecorded-chain delay: granular Carter's Delay factory.
+  prerecDelay = await Delay.create(getAudioContext());
 
   poemAudio.disconnect();
   poemAudio.connect(lowPass);
@@ -78,6 +78,14 @@ function setup() {
   PARAMS.byName('fbkNoise').apply    = (mapped) => prerecDelay.setFeedbackNoise(mapped);
   PARAMS.byName('fbkSine').apply     = (mapped) => prerecDelay.setFeedbackSine(mapped);
   PARAMS.byName('fbkSineHz').apply   = (mapped) => prerecDelay.setFeedbackSineHz(mapped);
+  PARAMS.byName('cutoffBase').apply     = (m) => prerecDelay.setCutoffBase(m);
+  PARAMS.byName('resonance').apply      = (m) => prerecDelay.setResonance(m);
+  PARAMS.byName('panRange').apply       = (m) => prerecDelay.setPanRange(m);
+  PARAMS.byName('ampRange').apply       = (m) => prerecDelay.setAmpRange(m);
+  PARAMS.byName('lfoSpeed').apply       = (m) => prerecDelay.setLfoSpeed(m);
+  PARAMS.byName('density').apply        = (m) => prerecDelay.setDensity(m);
+  PARAMS.byName('grainDurScale').apply  = (m) => prerecDelay.setGrainDurScale(m);
+  PARAMS.byName('softClipDrive').apply  = (m) => prerecDelay.setSoftClipDrive(m);
   PARAMS.byName('masterVol').apply   = (mapped) => {
     if (!isMuted && audioStarted) poemAudio.setVolume(mapped);
   };
@@ -224,6 +232,11 @@ function draw() {
 
   PARAMS.modulationPass();
   PARAMS.applyAll();
+
+  if (audioStarted) {
+    if (prerecDelay && prerecDelay.updateLfos) prerecDelay.updateLfos();
+    if (typeof MIC !== 'undefined' && MIC.tick) MIC.tick();
+  }
 
   const visualIntensity   = PARAMS.mappedValue(PARAMS.byName('visualJag'));
   const nf                = PARAMS.mappedValue(PARAMS.byName('vSpatial'));

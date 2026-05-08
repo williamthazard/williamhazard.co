@@ -90,8 +90,8 @@ const MIC = (() => {
     micDistNode.curve = makeSoftClipCurve(0);
     micDistNode.oversample = '2x';
 
-    // ---------- Carter-flavored delay (factored module) ----------
-    delaySubsystem = Delay.create(audioCtx);
+    // ---------- Granular Carter's Delay (factored module) ----------
+    delaySubsystem = await Delay.create(audioCtx);
 
     // Reverb tail (kept here, not inside the delay factory).
     micReverbNode = audioCtx.createConvolver();
@@ -149,6 +149,14 @@ const MIC = (() => {
     PARAMS.byName('micFbkSine').apply    = (mapped) => { if (delaySubsystem) delaySubsystem.setFeedbackSine(mapped); };
     PARAMS.byName('micFbkSineHz').apply  = (mapped) => { if (delaySubsystem) delaySubsystem.setFeedbackSineHz(mapped); };
     PARAMS.byName('micFbkBalance').apply = (mapped) => { if (delaySubsystem) delaySubsystem.setFeedbackBalance(mapped); };
+    PARAMS.byName('micCutoffBase').apply     = (m) => { if (delaySubsystem) delaySubsystem.setCutoffBase(m); };
+    PARAMS.byName('micResonance').apply      = (m) => { if (delaySubsystem) delaySubsystem.setResonance(m); };
+    PARAMS.byName('micPanRange').apply       = (m) => { if (delaySubsystem) delaySubsystem.setPanRange(m); };
+    PARAMS.byName('micAmpRange').apply       = (m) => { if (delaySubsystem) delaySubsystem.setAmpRange(m); };
+    PARAMS.byName('micLfoSpeed').apply       = (m) => { if (delaySubsystem) delaySubsystem.setLfoSpeed(m); };
+    PARAMS.byName('micDensity').apply        = (m) => { if (delaySubsystem) delaySubsystem.setDensity(m); };
+    PARAMS.byName('micGrainDurScale').apply  = (m) => { if (delaySubsystem) delaySubsystem.setGrainDurScale(m); };
+    PARAMS.byName('micSoftClipDrive').apply  = (m) => { if (delaySubsystem) delaySubsystem.setSoftClipDrive(m); };
     PARAMS.byName('micRevWet').apply    = (mapped) => {
       if (micReverbWetGain) micReverbWetGain.gain.value = mapped;
       if (micReverbDryGain) micReverbDryGain.gain.value = 1 - mapped;
@@ -169,5 +177,9 @@ const MIC = (() => {
     }
   }
 
-  return { start, isStarted, setMuted, makeSoftClipCurve };
+  function tick() {
+    if (delaySubsystem && delaySubsystem.updateLfos) delaySubsystem.updateLfos();
+  }
+
+  return { start, isStarted, setMuted, makeSoftClipCurve, tick };
 })();

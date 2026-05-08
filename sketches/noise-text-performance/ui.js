@@ -182,6 +182,11 @@ const UI = (() => {
     micFbkLevel: 'Fbk',   micFbkHpf: 'FbkHPF',   micFbkNoise: 'FbkNoi',
     micFbkSine: 'FbkSin', micFbkSineHz: 'FbkSnHz',
     micFbkBalance: 'FbkBal', micRevWet: 'MRvbWet', micRevDecay: 'MRvbDec',
+    // Bank 4
+    cutoffBase: 'Cut',         resonance: 'Res',         panRange: 'PanRng',     ampRange: 'AmpRng',
+    lfoSpeed: 'LFO',           density: 'Densty',        grainDurScale: 'Grain', softClipDrive: 'Clip',
+    micCutoffBase: 'MCut',     micResonance: 'MRes',     micPanRange: 'MPanRng', micAmpRange: 'MAmpRng',
+    micLfoSpeed: 'MLFO',       micDensity: 'MDensty',    micGrainDurScale: 'MGrain', micSoftClipDrive: 'MClip',
   };
 
   // Per-param formatters. Default falls back to magnitude-based formatting.
@@ -228,6 +233,23 @@ const UI = (() => {
     micFbkBalance: (m) => (m >= 0 ? '+' : '') + m.toFixed(2),
     micRevWet:     (m) => m.toFixed(2),
     micRevDecay:   (m) => m.toFixed(1) + 's',
+    // Bank 4
+    cutoffBase:      (m) => m >= 1000 ? (m / 1000).toFixed(1) + 'k' : m.toFixed(0) + 'Hz',
+    resonance:       (m) => m.toFixed(2),
+    panRange:        (m) => m.toFixed(2),
+    ampRange:        (m) => m.toFixed(2),
+    lfoSpeed:        (m) => m.toFixed(2),
+    density:         (m) => m.toFixed(2),
+    grainDurScale:   (m) => m.toFixed(2) + '×',
+    softClipDrive:   (m) => m.toFixed(2),
+    micCutoffBase:   (m) => m >= 1000 ? (m / 1000).toFixed(1) + 'k' : m.toFixed(0) + 'Hz',
+    micResonance:    (m) => m.toFixed(2),
+    micPanRange:     (m) => m.toFixed(2),
+    micAmpRange:     (m) => m.toFixed(2),
+    micLfoSpeed:     (m) => m.toFixed(2),
+    micDensity:      (m) => m.toFixed(2),
+    micGrainDurScale:(m) => m.toFixed(2) + '×',
+    micSoftClipDrive:(m) => m.toFixed(2),
   };
 
   function paramShortLabel(name, fallback) {
@@ -433,6 +455,7 @@ const UI = (() => {
     banksRow.appendChild(buildBankGrid('BANK 1 — PERFORMANCE', 0));
     banksRow.appendChild(buildBankGrid('BANK 2 — DETAIL', 16));
     banksRow.appendChild(buildBankGrid('BANK 3 — LIVE MIC', 32));
+    banksRow.appendChild(buildBankGrid('BANK 4 — GRANULAR', 48));
     mainRow.appendChild(banksRow);
 
     // Recent MIDI column (heading + log + reopen-picker link).
