@@ -149,4 +149,23 @@ const PARAMS = (() => {
   reg('micFbkNoise',  { cc: 45, label: 'Mic Fbk Noise',      range: [0, 0.5],       curve: 'pow:2.0', default: 0 });
   reg('micFbkSine',   { cc: 46, label: 'Mic Fbk Sine',       range: [0, 0.5],       curve: 'pow:2.0', default: 0 });
   reg('micFbkSineHz', { cc: 47, label: 'Mic Fbk Sine Hz',    range: [40, 1200],     curve: 'exp',    default: 0.45 });
+
+  // Bank 4 — Granular delay character (8 per chain)
+  reg('cutoffBase',      { cc: 48, label: 'Prerec Cutoff',     range: [200, 12000],  curve: 'exp',    default: 0.6 });
+  reg('resonance',       { cc: 49, label: 'Prerec Res',        range: [0, 3],        curve: 'linear', default: 0.3 });
+  reg('panRange',        { cc: 50, label: 'Prerec Pan Range',  range: [0, 1],        curve: 'linear', default: 0.7 });
+  reg('ampRange',        { cc: 51, label: 'Prerec Amp Range',  range: [0, 2],        curve: 'linear', default: 0.5 });
+  reg('lfoSpeed',        { cc: 52, label: 'Prerec LFO Speed',  range: [0.1, 5],      curve: 'exp',    default: 0.25 });
+  reg('density',         { cc: 53, label: 'Prerec Density',    range: [0.1, 10],     curve: 'exp',    default: 0.2 });
+  reg('grainDurScale',   { cc: 54, label: 'Prerec Grain Dur',  range: [0.1, 3],      curve: 'exp',    default: 0.85 });
+  reg('softClipDrive',   { cc: 55, label: 'Prerec Softclip',   range: [0, 1],        curve: 'linear', default: 0.05 });
+
+  reg('micCutoffBase',    { cc: 56, label: 'Mic Cutoff',        range: [200, 12000],  curve: 'exp',    default: 0.6 });
+  reg('micResonance',     { cc: 57, label: 'Mic Res',           range: [0, 3],        curve: 'linear', default: 0.3 });
+  reg('micPanRange',      { cc: 58, label: 'Mic Pan Range',     range: [0, 1],        curve: 'linear', default: 0.7 });
+  reg('micAmpRange',      { cc: 59, label: 'Mic Amp Range',     range: [0, 2],        curve: 'linear', default: 0.5 });
+  reg('micLfoSpeed',      { cc: 60, label: 'Mic LFO Speed',     range: [0.1, 5],      curve: 'exp',    default: 0.25 });
+  reg('micDensity',       { cc: 61, label: 'Mic Density',       range: [0.1, 10],     curve: 'exp',    default: 0.2 });
+  reg('micGrainDurScale', { cc: 62, label: 'Mic Grain Dur',     range: [0.1, 3],      curve: 'exp',    default: 0.85 });
+  reg('micSoftClipDrive', { cc: 63, label: 'Mic Softclip',      range: [0, 1],        curve: 'linear', default: 0.05 });
 })();
